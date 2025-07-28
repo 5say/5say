@@ -53,7 +53,7 @@
   />
   <meta property="article:author" content="5say" />
   <meta property="article:published_time" content="2025-07-28T14:30:00&#43;08:00" />
-  <meta property="article:modified_time" content="2025-07-28T14:30:00&#43;08:00" /><meta property="article:tag" content="Hugo博客教程" /><meta name="twitter:card" content="summary" />
+  <meta property="article:modified_time" content="2025-07-28T14:30:00&#43;08:00" /><meta property="article:tag" content="配置" /><meta name="twitter:card" content="summary" />
   <meta name="twitter:image" content="/" />
 <link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" />
 <link
@@ -148,15 +148,135 @@
   <div class="sidebar-toc-wrapper toc-div-class">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-json">1. JSON</a></li>
-    <li><a href="#2-yaml">2. YAML</a></li>
-    <li><a href="#3-jsts">3. JS/TS</a></li>
-    <li><a href="#4-inienv">4. INI/.env</a></li>
-    <li><a href="#5-toml">5. TOML</a></li>
-    <li><a href="#6-xml">6. XML</a></li>
-    <li><a href="#7-properties-文件properties">7. Properties 文件（<code>.properties</code>）</a>
+    <li><a href="#11-json">1.1 JSON</a>
       <ul>
-        <li><a href="#测试">测试</a></li>
+        <li><a href="#-起源">🧬 起源</a></li>
+        <li><a href="#-发展">📈 发展</a></li>
+        <li><a href="#-特点">🎯 特点</a></li>
+        <li><a href="#-优点">✅ 优点</a></li>
+        <li><a href="#-缺点">❌ 缺点</a></li>
+        <li><a href="#使用场景">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#12-yaml">1.2 YAML</a>
+      <ul>
+        <li><a href="#-起源-1">🧬 起源</a></li>
+        <li><a href="#-发展-1">📈 发展</a></li>
+        <li><a href="#-特点-1">🎯 特点</a></li>
+        <li><a href="#-优点-1">✅ 优点</a></li>
+        <li><a href="#-缺点-1">❌ 缺点</a></li>
+        <li><a href="#使用场景-1">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#13-jsts">1.3 JS/TS</a>
+      <ul>
+        <li><a href="#-起源-2">🧬 起源</a></li>
+        <li><a href="#-发展-2">📈 发展</a></li>
+        <li><a href="#-特点-2">🎯 特点</a></li>
+        <li><a href="#-优点-2">✅ 优点</a></li>
+        <li><a href="#-缺点-2">❌ 缺点</a></li>
+        <li><a href="#使用场景-2">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#14-inienv">1.4 INI/.env</a>
+      <ul>
+        <li><a href="#-起源-3">🧬 起源</a></li>
+        <li><a href="#-发展-3">📈 发展</a></li>
+        <li><a href="#-特点-3">🎯 特点</a></li>
+        <li><a href="#-优点-3">✅ 优点</a></li>
+        <li><a href="#-缺点-3">❌ 缺点</a></li>
+        <li><a href="#使用场景-3">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#15-toml">1.5 TOML</a>
+      <ul>
+        <li><a href="#-起源-4">🧬 起源</a></li>
+        <li><a href="#-发展-4">📈 发展</a></li>
+        <li><a href="#-特点-4">🎯 特点</a></li>
+        <li><a href="#-优点-4">✅ 优点</a></li>
+        <li><a href="#-缺点-4">❌ 缺点</a></li>
+        <li><a href="#使用场景-4">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#16-xml">1.6 XML</a>
+      <ul>
+        <li><a href="#-起源-5">🧬 起源</a></li>
+        <li><a href="#-发展-5">📈 发展</a></li>
+        <li><a href="#-特点-5">🎯 特点</a></li>
+        <li><a href="#-优点-5">✅ 优点</a></li>
+        <li><a href="#-缺点-5">❌ 缺点</a></li>
+        <li><a href="#使用场景-5">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#17-properties-文件properties">1.7 Properties 文件（<code>.properties</code>）</a>
+      <ul>
+        <li><a href="#-起源-6">🧬 起源</a></li>
+        <li><a href="#-发展-6">📈 发展</a></li>
+        <li><a href="#-特点-6">🎯 特点</a></li>
+        <li><a href="#-优点-6">✅ 优点</a></li>
+        <li><a href="#-缺点-6">❌ 缺点</a></li>
+        <li><a href="#使用场景-6">🛠️使用场景</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-dockerfile">2.1 Dockerfile</a>
+      <ul>
+        <li><a href="#-起源-7">🧬 起源</a></li>
+        <li><a href="#-发展-7">📈 发展</a></li>
+        <li><a href="#-特点-7">🎯 特点</a></li>
+        <li><a href="#-优点-7">✅ 优点</a></li>
+        <li><a href="#-缺点-7">❌ 缺点</a></li>
+        <li><a href="#使用场景-7">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#22-config文件通用命名后缀">2.2 config文件（通用命名后缀）</a>
+      <ul>
+        <li><a href="#-起源-8">🧬 起源</a></li>
+        <li><a href="#-发展-8">📈 发展</a></li>
+        <li><a href="#-特点-8">🎯 特点</a></li>
+        <li><a href="#-优点-8">✅ 优点</a></li>
+        <li><a href="#-缺点-8">❌ 缺点</a></li>
+        <li><a href="#-使用场景举例">🛠️ 使用场景举例</a></li>
+      </ul>
+    </li>
+    <li><a href="#23-pm2-配置ecosystemconfigjs">2.3 PM2 配置（<code>ecosystem.config.js</code>）</a>
+      <ul>
+        <li><a href="#-起源-9">🧬 起源</a></li>
+        <li><a href="#-发展-9">📈 发展</a></li>
+        <li><a href="#-特点-9">🎯 特点</a></li>
+        <li><a href="#-优点-9">✅ 优点</a></li>
+        <li><a href="#-缺点-9">❌ 缺点</a></li>
+        <li><a href="#使用场景-8">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#24-安全与证书配置">2.4 安全与证书配置</a>
+      <ul>
+        <li><a href="#使用场景-9">🛠️使用场景</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#31-browserslistrc--browserslist-字段">3.1 <code>.browserslistrc</code> / <code>browserslist</code> 字段</a>
+      <ul>
+        <li><a href="#-起源-10">🧬 起源</a></li>
+        <li><a href="#-发展-10">📈 发展</a></li>
+        <li><a href="#-特点-10">🎯 特点</a></li>
+        <li><a href="#-优点-10">✅ 优点</a></li>
+        <li><a href="#-缺点-10">❌ 缺点</a></li>
+        <li><a href="#使用场景-10">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#32-nvmrc--node-version">3.2 <code>.nvmrc</code> / <code>.node-version</code></a>
+      <ul>
+        <li><a href="#-起源-11">🧬 起源</a></li>
+        <li><a href="#-发展-11">📈 发展</a></li>
+        <li><a href="#-特点-11">🎯 特点</a></li>
+        <li><a href="#-优点-11">✅ 优点</a></li>
+        <li><a href="#-缺点-11">❌ 缺点</a></li>
+        <li><a href="#使用场景-11">🛠️使用场景</a></li>
       </ul>
     </li>
   </ul>
@@ -185,7 +305,7 @@
   </a>
   <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
     <div>标签</div>
-    <div class="sidebar-state-number">2</div>
+    <div class="sidebar-state-number">1</div>
   </a>
 </div>
 <div class="sidebar-social"></div>
@@ -262,218 +382,556 @@
 </div>
 <div class="article-category"><a
       class="article-category-link"
-      href="/categories/%e6%8a%80%e6%9c%af"
+      href="/categories/%e7%bc%96%e7%a8%8b"
       data-aos="zoom-in"
-      >技术</a
+      >编程</a
     ></div>
 </div>
     <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><h1 id="一通用的配置文件格式">
 <a class="header-anchor" href="#%e4%b8%80%e9%80%9a%e7%94%a8%e7%9a%84%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f"></a>
 一、通用的配置文件格式
-</h1><h2 id="1-json">
-<a class="header-anchor" href="#1-json"></a>
-1. JSON
-</h2><p><strong>起源</strong>：由 Douglas Crockford 在 2001 年推广，源自 JavaScript 的对象表示方式。</p>
-<p><strong>发展</strong>：成为 Web API 通信和配置的通用格式，广泛用于 Node.js、VSCode 等工具。</p>
-<p><strong>特点</strong>：</p>
-<ul>
+</h1><h2 id="11-json">
+<a class="header-anchor" href="#11-json"></a>
+1.1 JSON
+</h2><h3 id="-起源">
+<a class="header-anchor" href="#-%e8%b5%b7%e6%ba%90"></a>
+🧬 起源
+</h3><p>由 Douglas Crockford 在 2001 年推广，源自 JavaScript 的对象表示方式。</p>
+<h3 id="-发展">
+<a class="header-anchor" href="#-%e5%8f%91%e5%b1%95"></a>
+📈 发展
+</h3><p>成为 Web API 通信和配置的通用格式，广泛用于 Node.js、VSCode 等工具。</p>
+<h3 id="-特点">
+<a class="header-anchor" href="#-%e7%89%b9%e7%82%b9"></a>
+🎯 特点
+</h3><ul>
 <li>支持嵌套、数组、对象</li>
 <li>严格语法（必须双引号）</li>
 </ul>
-<p><strong>优点</strong>：</p>
-<ul>
+<h3 id="-优点">
+<a class="header-anchor" href="#-%e4%bc%98%e7%82%b9"></a>
+✅ 优点
+</h3><ul>
 <li>通用性强</li>
 <li>易于解析和序列化</li>
 </ul>
-<p><strong>缺点</strong>：</p>
-<ul>
+<h3 id="-缺点">
+<a class="header-anchor" href="#-%e7%bc%ba%e7%82%b9"></a>
+❌ 缺点
+</h3><ul>
 <li>不支持注释</li>
 <li>可读性略低于 YAML</li>
 </ul>
-<p><strong>使用场景</strong>：</p>
-<ul>
+<h3 id="使用场景">
+<a class="header-anchor" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af"></a>
+🛠️使用场景
+</h3><ul>
 <li><code>package.json</code>：Node 项目依赖配置</li>
 <li><code>tsconfig.json</code>：TypeScript 编译配置</li>
 <li><code>.eslintrc.json</code>、<code>.prettierrc</code>：代码风格工具配置</li>
+<li><code>auth_config.json</code>：JWT / Auth 配置，OAuth2、OpenID Connect 广泛应用于后端鉴权配置</li>
+<li><code>ormconfig.json</code>：数据库 ORM 配置，TypeORM</li>
 </ul>
-<h2 id="2-yaml">
-<a class="header-anchor" href="#2-yaml"></a>
-2. YAML
-</h2><p><strong>起源</strong>：2001 年，Clark Evans、Ingy döt Net 和 Oren Ben-Kiki 创建</p>
-<p><strong>发展</strong>：逐渐取代 XML，用于 DevOps、K8s、配置管理工具（如 Ansible）</p>
-<p><strong>特点</strong>：</p>
-<ul>
+<h2 id="12-yaml">
+<a class="header-anchor" href="#12-yaml"></a>
+1.2 YAML
+</h2><h3 id="-起源-1">
+<a class="header-anchor" href="#-%e8%b5%b7%e6%ba%90-1"></a>
+🧬 起源
+</h3><p>2001 年，Clark Evans、Ingy döt Net 和 Oren Ben-Kiki 创建</p>
+<h3 id="-发展-1">
+<a class="header-anchor" href="#-%e5%8f%91%e5%b1%95-1"></a>
+📈 发展
+</h3><p>逐渐取代 XML，用于 DevOps、K8s、配置管理工具（如 Ansible）</p>
+<h3 id="-特点-1">
+<a class="header-anchor" href="#-%e7%89%b9%e7%82%b9-1"></a>
+🎯 特点
+</h3><ul>
 <li>缩进结构</li>
 <li>支持注释（<code>#</code>）</li>
 </ul>
-<p><strong>优点</strong>：</p>
-<ul>
+<h3 id="-优点-1">
+<a class="header-anchor" href="#-%e4%bc%98%e7%82%b9-1"></a>
+✅ 优点
+</h3><ul>
 <li>可读性好</li>
 <li>支持复杂嵌套</li>
 </ul>
-<p><strong>缺点</strong>：</p>
-<ul>
+<h3 id="-缺点-1">
+<a class="header-anchor" href="#-%e7%bc%ba%e7%82%b9-1"></a>
+❌ 缺点
+</h3><ul>
 <li>缩进敏感，容易出错</li>
 <li>不适合机器生成</li>
 </ul>
-<p><strong>使用场景</strong>：</p>
-<ul>
+<h3 id="使用场景-1">
+<a class="header-anchor" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-1"></a>
+🛠️使用场景
+</h3><ul>
 <li><code>application.yml</code>：Spring Boot 配置</li>
 <li><code>docker-compose.yml</code>：容器编排</li>
-<li><code>GitHub Actions</code> 工作流配置</li>
+<li><code>GitHub Actions/GitLab CI/</code>Jenkinsfile 工作流配置</li>
+<li>Kubernetes YAML（如 deployment.yaml、service.yaml）：云原生部署和微服务编排标准，使用 YAML 定义资源（Pod、Service、Ingress）</li>
 </ul>
-<h2 id="3-jsts">
-<a class="header-anchor" href="#3-jsts"></a>
-3. JS/TS
-</h2><p><strong>起源</strong>：Node.js 模块系统（CommonJS/ESM）支持配置以 JS 编写</p>
-<p><strong>发展</strong>：随着构建工具、框架的可编程化发展（如 Webpack/Vite），JS 配置成为主流</p>
-<p><strong>特点</strong>：</p>
-<ul>
+<h2 id="13-jsts">
+<a class="header-anchor" href="#13-jsts"></a>
+1.3 JS/TS
+</h2><h3 id="-起源-2">
+<a class="header-anchor" href="#-%e8%b5%b7%e6%ba%90-2"></a>
+🧬 起源
+</h3><p>Node.js 模块系统（CommonJS/ESM）支持配置以 JS 编写</p>
+<h3 id="-发展-2">
+<a class="header-anchor" href="#-%e5%8f%91%e5%b1%95-2"></a>
+📈 发展
+</h3><p>随着构建工具、框架的可编程化发展（如 Webpack/Vite），JS 配置成为主流</p>
+<h3 id="-特点-2">
+<a class="header-anchor" href="#-%e7%89%b9%e7%82%b9-2"></a>
+🎯 特点
+</h3><ul>
 <li>完全可编程（可用变量、函数、条件）</li>
 </ul>
-<p><strong>优点</strong>：</p>
-<ul>
+<h3 id="-优点-2">
+<a class="header-anchor" href="#-%e4%bc%98%e7%82%b9-2"></a>
+✅ 优点
+</h3><ul>
 <li>动态生成配置（适合多项目、条件判断）</li>
 <li>灵活组合</li>
 </ul>
-<p><strong>缺点</strong>：</p>
-<ul>
+<h3 id="-缺点-2">
+<a class="header-anchor" href="#-%e7%bc%ba%e7%82%b9-2"></a>
+❌ 缺点
+</h3><ul>
 <li>解析成本高</li>
 <li>不易被静态工具读取</li>
 </ul>
-<p><strong>使用场景</strong>：</p>
-<ul>
+<h3 id="使用场景-2">
+<a class="header-anchor" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-2"></a>
+🛠️使用场景
+</h3><ul>
 <li><code>webpack.config.js</code> / <code>vite.config.ts</code>：构建工具配置</li>
 <li><code>tailwind.config.js</code>：样式引擎配置</li>
 <li><code>babel.config.js</code>：转译配置</li>
 </ul>
-<h2 id="4-inienv">
-<a class="header-anchor" href="#4-inienv"></a>
-4. INI/.env
-</h2><ul>
-<li><strong>起源</strong>：INI 最早用于 Windows 系统设置文件（如 win.ini）；<code>.env</code> 则起源于 Twelve-Factor App 方法（Heroku 推广）。</li>
-<li><strong>发展</strong>：.env 格式逐渐成为跨语言的环境变量标准，配合 <code>dotenv</code> 等库使用。</li>
-<li><strong>特点</strong>：
-<ul>
+<h2 id="14-inienv">
+<a class="header-anchor" href="#14-inienv"></a>
+1.4 INI/.env
+</h2><h3 id="-起源-3">
+<a class="header-anchor" href="#-%e8%b5%b7%e6%ba%90-3"></a>
+🧬 起源
+</h3><p>INI 最早用于 Windows 系统设置文件（如 win.ini）；<code>.env</code> 则起源于 Twelve-Factor App 方法（Heroku 推广）。</p>
+<h3 id="-发展-3">
+<a class="header-anchor" href="#-%e5%8f%91%e5%b1%95-3"></a>
+📈 发展
+</h3><p>.env 格式逐渐成为跨语言的环境变量标准，配合 <code>dotenv</code> 等库使用。</p>
+<h3 id="-特点-3">
+<a class="header-anchor" href="#-%e7%89%b9%e7%82%b9-3"></a>
+🎯 特点
+</h3><ul>
 <li>简洁的键值对：<code>KEY=VALUE</code></li>
 <li>不支持嵌套或复杂结构</li>
 </ul>
-</li>
-<li><strong>优点</strong>：
-<ul>
+<h3 id="-优点-3">
+<a class="header-anchor" href="#-%e4%bc%98%e7%82%b9-3"></a>
+✅ 优点
+</h3><ul>
 <li>极其轻量</li>
 <li>跨语言支持好</li>
 </ul>
-</li>
-<li><strong>缺点</strong>：
-<ul>
+<h3 id="-缺点-3">
+<a class="header-anchor" href="#-%e7%bc%ba%e7%82%b9-3"></a>
+❌ 缺点
+</h3><ul>
 <li>类型不明（都是字符串）</li>
 <li>无结构，不适合复杂配置</li>
 </ul>
-</li>
-<li><strong>使用场景</strong>：
-<ul>
+<h3 id="使用场景-3">
+<a class="header-anchor" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-3"></a>
+🛠️使用场景
+</h3><ul>
 <li>前后端项目的环境变量配置（如 API_URL、DB_PASS）</li>
 <li>CI/CD 环境变量注入</li>
 </ul>
-</li>
-</ul>
-<h2 id="5-toml">
-<a class="header-anchor" href="#5-toml"></a>
-5. TOML
-</h2><p><strong>起源</strong>：由 GitHub 联合创始人 Tom Preston-Werner 创建（2013）</p>
-<p><strong>发展</strong>：Rust 社区率先采用（如 Cargo），后被 Python、Hugo 等工具接纳</p>
-<p><strong>特点</strong>：</p>
-<ul>
+<h2 id="15-toml">
+<a class="header-anchor" href="#15-toml"></a>
+1.5 TOML
+</h2><h3 id="-起源-4">
+<a class="header-anchor" href="#-%e8%b5%b7%e6%ba%90-4"></a>
+🧬 起源
+</h3><p>由 GitHub 联合创始人 Tom Preston-Werner 创建（2013）</p>
+<h3 id="-发展-4">
+<a class="header-anchor" href="#-%e5%8f%91%e5%b1%95-4"></a>
+📈 发展
+</h3><p>Rust 社区率先采用（如 Cargo），后被 Python、Hugo 等工具接纳</p>
+<h3 id="-特点-4">
+<a class="header-anchor" href="#-%e7%89%b9%e7%82%b9-4"></a>
+🎯 特点
+</h3><ul>
 <li>支持注释、结构清晰</li>
 <li>类似 INI 但支持类型系统</li>
 </ul>
-<p><strong>优点</strong>：</p>
-<ul>
+<h3 id="-优点-4">
+<a class="header-anchor" href="#-%e4%bc%98%e7%82%b9-4"></a>
+✅ 优点
+</h3><ul>
 <li>类型明确（支持字符串、日期、数组等）</li>
 <li>易读性和可维护性较好</li>
 </ul>
-<p><strong>缺点</strong>：</p>
-<ul>
+<h3 id="-缺点-4">
+<a class="header-anchor" href="#-%e7%bc%ba%e7%82%b9-4"></a>
+❌ 缺点
+</h3><ul>
 <li>生态不如 YAML/JSON 完善</li>
 </ul>
-<p><strong>使用场景</strong>：</p>
-<ul>
+<h3 id="使用场景-4">
+<a class="header-anchor" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-4"></a>
+🛠️使用场景
+</h3><ul>
 <li><code>pyproject.toml</code>：Python 打包与工具配置</li>
 <li><code>Cargo.toml</code>：Rust 项目管理</li>
 <li><code>Hugo</code> 博客配置</li>
 </ul>
-<h2 id="6-xml">
-<a class="header-anchor" href="#6-xml"></a>
-6. XML
-</h2><p><strong>起源</strong>：W3C 标准，用于结构化数据交换</p>
-<p><strong>发展</strong>：早期配置与数据传输首选，现在逐渐退居二线</p>
-<p><strong>特点</strong>：</p>
-<ul>
+<h2 id="16-xml">
+<a class="header-anchor" href="#16-xml"></a>
+1.6 XML
+</h2><h3 id="-起源-5">
+<a class="header-anchor" href="#-%e8%b5%b7%e6%ba%90-5"></a>
+🧬 起源
+</h3><p>W3C 标准，用于结构化数据交换</p>
+<h3 id="-发展-5">
+<a class="header-anchor" href="#-%e5%8f%91%e5%b1%95-5"></a>
+📈 发展
+</h3><p>早期配置与数据传输首选，现在逐渐退居二线</p>
+<h3 id="-特点-5">
+<a class="header-anchor" href="#-%e7%89%b9%e7%82%b9-5"></a>
+🎯 特点
+</h3><ul>
 <li>标签结构清晰，可定义 schema</li>
 </ul>
-<p><strong>优点</strong>：</p>
-<ul>
+<h3 id="-优点-5">
+<a class="header-anchor" href="#-%e4%bc%98%e7%82%b9-5"></a>
+✅ 优点
+</h3><ul>
 <li>可验证性（XSD）</li>
+</ul>
+<ul>
 <li>可扩展性</li>
 </ul>
-<p><strong>缺点</strong>：</p>
-<ul>
+<h3 id="-缺点-5">
+<a class="header-anchor" href="#-%e7%bc%ba%e7%82%b9-5"></a>
+❌ 缺点
+</h3><ul>
 <li>冗长，可读性差</li>
 </ul>
-<p><strong>使用场景</strong>：</p>
-<ul>
+<h3 id="使用场景-5">
+<a class="header-anchor" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-5"></a>
+🛠️使用场景
+</h3><ul>
 <li><code>pom.xml</code>：Maven 项目依赖管理</li>
+<li><code>hibernate.cfg.xml</code>：用于 Java ORM 映射与连接池配置（Hibernate）</li>
+<li><code>log4j2.xml</code>：Log4j，Java 应用日志系统配置，支持异步、分级、Rolling</li>
 <li>早期 Java EE 应用配置</li>
 </ul>
-<h2 id="7-properties-文件properties">
-<a class="header-anchor" href="#7-properties-%e6%96%87%e4%bb%b6properties"></a>
-7. Properties 文件（<code>.properties</code>）
-</h2><p><strong>起源</strong>：Java 社区传统配置格式</p>
-<p><strong>发展</strong>：早期广泛用于 Java Web 项目，后逐渐被 YAML 取代</p>
-<p><strong>特点</strong>：</p>
-<ul>
+<h2 id="17-properties-文件properties">
+<a class="header-anchor" href="#17-properties-%e6%96%87%e4%bb%b6properties"></a>
+1.7 Properties 文件（<code>.properties</code>）
+</h2><h3 id="-起源-6">
+<a class="header-anchor" href="#-%e8%b5%b7%e6%ba%90-6"></a>
+🧬 起源
+</h3><p>Java 社区传统配置格式</p>
+<h3 id="-发展-6">
+<a class="header-anchor" href="#-%e5%8f%91%e5%b1%95-6"></a>
+📈 发展
+</h3><p>早期广泛用于 Java Web 项目，后逐渐被 YAML 取代</p>
+<h3 id="-特点-6">
+<a class="header-anchor" href="#-%e7%89%b9%e7%82%b9-6"></a>
+🎯 特点
+</h3><ul>
 <li>键值对结构，支持注释</li>
 </ul>
-<p><strong>优点</strong>：</p>
-<ul>
+<h3 id="-优点-6">
+<a class="header-anchor" href="#-%e4%bc%98%e7%82%b9-6"></a>
+✅ 优点
+</h3><ul>
 <li>简单易用</li>
 </ul>
-<p><strong>缺点</strong>：</p>
-<ul>
+<h3 id="-缺点-6">
+<a class="header-anchor" href="#-%e7%bc%ba%e7%82%b9-6"></a>
+❌ 缺点
+</h3><ul>
 <li>不支持复杂嵌套</li>
 <li>不适合结构性配置</li>
 </ul>
-<p><strong>使用场景</strong>：</p>
-<ul>
+<h3 id="使用场景-6">
+<a class="header-anchor" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-6"></a>
+🛠️使用场景
+</h3><ul>
 <li><code>application.properties</code>：Spring Boot 配置（兼容）</li>
 </ul>
-<h3 id="测试">
-<a class="header-anchor" href="#%e6%b5%8b%e8%af%95"></a>
-测试
-</h3><p>山坡地佛牌委托</p>
-<h4 id="测试1">
-<a class="header-anchor" href="#%e6%b5%8b%e8%af%951"></a>
-测试1
-</h4><p>山大佛i文瑞</p>
-<h1 id="二测试标题">
-<a class="header-anchor" href="#%e4%ba%8c%e6%b5%8b%e8%af%95%e6%a0%87%e9%a2%98"></a>
-二、测试标题
-</h1><p><img src="https://raw.githubusercontent.com/5say/pictures/main/blog/202507282202364.png" alt="image-20250728220233286"></p>
+<h1 id="二后端开发常用的配置文件格式">
+<a class="header-anchor" href="#%e4%ba%8c%e5%90%8e%e7%ab%af%e5%bc%80%e5%8f%91%e5%b8%b8%e7%94%a8%e7%9a%84%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f"></a>
+二、后端开发常用的配置文件格式
+</h1><h2 id="21-dockerfile">
+<a class="header-anchor" href="#21-dockerfile"></a>
+2.1 Dockerfile
+</h2><h3 id="-起源-7">
+<a class="header-anchor" href="#-%e8%b5%b7%e6%ba%90-7"></a>
+🧬 起源
+</h3><p>由 Docker Inc 在 2013 年提出的构建镜像脚本格式</p>
+<h3 id="-发展-7">
+<a class="header-anchor" href="#-%e5%8f%91%e5%b1%95-7"></a>
+📈 发展
+</h3><p>成为容器化部署的事实标准，Kubernetes 等也依赖其生成镜像</p>
+<h3 id="-特点-7">
+<a class="header-anchor" href="#-%e7%89%b9%e7%82%b9-7"></a>
+🎯 特点
+</h3><ul>
+<li>基于命令指令（FROM、RUN、COPY 等）</li>
+<li>类 Shell 脚本</li>
+</ul>
+<h3 id="-优点-7">
+<a class="header-anchor" href="#-%e4%bc%98%e7%82%b9-7"></a>
+✅ 优点
+</h3><ul>
+<li>可重现性强</li>
+<li>与 CI/CD 无缝集成</li>
+</ul>
+<h3 id="-缺点-7">
+<a class="header-anchor" href="#-%e7%bc%ba%e7%82%b9-7"></a>
+❌ 缺点
+</h3><ul>
+<li>无结构，调试不易</li>
+<li>文件多时较难维护</li>
+</ul>
+<h3 id="使用场景-7">
+<a class="header-anchor" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-7"></a>
+🛠️使用场景
+</h3><ul>
+<li>后端服务打包成镜像部署（Java、Node、Python 等）</li>
+</ul>
+<h2 id="22-config文件通用命名后缀">
+<a class="header-anchor" href="#22-config%e6%96%87%e4%bb%b6%e9%80%9a%e7%94%a8%e5%91%bd%e5%90%8d%e5%90%8e%e7%bc%80"></a>
+2.2 config文件（通用命名后缀）
+</h2><h3 id="-起源-8">
+<a class="header-anchor" href="#-%e8%b5%b7%e6%ba%90-8"></a>
+🧬 起源
+</h3><ul>
+<li>Unix/Linux 系统传统上将服务配置集中保存在 <code>/etc</code> 目录中，常以 <code>.conf</code> 结尾。</li>
+<li>约定俗成地成为服务型程序的配置文件扩展名。</li>
+</ul>
+<h3 id="-发展-8">
+<a class="header-anchor" href="#-%e5%8f%91%e5%b1%95-8"></a>
+📈 发展
+</h3><ul>
+<li>随服务数量激增，<code>.conf</code> 文件风格日趋多样：
+<ul>
+<li>简单服务使用 INI 或 Key=Value 风格</li>
+<li>复杂系统使用块结构（如 nginx）或结构化语言（如 HCL, YAML）</li>
+</ul>
+</li>
+</ul>
+<h3 id="-特点-8">
+<a class="header-anchor" href="#-%e7%89%b9%e7%82%b9-8"></a>
+🎯 特点
+</h3><ul>
+<li>文件名通常自定义，后缀为 <code>.conf</code></li>
+<li>多采用文本格式，可直接编辑</li>
+<li>配置可读性强，便于版本控制</li>
+</ul>
+<h3 id="-优点-8">
+<a class="header-anchor" href="#-%e4%bc%98%e7%82%b9-8"></a>
+✅ 优点
+</h3><ul>
+<li>直观、统一，适合手工编辑与自动化部署</li>
+<li>多数系统默认识别 <code>.conf</code> 文件，无需额外指定</li>
+<li>支持 include/import 子配置（如 nginx）</li>
+</ul>
+<h3 id="-缺点-8">
+<a class="header-anchor" href="#-%e7%bc%ba%e7%82%b9-8"></a>
+❌ 缺点
+</h3><ul>
+<li>缺乏统一语法标准（不同服务各有风格）</li>
+<li>大型系统中 <code>.conf</code> 文件可能结构混乱</li>
+<li>对于结构嵌套较深的配置不如 YAML/JSON 清晰</li>
+</ul>
+<h3 id="-使用场景举例">
+<a class="header-anchor" href="#-%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af%e4%b8%be%e4%be%8b"></a>
+🛠️ 使用场景举例
+</h3><table>
+  <thead>
+      <tr>
+          <th>场景</th>
+          <th>配置文件</th>
+          <th>功能说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>配置 Web 反向代理</td>
+          <td><code>nginx.conf</code></td>
+          <td>设定 upstream、SSL、GZIP 压缩等</td>
+      </tr>
+      <tr>
+          <td>启动 Redis 实例</td>
+          <td><code>redis.conf</code></td>
+          <td>设定端口、密码、持久化策略等</td>
+      </tr>
+      <tr>
+          <td>管理后台进程</td>
+          <td><code>supervisord.conf</code></td>
+          <td>设定多个服务的自动启动与守护</td>
+      </tr>
+      <tr>
+          <td>配置数据库参数</td>
+          <td><code>my.cnf</code></td>
+          <td>调整缓冲池、并发数、字符集等</td>
+      </tr>
+      <tr>
+          <td>限制系统内核参数</td>
+          <td><code>sysctl.conf</code></td>
+          <td>设置 TCP 缓冲区、文件句柄数等</td>
+      </tr>
+      <tr>
+          <td>控制 SSH 登录行为</td>
+          <td><code>sshd_config</code></td>
+          <td>设定端口、认证方式、禁止 root 等</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="23-pm2-配置ecosystemconfigjs">
+<a class="header-anchor" href="#23-pm2-%e9%85%8d%e7%bd%aeecosystemconfigjs"></a>
+2.3 PM2 配置（<code>ecosystem.config.js</code>）
+</h2><h3 id="-起源-9">
+<a class="header-anchor" href="#-%e8%b5%b7%e6%ba%90-9"></a>
+🧬 起源
+</h3><p>Node.js 社区流行的进程管理器 PM2</p>
+<h3 id="-发展-9">
+<a class="header-anchor" href="#-%e5%8f%91%e5%b1%95-9"></a>
+📈 发展
+</h3><p>成为 Node 后端线上部署的常用工具</p>
+<h3 id="-特点-9">
+<a class="header-anchor" href="#-%e7%89%b9%e7%82%b9-9"></a>
+🎯 特点
+</h3><ul>
+<li>使用 JS 格式定义运行参数</li>
+</ul>
+<h3 id="-优点-9">
+<a class="header-anchor" href="#-%e4%bc%98%e7%82%b9-9"></a>
+✅ 优点
+</h3><ul>
+<li>支持 cluster、多实例、日志管理</li>
+</ul>
+<h3 id="-缺点-9">
+<a class="header-anchor" href="#-%e7%bc%ba%e7%82%b9-9"></a>
+❌ 缺点
+</h3><ul>
+<li>仅限 Node.js 应用</li>
+</ul>
+<h3 id="使用场景-8">
+<a class="header-anchor" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-8"></a>
+🛠️使用场景
+</h3><ul>
+<li>Node 后端服务部署、自启动、热更新</li>
+</ul>
+<h2 id="24-安全与证书配置">
+<a class="header-anchor" href="#24-%e5%ae%89%e5%85%a8%e4%b8%8e%e8%af%81%e4%b9%a6%e9%85%8d%e7%bd%ae"></a>
+2.4 安全与证书配置
+</h2><ul>
+<li>
+<p><code>openssl.cnf</code>：OpenSSL 配置生成证书时使用</p>
+</li>
+<li>
+<p><code>keystore.jks</code>：Java Web HTTPS 配置</p>
+</li>
+<li>
+<p><code>vault.hcl</code>：HashiCorp Vault 配置密钥管理</p>
+<h3 id="使用场景-9">
+<a class="header-anchor" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-9"></a>
+🛠️使用场景
+</h3><ul>
+<li>数据加密、证书签发、配置密钥隔离</li>
+</ul>
+</li>
+</ul>
+<h1 id="三前端开发常用的配置文件格式">
+<a class="header-anchor" href="#%e4%b8%89%e5%89%8d%e7%ab%af%e5%bc%80%e5%8f%91%e5%b8%b8%e7%94%a8%e7%9a%84%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f"></a>
+三、前端开发常用的配置文件格式
+</h1><h2 id="31-browserslistrc--browserslist-字段">
+<a class="header-anchor" href="#31-browserslistrc--browserslist-%e5%ad%97%e6%ae%b5"></a>
+3.1 <code>.browserslistrc</code> / <code>browserslist</code> 字段
+</h2><h3 id="-起源-10">
+<a class="header-anchor" href="#-%e8%b5%b7%e6%ba%90-10"></a>
+🧬 起源
+</h3><p>由 Autoprefixer 发起，后成为 Babel、ESLint、PostCSS 等共享的标准</p>
+<h3 id="-发展-10">
+<a class="header-anchor" href="#-%e5%8f%91%e5%b1%95-10"></a>
+📈 发展
+</h3><p>支持根据使用率动态设定目标浏览器</p>
+<h3 id="-特点-10">
+<a class="header-anchor" href="#-%e7%89%b9%e7%82%b9-10"></a>
+🎯 特点
+</h3><ul>
+<li>文本格式，逐行定义规则</li>
+</ul>
+<h3 id="-优点-10">
+<a class="header-anchor" href="#-%e4%bc%98%e7%82%b9-10"></a>
+✅ 优点
+</h3><ul>
+<li>可集中统一配置多个工具的浏览器兼容策略</li>
+</ul>
+<h3 id="-缺点-10">
+<a class="header-anchor" href="#-%e7%bc%ba%e7%82%b9-10"></a>
+❌ 缺点
+</h3><ul>
+<li>不支持注释</li>
+</ul>
+<h3 id="使用场景-10">
+<a class="header-anchor" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-10"></a>
+🛠️使用场景
+</h3><ul>
+<li>构建产物需兼容特定浏览器（如 IE11、移动端）</li>
+</ul>
+<h2 id="32-nvmrc--node-version">
+<a class="header-anchor" href="#32-nvmrc--node-version"></a>
+3.2 <code>.nvmrc</code> / <code>.node-version</code>
+</h2><h3 id="-起源-11">
+<a class="header-anchor" href="#-%e8%b5%b7%e6%ba%90-11"></a>
+🧬 起源
+</h3><p>Node Version Manager（NVM）与 Volta 等版本管理工具</p>
+<h3 id="-发展-11">
+<a class="header-anchor" href="#-%e5%8f%91%e5%b1%95-11"></a>
+📈 发展
+</h3><p>解决团队间 Node 版本不一致问题</p>
+<h3 id="-特点-11">
+<a class="header-anchor" href="#-%e7%89%b9%e7%82%b9-11"></a>
+🎯 特点
+</h3><ul>
+<li>仅包含一行版本号（如 <code>18.17.1</code>）</li>
+</ul>
+<h3 id="-优点-11">
+<a class="header-anchor" href="#-%e4%bc%98%e7%82%b9-11"></a>
+✅ 优点
+</h3><ul>
+<li>简洁，支持自动切换 Node 环境</li>
+</ul>
+<h3 id="-缺点-11">
+<a class="header-anchor" href="#-%e7%bc%ba%e7%82%b9-11"></a>
+❌ 缺点
+</h3><ul>
+<li>仅限本地开发环境</li>
+</ul>
+<h3 id="使用场景-11">
+<a class="header-anchor" href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af-11"></a>
+🛠️使用场景
+</h3><ul>
+<li>多人协作 Node 项目版本一致性控制</li>
+</ul>
 </div>
     <footer class="article-footer"><ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
       <a
         class="article-tag-list-link"
-        href="/tags/hugo"
+        href="/tags/%e9%85%8d%e7%bd%ae"
         rel="tag"
-        >HUGO</a
-      >
-    </li><li class="article-tag-list-item" data-aos="zoom-in">
-      <a
-        class="article-tag-list-link"
-        href="/tags/%e5%8d%9a%e5%ae%a2%e6%95%99%e7%a8%8b"
-        rel="tag"
-        >博客教程</a
+        >配置</a
       >
     </li></ul>
 </footer>
@@ -497,10 +955,10 @@
         >
       </div><div>
         <span class="icon-brush"
-          >&nbsp;1.3k</span
+          >&nbsp;2.6k</span
         >
         &nbsp;|&nbsp;
-        <span class="icon-coffee">&nbsp;00:03</span>
+        <span class="icon-coffee">&nbsp;00:06</span>
       </div><div>
         <span class="icon-eye"></span>
         <span id="busuanzi_container_site_pv"
@@ -527,15 +985,135 @@
   <div class="sidebar-toc-wrapper toc-div-class">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-json">1. JSON</a></li>
-    <li><a href="#2-yaml">2. YAML</a></li>
-    <li><a href="#3-jsts">3. JS/TS</a></li>
-    <li><a href="#4-inienv">4. INI/.env</a></li>
-    <li><a href="#5-toml">5. TOML</a></li>
-    <li><a href="#6-xml">6. XML</a></li>
-    <li><a href="#7-properties-文件properties">7. Properties 文件（<code>.properties</code>）</a>
+    <li><a href="#11-json">1.1 JSON</a>
       <ul>
-        <li><a href="#测试">测试</a></li>
+        <li><a href="#-起源">🧬 起源</a></li>
+        <li><a href="#-发展">📈 发展</a></li>
+        <li><a href="#-特点">🎯 特点</a></li>
+        <li><a href="#-优点">✅ 优点</a></li>
+        <li><a href="#-缺点">❌ 缺点</a></li>
+        <li><a href="#使用场景">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#12-yaml">1.2 YAML</a>
+      <ul>
+        <li><a href="#-起源-1">🧬 起源</a></li>
+        <li><a href="#-发展-1">📈 发展</a></li>
+        <li><a href="#-特点-1">🎯 特点</a></li>
+        <li><a href="#-优点-1">✅ 优点</a></li>
+        <li><a href="#-缺点-1">❌ 缺点</a></li>
+        <li><a href="#使用场景-1">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#13-jsts">1.3 JS/TS</a>
+      <ul>
+        <li><a href="#-起源-2">🧬 起源</a></li>
+        <li><a href="#-发展-2">📈 发展</a></li>
+        <li><a href="#-特点-2">🎯 特点</a></li>
+        <li><a href="#-优点-2">✅ 优点</a></li>
+        <li><a href="#-缺点-2">❌ 缺点</a></li>
+        <li><a href="#使用场景-2">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#14-inienv">1.4 INI/.env</a>
+      <ul>
+        <li><a href="#-起源-3">🧬 起源</a></li>
+        <li><a href="#-发展-3">📈 发展</a></li>
+        <li><a href="#-特点-3">🎯 特点</a></li>
+        <li><a href="#-优点-3">✅ 优点</a></li>
+        <li><a href="#-缺点-3">❌ 缺点</a></li>
+        <li><a href="#使用场景-3">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#15-toml">1.5 TOML</a>
+      <ul>
+        <li><a href="#-起源-4">🧬 起源</a></li>
+        <li><a href="#-发展-4">📈 发展</a></li>
+        <li><a href="#-特点-4">🎯 特点</a></li>
+        <li><a href="#-优点-4">✅ 优点</a></li>
+        <li><a href="#-缺点-4">❌ 缺点</a></li>
+        <li><a href="#使用场景-4">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#16-xml">1.6 XML</a>
+      <ul>
+        <li><a href="#-起源-5">🧬 起源</a></li>
+        <li><a href="#-发展-5">📈 发展</a></li>
+        <li><a href="#-特点-5">🎯 特点</a></li>
+        <li><a href="#-优点-5">✅ 优点</a></li>
+        <li><a href="#-缺点-5">❌ 缺点</a></li>
+        <li><a href="#使用场景-5">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#17-properties-文件properties">1.7 Properties 文件（<code>.properties</code>）</a>
+      <ul>
+        <li><a href="#-起源-6">🧬 起源</a></li>
+        <li><a href="#-发展-6">📈 发展</a></li>
+        <li><a href="#-特点-6">🎯 特点</a></li>
+        <li><a href="#-优点-6">✅ 优点</a></li>
+        <li><a href="#-缺点-6">❌ 缺点</a></li>
+        <li><a href="#使用场景-6">🛠️使用场景</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-dockerfile">2.1 Dockerfile</a>
+      <ul>
+        <li><a href="#-起源-7">🧬 起源</a></li>
+        <li><a href="#-发展-7">📈 发展</a></li>
+        <li><a href="#-特点-7">🎯 特点</a></li>
+        <li><a href="#-优点-7">✅ 优点</a></li>
+        <li><a href="#-缺点-7">❌ 缺点</a></li>
+        <li><a href="#使用场景-7">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#22-config文件通用命名后缀">2.2 config文件（通用命名后缀）</a>
+      <ul>
+        <li><a href="#-起源-8">🧬 起源</a></li>
+        <li><a href="#-发展-8">📈 发展</a></li>
+        <li><a href="#-特点-8">🎯 特点</a></li>
+        <li><a href="#-优点-8">✅ 优点</a></li>
+        <li><a href="#-缺点-8">❌ 缺点</a></li>
+        <li><a href="#-使用场景举例">🛠️ 使用场景举例</a></li>
+      </ul>
+    </li>
+    <li><a href="#23-pm2-配置ecosystemconfigjs">2.3 PM2 配置（<code>ecosystem.config.js</code>）</a>
+      <ul>
+        <li><a href="#-起源-9">🧬 起源</a></li>
+        <li><a href="#-发展-9">📈 发展</a></li>
+        <li><a href="#-特点-9">🎯 特点</a></li>
+        <li><a href="#-优点-9">✅ 优点</a></li>
+        <li><a href="#-缺点-9">❌ 缺点</a></li>
+        <li><a href="#使用场景-8">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#24-安全与证书配置">2.4 安全与证书配置</a>
+      <ul>
+        <li><a href="#使用场景-9">🛠️使用场景</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#31-browserslistrc--browserslist-字段">3.1 <code>.browserslistrc</code> / <code>browserslist</code> 字段</a>
+      <ul>
+        <li><a href="#-起源-10">🧬 起源</a></li>
+        <li><a href="#-发展-10">📈 发展</a></li>
+        <li><a href="#-特点-10">🎯 特点</a></li>
+        <li><a href="#-优点-10">✅ 优点</a></li>
+        <li><a href="#-缺点-10">❌ 缺点</a></li>
+        <li><a href="#使用场景-10">🛠️使用场景</a></li>
+      </ul>
+    </li>
+    <li><a href="#32-nvmrc--node-version">3.2 <code>.nvmrc</code> / <code>.node-version</code></a>
+      <ul>
+        <li><a href="#-起源-11">🧬 起源</a></li>
+        <li><a href="#-发展-11">📈 发展</a></li>
+        <li><a href="#-特点-11">🎯 特点</a></li>
+        <li><a href="#-优点-11">✅ 优点</a></li>
+        <li><a href="#-缺点-11">❌ 缺点</a></li>
+        <li><a href="#使用场景-11">🛠️使用场景</a></li>
       </ul>
     </li>
   </ul>
@@ -564,7 +1142,7 @@
   </a>
   <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
     <div>标签</div>
-    <div class="sidebar-state-number">2</div>
+    <div class="sidebar-state-number">1</div>
   </a>
 </div>
 <div class="sidebar-social"></div>
@@ -648,7 +1226,7 @@
           author: "5say",
           title: "整理一下这些年遇到的配置文件",
           url: "http:\/\/localhost:1313\/post\/20250728001-%E6%95%B4%E7%90%86%E4%B8%80%E4%B8%8B%E8%BF%99%E4%BA%9B%E5%B9%B4%E9%81%87%E5%88%B0%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6\/",
-          description: " 一、通用的配置文件格式 1. JSON 起源：由 Douglas Crockford 在 2001 年推广，源自 JavaScript 的对象表示方式。\n发展：成为 Web API 通信和配置的通用格式，广泛用于 Node.js、VSCode 等工具。\n",
+          description: " 一、通用的配置文件格式 1.1 JSON 🧬 起源 由 Douglas Crockford 在 2001 年推广，源自 JavaScript 的对象表示方式。\n📈 发展 成为 Web API 通信和配置的通用格式，广泛用于 Node.js、VSCode 等工具。\n",
           cover: "http:\/\/localhost:1313\/images\/banner.webp",
         };
       </script><script src="/js/insert_highlight.js" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
