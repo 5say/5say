@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>中间件 on 5say</title>
+    <link>http://localhost:1313/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/</link>
+    <description>Recent content from 5say</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    
+    <managingEditor>xxx@example.com (5say)</managingEditor>
+    <webMaster>xxx@example.com (5say)</webMaster>
+    
+    <copyright>本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</copyright>
+    
+    <lastBuildDate>Mon, 25 Aug 2025 13:28:00 +0800</lastBuildDate>
+    
+    
+    <atom:link href="http://localhost:1313/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/index.xml" rel="self" type="application/rss&#43;xml" />
+    
+
+    
+    
+
+    <item>
+      <title>Kafka的入门手册</title>
+      <link>http://localhost:1313/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</link>
+      <pubDate>Mon, 25 Aug 2025 13:28:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</guid>
+      <description>
+        <![CDATA[<h1>Kafka的入门手册</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p><strong>Kafka</strong>是微服务、高并发系统中常用的消息中间件，很多人一开始只知道它“能发消息、能解耦”，但实际上 Kafka 的设计思想、架构原理和使用场景很有深度。</p>
+        
+        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+      </description>
+      
+        <category>编程</category><category>中间件</category><category>面试</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>了解Spring Cloud Gateway的使用</title>
+      <link>http://localhost:1313/post/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <description>
+        <![CDATA[<h1>了解Spring Cloud Gateway的使用</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p><strong>Spring Cloud Gateway</strong>这是 Spring Cloud 体系里非常重要的一个组件。</p>
+<hr>
+<h1 id="-一spring-cloud-gateway-是什么">
+<a class="header-anchor" href="#-%e4%b8%80spring-cloud-gateway-%e6%98%af%e4%bb%80%e4%b9%88"></a>
+🔹 一、Spring Cloud Gateway 是什么
+</h1><p><strong>Spring Cloud Gateway</strong> 是 Spring 官方推出的新一代网关组件，用来替代 Zuul。</p>
+<p>👉 它的定位：</p>
+<ul>
+<li><strong>统一入口</strong>：所有请求先经过 Gateway，再路由到具体微服务。</li>
+<li><strong>功能</strong>：路由、负载均衡、权限校验、限流、熔断、日志监控、CORS。</li>
+<li><strong>底层基于 WebFlux（Reactor 模型）</strong>，比 Zuul（Servlet 阻塞 IO）性能更好。</li>
+</ul>
+<p>一句话：
+<strong>Spring Cloud Gateway = 高性能的 API 网关，负责请求转发和统一治理</strong>。</p>
+        
+        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+      </description>
+      
+        <category>编程</category><category>中间件</category><category>面试</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>了解Sentinel</title>
+      <link>http://localhost:1313/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/</link>
+      <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/</guid>
+      <description>
+        <![CDATA[<h1>了解Sentinel</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p>Sentinel 是 <strong>阿里巴巴开源的流量防卫兵</strong>，在 <strong>Spring Cloud Alibaba</strong> 体系里非常常用，主要解决 <strong>流量控制、熔断降级、系统保护</strong> 等问题。可以理解成 <strong>服务稳定性的核心工具</strong>。我给你从几个角度讲清楚：</p>
+        
+        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+      </description>
+      
+        <category>编程</category><category>中间件</category><category>面试</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Redis的入门手册</title>
+      <link>http://localhost:1313/post/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</link>
+      <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</guid>
+      <description>
+        <![CDATA[<h1>Redis的入门手册</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <h1 id="-一redis-是什么">
+<a class="header-anchor" href="#-%e4%b8%80redis-%e6%98%af%e4%bb%80%e4%b9%88"></a>
+📌 一、Redis 是什么
+</h1><p><strong>Redis</strong>（REmote DIctionary Server）是一个开源的 <strong>高性能内存键值数据库</strong>，支持多种数据结构（String、Hash、List、Set、Sorted Set、Bitmap、HyperLogLog、Stream 等）。</p>
+        
+        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+      </description>
+      
+        <category>编程</category><category>中间件</category><category>面试</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Nacos的使用</title>
+      <link>http://localhost:1313/post/20250825001-nacos%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250825001-nacos%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <description>
+        <![CDATA[<h1>Nacos的使用</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p>Nacos 在 Spring Cloud 体系里用得非常多，我们可以从 <strong>它的定位 → 使用方式 → 实现原理</strong> 三个角度来理解。</p>
+<hr>
+<h1 id="-一nacos-是干嘛的">
+<a class="header-anchor" href="#-%e4%b8%80nacos-%e6%98%af%e5%b9%b2%e5%98%9b%e7%9a%84"></a>
+🔹 一、Nacos 是干嘛的
+</h1><p>Nacos 全称是 <strong>Dynamic Naming and Configuration Service</strong>，是阿里开源的一体化服务平台，主要提供两个核心能力：</p>
+        
+        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+      </description>
+      
+        <category>编程</category><category>中间件</category><category>面试</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Feign的使用</title>
+      <link>http://localhost:1313/post/20250825002-feign%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250825002-feign%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <description>
+        <![CDATA[<h1>Feign的使用</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p><strong>Feign</strong>Spring Cloud 中非常核心的服务调用组件。
+我会从 <strong>它是什么 → 怎么用 → 常见配置 → 实现原理 → 常用注解和方法</strong> 给你讲清楚。</p>
+<hr>
+<h1 id="-一feign-是什么">
+<a class="header-anchor" href="#-%e4%b8%80feign-%e6%98%af%e4%bb%80%e4%b9%88"></a>
+🔹 一、Feign 是什么
+</h1><p><strong>Feign</strong> 是一个 <strong>声明式 HTTP 客户端</strong>，最早由 Netflix 开源，后来被 Spring Cloud 集成（现在常用的是 <strong>Spring Cloud OpenFeign</strong>）。</p>
+        
+        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+      </description>
+      
+        <category>编程</category><category>中间件</category><category>面试</category>
+      
+    </item>
+    
+  </channel>
+</rss>

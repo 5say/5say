@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on 5say</title>
+    <link>http://localhost:1313/tags/java/</link>
+    <description>Recent content from 5say</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    
+    <managingEditor>xxx@example.com (5say)</managingEditor>
+    <webMaster>xxx@example.com (5say)</webMaster>
+    
+    <copyright>本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</copyright>
+    
+    <lastBuildDate>Sun, 24 Aug 2025 17:28:00 +0800</lastBuildDate>
+    
+    
+    <atom:link href="http://localhost:1313/tags/java/index.xml" rel="self" type="application/rss&#43;xml" />
+    
+
+    
+    
+
+    <item>
+      <title>Java并发编程</title>
+      <link>http://localhost:1313/post/20250824004-java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Sun, 24 Aug 2025 17:28:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250824004-java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</guid>
+      <description>
+        <![CDATA[<h1>Java并发编程</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <h2 id="一java多线程的设计原理">
+<a class="header-anchor" href="#%e4%b8%80java%e5%a4%9a%e7%ba%bf%e7%a8%8b%e7%9a%84%e8%ae%be%e8%ae%a1%e5%8e%9f%e7%90%86"></a>
+一、Java多线程的设计原理
+</h2><p>Java 的多线程机制是基于 <strong>Java 内存模型（JMM）</strong> 和 <strong>线程调度机制</strong> 设计的：</p>
+<ol>
+<li><strong>Java内存模型（JMM）</strong>
+<ul>
+<li>每个线程有自己的 <strong>工作内存（缓存）</strong>，主内存中存放共享变量。</li>
+<li>线程对共享变量的操作必须先从主内存拷贝到工作内存，再修改，最后刷新回主内存。</li>
+<li>为了解决线程之间的数据可见性和有序性问题，Java 提供了 <strong>volatile、synchronized、Lock</strong> 等关键字和类。</li>
+<li><strong>happens-before 规则</strong>：定义了线程间操作的可见性。</li>
+</ul>
+</li>
+<li><strong>线程调度模型</strong>
+<ul>
+<li>Java 使用 <strong>抢占式调度（Preemptive Scheduling）</strong>，由操作系统决定哪个线程获得 CPU 时间片。</li>
+<li>每个线程都有一个优先级（1~10），但是否真正按优先级执行由操作系统决定。</li>
+</ul>
+</li>
+<li><strong>并发设计三大问题</strong>
+<ul>
+<li><strong>原子性</strong>：
+<ul>
+<li>一系列操作要么全部执行，要么全部不执行（如 <code>i++</code> 不是原子操作）。</li>
+<li>解决方式：<code>synchronized</code>、<code>Lock</code>、<code>Atomic</code> 类。</li>
+</ul>
+</li>
+<li><strong>可见性</strong>：
+<ul>
+<li>一个线程修改共享变量，其他线程能否立刻看见。</li>
+<li>解决方式：<code>volatile</code>、<code>synchronized</code>、<code>final</code>。</li>
+</ul>
+</li>
+<li><strong>有序性</strong>：
+<ul>
+<li>指令是否会因为编译器或CPU优化而乱序执行。</li>
+<li>解决方式：<code>volatile</code>、内存屏障（happens-before 原则）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="二java多线程的使用方式">
+<a class="header-anchor" href="#%e4%ba%8cjava%e5%a4%9a%e7%ba%bf%e7%a8%8b%e7%9a%84%e4%bd%bf%e7%94%a8%e6%96%b9%e5%bc%8f"></a>
+二、Java多线程的使用方式
+</h2><h2 id="21-java-多线程最基础的用法有三种">
+<a class="header-anchor" href="#21-java-%e5%a4%9a%e7%ba%bf%e7%a8%8b%e6%9c%80%e5%9f%ba%e7%a1%80%e7%9a%84%e7%94%a8%e6%b3%95%e6%9c%89%e4%b8%89%e7%a7%8d"></a>
+2.1 Java 多线程最基础的用法有三种：
+</h2><ol>
+<li>
+<p><strong>继承 Thread 类</strong></p>
+        
+        <hr><p>本文2025-08-24首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-24</p>]]>
+      </description>
+      
+        <category>编程</category><category>面试</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>算法-树是怎么变成红黑树的？</title>
+      <link>http://localhost:1313/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</link>
+      <pubDate>Tue, 29 Jul 2025 17:49:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</guid>
+      <description>
+        <![CDATA[<h1>算法-树是怎么变成红黑树的？</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <h1 id="一什么是树">
+<a class="header-anchor" href="#%e4%b8%80%e4%bb%80%e4%b9%88%e6%98%af%e6%a0%91"></a>
+一、什么是树
+</h1><h2 id="11-树的定义与相关概念">
+<a class="header-anchor" href="#11-%e6%a0%91%e7%9a%84%e5%ae%9a%e4%b9%89%e4%b8%8e%e7%9b%b8%e5%85%b3%e6%a6%82%e5%bf%b5"></a>
+1.1 树的定义与相关概念
+</h2><blockquote>
+<p>🌱 <strong>树（Tree）</strong> 是一种<strong>非线性数据结构</strong>，是一种“分层”的结构，最常见的是“二叉树”。</p></blockquote>
+<h4 id="-树的基本术语">
+<a class="header-anchor" href="#-%e6%a0%91%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%9c%af%e8%af%ad"></a>
+📌 树的基本术语：
+</h4><ul>
+<li><strong>根节点（root）</strong>：树的起点</li>
+<li><strong>子节点（children）</strong>：根的下一级</li>
+<li><strong>叶子节点（leaf）</strong>：没有子节点的节点</li>
+<li><strong>高度（height）</strong>：从节点到叶子的最长路径</li>
+<li><strong>深度（depth）</strong>：从根到该节点的路径长度</li>
+<li><strong>二叉树</strong>：每个节点最多有两个子节点（左/右）</li>
+<li><strong>前序遍历</strong>：根 -&gt; 左 -&gt; 右</li>
+<li><strong>中序遍历</strong>：左 -&gt; 根 -&gt; 右</li>
+<li><strong>后序遍历</strong>：左 -&gt; 右 -&gt; 根</li>
+<li><strong>层序遍历</strong>：一层一层从上往下</li>
+</ul>
+<h4 id="-画个图文字版">
+<a class="header-anchor" href="#-%e7%94%bb%e4%b8%aa%e5%9b%be%e6%96%87%e5%ad%97%e7%89%88"></a>
+✅ 画个图（文字版）：
+</h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mathematica" data-lang="mathematica"><span style="display:flex;"><span>        A
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">/</span> <span style="color:#960050;background-color:#1e0010">\</span>
+</span></span><span style="display:flex;"><span>      B   C
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">/</span> <span style="color:#960050;background-color:#1e0010">\</span>   <span style="color:#960050;background-color:#1e0010">\</span>
+</span></span><span style="display:flex;"><span>    D   E   F
+</span></span></code></pre></div><ul>
+<li>根：A</li>
+<li>A 的子节点：B, C</li>
+<li>叶子节点：D, E, F</li>
+<li>A 高度 = 3（从 A→D 路径有3层）</li>
+</ul>
+<h2 id="12-怎么使用java代码定义一个树">
+<a class="header-anchor" href="#12-%e6%80%8e%e4%b9%88%e4%bd%bf%e7%94%a8java%e4%bb%a3%e7%a0%81%e5%ae%9a%e4%b9%89%e4%b8%80%e4%b8%aa%e6%a0%91"></a>
+1.2 怎么使用Java代码定义一个树
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TreeNode</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> val;
+</span></span><span style="display:flex;"><span>    TreeNode left,right;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="13-树的初始化">
+<a class="header-anchor" href="#13-%e6%a0%91%e7%9a%84%e5%88%9d%e5%a7%8b%e5%8c%96"></a>
+1.3 树的初始化
+</h2><h3 id="131-手动初始化">
+<a class="header-anchor" href="#131-%e6%89%8b%e5%8a%a8%e5%88%9d%e5%a7%8b%e5%8c%96"></a>
+1.3.1 手动初始化
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testInit</span>(){
+</span></span><span style="display:flex;"><span>    TreeNode root <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(1);
+</span></span><span style="display:flex;"><span>    root.<span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(2);
+</span></span><span style="display:flex;"><span>    root.<span style="color:#a6e22e">right</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(3);
+</span></span><span style="display:flex;"><span>    root.<span style="color:#a6e22e">left</span>.<span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(4);
+</span></span><span style="display:flex;"><span>    root.<span style="color:#a6e22e">left</span>.<span style="color:#a6e22e">right</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(5);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="132-通过数组初始化完全二叉树">
+<a class="header-anchor" href="#132-%e9%80%9a%e8%bf%87%e6%95%b0%e7%bb%84%e5%88%9d%e5%a7%8b%e5%8c%96%e5%ae%8c%e5%85%a8%e4%ba%8c%e5%8f%89%e6%a0%91"></a>
+1.3.2 通过数组初始化（完全二叉树）
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testBuildTree</span>(){
+</span></span><span style="display:flex;"><span>    Integer<span style="color:#f92672">[]</span> values <span style="color:#f92672">=</span> {1, 2, 3, 4, 5};
+</span></span><span style="display:flex;"><span>    TreeNode root <span style="color:#f92672">=</span> buildTree(values, 0);
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;层序遍历:&#34;</span>);
+</span></span><span style="display:flex;"><span>    levelOrder(root);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> TreeNode  <span style="color:#a6e22e">buildTree</span>(Integer<span style="color:#f92672">[]</span> arr,<span style="color:#66d9ef">int</span> index){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (index <span style="color:#f92672">&gt;=</span> arr.<span style="color:#a6e22e">length</span> <span style="color:#f92672">||</span> arr<span style="color:#f92672">[</span>index<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    TreeNode node <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(arr<span style="color:#f92672">[</span>index<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>    node.<span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> buildTree(arr, 2 <span style="color:#f92672">*</span> index <span style="color:#f92672">+</span> 1);
+</span></span><span style="display:flex;"><span>    node.<span style="color:#a6e22e">right</span> <span style="color:#f92672">=</span> buildTree(arr, 2 <span style="color:#f92672">*</span> index <span style="color:#f92672">+</span> 2);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> node;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="二二叉树">
+<a class="header-anchor" href="#%e4%ba%8c%e4%ba%8c%e5%8f%89%e6%a0%91"></a>
+二、二叉树
+</h1><p>二叉树是最常见的树状结构，通过二叉树我们可以找到许多树状结构的特点</p>
+        
+        <hr><p>本文2025-07-29首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-07-29</p>]]>
+      </description>
+      
+        <category>编程</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Java集合</title>
+      <link>http://localhost:1313/post/20250729004-java%E9%9B%86%E5%90%88/</link>
+      <pubDate>Tue, 29 Jul 2025 17:39:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250729004-java%E9%9B%86%E5%90%88/</guid>
+      <description>
+        <![CDATA[<h1>Java集合</h1><p>作者：5say（xxx@example.com）</p>
+        
+          
+        
+        <hr><p>本文2025-07-29首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-07-29</p>]]>
+      </description>
+      
+        <category>编程</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Java内部类的探究</title>
+      <link>http://localhost:1313/post/20250729003-java%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/</link>
+      <pubDate>Tue, 29 Jul 2025 17:15:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250729003-java%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/</guid>
+      <description>
+        <![CDATA[<h1>Java内部类的探究</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p>内部类就是<strong>定义在另一个类内部的类</strong>，它和外部类有很强的关联性。它可以访问外部类的私有成员，通常用于实现逻辑上的组合关系或更紧密的封装。</p>
+<h1 id="一java-内部类的分类">
+<a class="header-anchor" href="#%e4%b8%80java-%e5%86%85%e9%83%a8%e7%b1%bb%e7%9a%84%e5%88%86%e7%b1%bb"></a>
+一、Java 内部类的分类
+</h1><h2 id="11-成员内部类member-inner-class">
+<a class="header-anchor" href="#11-%e6%88%90%e5%91%98%e5%86%85%e9%83%a8%e7%b1%bbmember-inner-class"></a>
+1.1 成员内部类（Member Inner Class）
+</h2><p>定义在类中，但不在任何方法中。</p>
+        
+        <hr><p>本文2025-07-29首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-07-29</p>]]>
+      </description>
+      
+        <category>编程</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>JVM的类加载机制</title>
+      <link>http://localhost:1313/post/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</link>
+      <pubDate>Tue, 29 Jul 2025 16:58:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</guid>
+      <description>
+        <![CDATA[<h1>JVM的类加载机制</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p>JVM 加载一个类的过程，也叫做<strong>类加载机制</strong>，是 Java 程序运行的基础。它将 <code>.class</code> 字节码文件加载到 JVM 内存，并完成验证、解析和初始化等过程，最终让类可以被使用。</p>
+<h1 id="一jvm-加载一个类的完整过程五个阶段">
+<a class="header-anchor" href="#%e4%b8%80jvm-%e5%8a%a0%e8%bd%bd%e4%b8%80%e4%b8%aa%e7%b1%bb%e7%9a%84%e5%ae%8c%e6%95%b4%e8%bf%87%e7%a8%8b%e4%ba%94%e4%b8%aa%e9%98%b6%e6%ae%b5"></a>
+一、JVM 加载一个类的完整过程（五个阶段）
+</h1><h2 id="11-加载loading">
+<a class="header-anchor" href="#11-%e5%8a%a0%e8%bd%bdloading"></a>
+1.1 加载（Loading）
+</h2><blockquote>
+<p>⏱ JVM 使用类加载器（ClassLoader）将 <code>.class</code> 文件读入内存，生成 <code>Class</code> 对象。</p>
+        
+        <hr><p>本文2025-07-29首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-07-29</p>]]>
+      </description>
+      
+        <category>编程</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>面向对象中的多态是什么？</title>
+      <link>http://localhost:1313/post/20250729001-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%A4%9A%E6%80%81%E6%98%AF%E4%BB%80%E4%B9%88/</link>
+      <pubDate>Tue, 29 Jul 2025 14:30:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250729001-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%A4%9A%E6%80%81%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
+      <description>
+        <![CDATA[<h1>面向对象中的多态是什么？</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p>在刚接触面向对象的时候，总能遇到一个概念，<strong>多态</strong>，那时候还懵懵懂懂，只记得它是面向对象的三大特性之一，干嘛用的？不知道！什么意思？不清楚！怎么用？重写，重载！</p>
+        
+        <hr><p>本文2025-07-29首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-07-29</p>]]>
+      </description>
+      
+        <category>编程</category>
+      
+    </item>
+    
+  </channel>
+</rss>

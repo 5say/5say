@@ -1,0 +1,1281 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  了解Sentinel | 5say
+</title>
+<meta
+  name="description"
+  content="我的博客"
+/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":true,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><link rel="stylesheet" href="/css/loader.css" />
+<meta property="og:type" content="website" />
+  <meta property="og:title" content="了解Sentinel | 5say" />
+  <meta
+    property="og:description"
+    content="我的博客"
+  />
+  <meta property="og:url" content="http://localhost:1313/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/" />
+  <meta
+    property="og:site_name"
+    content="5say"
+  />
+  <meta
+    property="og:image"
+    content="/"
+  />
+  <meta property="article:author" content="5say" />
+  <meta property="article:published_time" content="2025-08-25T12:28:00&#43;08:00" />
+  <meta property="article:modified_time" content="2025-08-25T12:28:00&#43;08:00" /><meta property="article:tag" content="中间件面试" /><meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" />
+<link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.22/dist/katex.min.css"
+    integrity="sha384-5TcZemv2l/9On385z///&#43;d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate"><svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg></div><div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script><div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+<div id="lang-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav"><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/tags">标签</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/links">传送门</a>
+      </span><a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav"><a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a></nav></div>
+<header id="header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="了解Sentinel"><div id="header-outer">
+    <div id="header-title"><a href="/" id="logo">
+            <h1 data-aos="slide-up">了解Sentinel</h1>
+          </a><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          
+          class="sidebar-right"  ><aside id="sidebar"><div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#-引入依赖">✅ 引入依赖</a></li>
+        <li><a href="#-基本配置">✅ 基本配置</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#-注解方式">① 注解方式</a></li>
+        <li><a href="#-api-配置规则代码里写规则">② API 配置规则（代码里写规则）</a></li>
+        <li><a href="#-控制台动态配置">③ 控制台动态配置</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#51-引入依赖">5.1 引入依赖</a></li>
+    <li><a href="#52-基本配置">5.2 基本配置</a></li>
+    <li><a href="#53-启动-sentinel-dashboard">5.3 启动 Sentinel Dashboard</a></li>
+    <li><a href="#54-在代码中使用-sentinel">5.4 在代码中使用 Sentinel</a>
+      <ul>
+        <li><a href="#-注解方式-1">✅ 注解方式</a></li>
+        <li><a href="#-api-方式">✅ API 方式</a></li>
+      </ul>
+    </li>
+    <li><a href="#55-sentinel--feign">5.5 Sentinel + Feign</a></li>
+    <li><a href="#56-sentinel--gateway">5.6 Sentinel + Gateway</a></li>
+    <li><a href="#-总结">🔹 总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.jpg"
+    data-sizes="auto"
+    alt="5say"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">5say</div>
+  <div class="sidebar-description">我的博客</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">20</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">14</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/tags"
+        aria-label="标签"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">标签</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/links"
+        aria-label="传送门"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">传送门</div>
+    </div></div>
+</div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div>
+
+  <div class="sidebar-widget"></div></aside>
+<section id="main"><article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2025-08-25 12:28:00 &#43;0800 CST" itemprop="datePublished"
+      >2025-08-25</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2025-08-25</time
+    >
+  </span>
+</div>
+<div class="article-category"><a
+      class="article-category-link"
+      href="/categories/%e7%bc%96%e7%a8%8b"
+      data-aos="zoom-in"
+      >编程</a
+    ><a
+      class="article-category-link"
+      href="/categories/%e4%b8%ad%e9%97%b4%e4%bb%b6"
+      data-aos="zoom-in"
+      >中间件</a
+    ><a
+      class="article-category-link"
+      href="/categories/%e9%9d%a2%e8%af%95"
+      data-aos="zoom-in"
+      >面试</a
+    ></div>
+</div>
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><blockquote id="outdate-blockquote" style="display: none;">
+          <p></p>
+        </blockquote><p>Sentinel 是 <strong>阿里巴巴开源的流量防卫兵</strong>，在 <strong>Spring Cloud Alibaba</strong> 体系里非常常用，主要解决 <strong>流量控制、熔断降级、系统保护</strong> 等问题。可以理解成 <strong>服务稳定性的核心工具</strong>。我给你从几个角度讲清楚：</p>
+<hr>
+<h1 id="-一-sentinel-是什么">
+<a class="header-anchor" href="#-%e4%b8%80-sentinel-%e6%98%af%e4%bb%80%e4%b9%88"></a>
+🔹 一、 Sentinel 是什么？
+</h1><p>Sentinel 全名 <strong>分布式流量防卫系统</strong>，2018 年阿里开源，目标是处理分布式系统下的各种稳定性问题。
+它的定位有点像 <strong>Hystrix（熔断器） + RateLimiter（限流器）</strong> 的结合，但功能更强大。</p>
+<p>主要特性：</p>
+<ol>
+<li><strong>流量控制</strong>：QPS 限流、线程数限流、预热限流、匀速排队。</li>
+<li><strong>熔断降级</strong>：服务调用失败率过高/响应时间过长时自动熔断。</li>
+<li><strong>系统保护</strong>：根据整体系统 Load、CPU 使用率进行自适应保护。</li>
+<li><strong>实时监控</strong>：提供 Dashboard 控制台，动态配置规则。</li>
+<li><strong>多维度扩展</strong>：支持注解、API、自定义规则加载（文件、Nacos、Apollo）。</li>
+</ol>
+<hr>
+<h1 id="-二在-spring-cloud-中怎么用">
+<a class="header-anchor" href="#-%e4%ba%8c%e5%9c%a8-spring-cloud-%e4%b8%ad%e6%80%8e%e4%b9%88%e7%94%a8"></a>
+🔹 二、在 Spring Cloud 中怎么用？
+</h1><h3 id="-引入依赖">
+<a class="header-anchor" href="#-%e5%bc%95%e5%85%a5%e4%be%9d%e8%b5%96"></a>
+✅ 引入依赖
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>com.alibaba.cloud<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-sentinel<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id="-基本配置">
+<a class="header-anchor" href="#-%e5%9f%ba%e6%9c%ac%e9%85%8d%e7%bd%ae"></a>
+✅ 基本配置
+</h3><p><code>application.yml</code> 示例：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">spring</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cloud</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">sentinel</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">transport</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">dashboard</span>: <span style="color:#ae81ff">localhost:8858 </span> <span style="color:#75715e"># Sentinel 控制台地址</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">port</span>: <span style="color:#ae81ff">8719</span>                <span style="color:#75715e"># 客户端与 Dashboard 通信端口</span>
+</span></span></code></pre></div><p>启动 Sentinel Dashboard：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>java -Dserver.port<span style="color:#f92672">=</span><span style="color:#ae81ff">8858</span> -Dcsp.sentinel.dashboard.server<span style="color:#f92672">=</span>localhost:8858 -jar sentinel-dashboard.jar
+</span></span></code></pre></div><hr>
+<h1 id="-三使用方式">
+<a class="header-anchor" href="#-%e4%b8%89%e4%bd%bf%e7%94%a8%e6%96%b9%e5%bc%8f"></a>
+🔹 三、使用方式
+</h1><h3 id="-注解方式">
+<a class="header-anchor" href="#-%e6%b3%a8%e8%a7%a3%e6%96%b9%e5%bc%8f"></a>
+① 注解方式
+</h3><p>通过 <code>@SentinelResource</code> 标记需要保护的方法。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderController</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@GetMapping</span>(<span style="color:#e6db74">&#34;/order&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@SentinelResource</span>(value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;orderResource&#34;</span>, 
+</span></span><span style="display:flex;"><span>                      blockHandler <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;handleBlock&#34;</span>, 
+</span></span><span style="display:flex;"><span>                      fallback <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;fallback&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">createOrder</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;订单创建成功！&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 限流时走这里</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">handleBlock</span>(BlockException ex) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;请求过多，请稍后再试&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 异常降级走这里</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">fallback</span>(Throwable t) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;服务暂时不可用，请稍后重试&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h3 id="-api-配置规则代码里写规则">
+<a class="header-anchor" href="#-api-%e9%85%8d%e7%bd%ae%e8%a7%84%e5%88%99%e4%bb%a3%e7%a0%81%e9%87%8c%e5%86%99%e8%a7%84%e5%88%99"></a>
+② API 配置规则（代码里写规则）
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@PostConstruct</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initRules</span>() {
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>FlowRule<span style="color:#f92672">&gt;</span> rules <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>    FlowRule rule <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FlowRule();
+</span></span><span style="display:flex;"><span>    rule.<span style="color:#a6e22e">setResource</span>(<span style="color:#e6db74">&#34;orderResource&#34;</span>);
+</span></span><span style="display:flex;"><span>    rule.<span style="color:#a6e22e">setGrade</span>(RuleConstant.<span style="color:#a6e22e">FLOW_GRADE_QPS</span>);
+</span></span><span style="display:flex;"><span>    rule.<span style="color:#a6e22e">setCount</span>(5); <span style="color:#75715e">// 每秒最多 5 次</span>
+</span></span><span style="display:flex;"><span>    rules.<span style="color:#a6e22e">add</span>(rule);
+</span></span><span style="display:flex;"><span>    FlowRuleManager.<span style="color:#a6e22e">loadRules</span>(rules);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h3 id="-控制台动态配置">
+<a class="header-anchor" href="#-%e6%8e%a7%e5%88%b6%e5%8f%b0%e5%8a%a8%e6%80%81%e9%85%8d%e7%bd%ae"></a>
+③ 控制台动态配置
+</h3><ul>
+<li>访问 <code>http://localhost:8858/</code></li>
+<li>选择服务，添加规则（流控、降级、热点参数限流等）。</li>
+<li>支持接入 <strong>Nacos / Apollo</strong>，规则动态下发，不用重启。</li>
+</ul>
+<hr>
+<h1 id="-四sentinel-常见规则">
+<a class="header-anchor" href="#-%e5%9b%9bsentinel-%e5%b8%b8%e8%a7%81%e8%a7%84%e5%88%99"></a>
+🔹 四、Sentinel 常见规则
+</h1><ol>
+<li><strong>流控规则（FlowRule）</strong>
+<ul>
+<li>QPS 限流</li>
+<li>并发线程数限制</li>
+<li>预热模式（WarmUp，冷启动时逐渐放量）</li>
+<li>匀速排队（RateLimiter）</li>
+</ul>
+</li>
+<li><strong>熔断降级规则（DegradeRule）</strong>
+<ul>
+<li>平均响应时间超阈值</li>
+<li>异常比例超阈值</li>
+<li>异常数超阈值</li>
+</ul>
+</li>
+<li><strong>系统保护规则（SystemRule）</strong>
+<ul>
+<li>Load 限制</li>
+<li>CPU 使用率限制</li>
+<li>全局 QPS 限制</li>
+</ul>
+</li>
+<li><strong>热点参数限流（ParamFlowRule）</strong>
+<ul>
+<li>对某个接口的参数进行限流，比如 <code>/user/{id}</code>，热门 id 会被限制。</li>
+</ul>
+</li>
+</ol>
+<h1 id="-五和-spring-cloud-gatewayfeign-的结合">
+<a class="header-anchor" href="#-%e4%ba%94%e5%92%8c-spring-cloud-gatewayfeign-%e7%9a%84%e7%bb%93%e5%90%88"></a>
+🔹 五、和 Spring Cloud Gateway、Feign 的结合
+</h1><ul>
+<li><strong>Feign</strong>：结合 Sentinel 做熔断和降级（替代 Hystrix）。</li>
+<li><strong>Gateway</strong>：结合 Sentinel 做限流（比 Gateway 内置的限流更强大）。</li>
+</ul>
+<h2 id="51-引入依赖">
+<a class="header-anchor" href="#51-%e5%bc%95%e5%85%a5%e4%be%9d%e8%b5%96"></a>
+5.1 引入依赖
+</h2><p>在 <strong>微服务（例如订单服务）</strong> 中加入依赖：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>com.alibaba.cloud<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-sentinel<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><p>如果要和 <strong>Feign</strong>、<strong>Gateway</strong> 一起用，还需要加：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- Sentinel 适配 Feign --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>com.alibaba.cloud<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-sentinel<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- Sentinel 适配 Gateway --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>com.alibaba.cloud<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;artifactId&gt;</span>spring-cloud-alibaba-sentinel-gateway<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><hr>
+<h2 id="52-基本配置">
+<a class="header-anchor" href="#52-%e5%9f%ba%e6%9c%ac%e9%85%8d%e7%bd%ae"></a>
+5.2 基本配置
+</h2><p>在每个服务的 <code>application.yml</code> 中配置 Sentinel：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">spring</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">application</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">order-service</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cloud</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">sentinel</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">transport</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">dashboard</span>: <span style="color:#ae81ff">localhost:8858 </span> <span style="color:#75715e"># Sentinel 控制台地址</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">port</span>: <span style="color:#ae81ff">8719</span>                <span style="color:#75715e"># 服务和控制台的通信端口</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">datasource</span>:                 <span style="color:#75715e"># 可选：用 Nacos 持久化规则</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ds1</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">nacos</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">server-addr</span>: <span style="color:#ae81ff">127.0.0.1</span>:<span style="color:#ae81ff">8848</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">data-id</span>: <span style="color:#ae81ff">${spring.application.name}-sentinel</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">group-id</span>: <span style="color:#ae81ff">DEFAULT_GROUP</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">data-type</span>: <span style="color:#ae81ff">json</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">rule-type</span>: <span style="color:#ae81ff">flow</span>
+</span></span></code></pre></div><blockquote>
+<p>⚡ 默认情况下，Sentinel 的规则存在内存里，重启就丢；结合 Nacos 或 Apollo 能实现持久化动态配置。</p></blockquote>
+<hr>
+<h2 id="53-启动-sentinel-dashboard">
+<a class="header-anchor" href="#53-%e5%90%af%e5%8a%a8-sentinel-dashboard"></a>
+5.3 启动 Sentinel Dashboard
+</h2><p>下载 Dashboard 包：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>java -Dserver.port<span style="color:#f92672">=</span><span style="color:#ae81ff">8858</span> -Dcsp.sentinel.dashboard.server<span style="color:#f92672">=</span>localhost:8858 -jar sentinel-dashboard.jar
+</span></span></code></pre></div><p>访问：http://localhost:8858</p>
+<hr>
+<h2 id="54-在代码中使用-sentinel">
+<a class="header-anchor" href="#54-%e5%9c%a8%e4%bb%a3%e7%a0%81%e4%b8%ad%e4%bd%bf%e7%94%a8-sentinel"></a>
+5.4 在代码中使用 Sentinel
+</h2><h3 id="-注解方式-1">
+<a class="header-anchor" href="#-%e6%b3%a8%e8%a7%a3%e6%96%b9%e5%bc%8f-1"></a>
+✅ 注解方式
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderController</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@GetMapping</span>(<span style="color:#e6db74">&#34;/order&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@SentinelResource</span>(value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;getOrder&#34;</span>, 
+</span></span><span style="display:flex;"><span>                      blockHandler <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;handleBlock&#34;</span>, 
+</span></span><span style="display:flex;"><span>                      fallback <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;handleFallback&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getOrder</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;订单信息&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 限流或熔断时调用</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">handleBlock</span>(BlockException e) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;请求过多，请稍后再试&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 异常时调用</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">handleFallback</span>(Throwable t) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;服务暂时不可用&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="-api-方式">
+<a class="header-anchor" href="#-api-%e6%96%b9%e5%bc%8f"></a>
+✅ API 方式
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@PostConstruct</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">initFlowRules</span>() {
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>FlowRule<span style="color:#f92672">&gt;</span> rules <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>    FlowRule rule <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FlowRule();
+</span></span><span style="display:flex;"><span>    rule.<span style="color:#a6e22e">setResource</span>(<span style="color:#e6db74">&#34;getOrder&#34;</span>);
+</span></span><span style="display:flex;"><span>    rule.<span style="color:#a6e22e">setGrade</span>(RuleConstant.<span style="color:#a6e22e">FLOW_GRADE_QPS</span>);
+</span></span><span style="display:flex;"><span>    rule.<span style="color:#a6e22e">setCount</span>(10); <span style="color:#75715e">// 每秒最多 10 个请求</span>
+</span></span><span style="display:flex;"><span>    rules.<span style="color:#a6e22e">add</span>(rule);
+</span></span><span style="display:flex;"><span>    FlowRuleManager.<span style="color:#a6e22e">loadRules</span>(rules);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h2 id="55-sentinel--feign">
+<a class="header-anchor" href="#55-sentinel--feign"></a>
+5.5 Sentinel + Feign
+</h2><p>在 Feign 客户端开启 Sentinel 支持：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">feign</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">sentinel</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div><p>定义 Feign 接口：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@FeignClient</span>(name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;user-service&#34;</span>, fallback <span style="color:#f92672">=</span> UserClientFallback.<span style="color:#a6e22e">class</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">UserClient</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@GetMapping</span>(<span style="color:#e6db74">&#34;/user/{id}&#34;</span>)
+</span></span><span style="display:flex;"><span>    String <span style="color:#a6e22e">getUser</span>(<span style="color:#a6e22e">@PathVariable</span>(<span style="color:#e6db74">&#34;id&#34;</span>) Long id);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>降级处理类：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Component</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserClientFallback</span> <span style="color:#66d9ef">implements</span> UserClient {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getUser</span>(Long id) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;用户服务不可用&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h2 id="56-sentinel--gateway">
+<a class="header-anchor" href="#56-sentinel--gateway"></a>
+5.6 Sentinel + Gateway
+</h2><p>在 <strong>Gateway 服务</strong> 中引入依赖（上面已写）。
+配置 <code>application.yml</code>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">spring</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cloud</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">gateway</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">routes</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">id</span>: <span style="color:#ae81ff">order_route</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">uri</span>: <span style="color:#ae81ff">lb://order-service</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">predicates</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">Path=/order/**</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">sentinel</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">datasource</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ds1</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">nacos</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">server-addr</span>: <span style="color:#ae81ff">127.0.0.1</span>:<span style="color:#ae81ff">8848</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">data-id</span>: <span style="color:#ae81ff">gateway-sentinel-rules</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">group-id</span>: <span style="color:#ae81ff">DEFAULT_GROUP</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">data-type</span>: <span style="color:#ae81ff">json</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">rule-type</span>: <span style="color:#ae81ff">gw-flow</span>
+</span></span></code></pre></div><p>规则可在 Dashboard 中配置：</p>
+<ul>
+<li><strong>API 分组限流</strong>（按路径分组，比如 <code>/order/**</code>）</li>
+<li><strong>Route 维度限流</strong>（按路由 id）</li>
+</ul>
+<hr>
+<h2 id="-总结">
+<a class="header-anchor" href="#-%e6%80%bb%e7%bb%93"></a>
+🔹 总结
+</h2><p>👉 <strong>Sentinel = 全能流量保护神器</strong></p>
+<ul>
+<li>提供 <strong>限流（QPS / 并发）</strong></li>
+<li>提供 <strong>熔断（RT / 异常率 / 异常数）</strong></li>
+<li>提供 <strong>系统保护（Load / CPU）</strong></li>
+<li>提供 <strong>热点参数限流</strong></li>
+<li>通过 <strong>注解 / API / 控制台 / 动态配置</strong> 来使用。</li>
+</ul>
+<hr>
+<p>要不要我给你画一张 <strong>“Spring Cloud Alibaba + Sentinel 在微服务体系中的位置图”</strong>，帮你把 Sentinel、Nacos、Gateway、Feign 的关系直观串起来？</p>
+</div>
+    <footer class="article-footer"><blockquote class="article-copyright"><p><strong><span class="icon-user icon"></span>本文作者：</strong>5say @ 5say</p><p>
+      <strong><span class="icon-link icon"></span>本文链接：</strong><a href="http://localhost:1313/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/">http://localhost:1313/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/</a>
+    </p><p>
+      
+      <strong><span class="icon-copyright icon"></span>本文版权：</strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener external nofollow noreferrer" target="_blank"><span class="icon-creative-commons"></span>BY-NC-SA</a> 许可协议。转载请注明出处！
+    </p>
+    <span class="icon-creative-commons article-copyright-bg"></span></blockquote>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e4%b8%ad%e9%97%b4%e4%bb%b6"
+        rel="tag"
+        >中间件</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e9%9d%a2%e8%af%95"
+        rel="tag"
+        >面试</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap article-nav-link-left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="了解Spring Cloud Gateway的使用"
+              class="lazyload"
+            /><a href="/post/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">了解Spring Cloud Gateway的使用</h3>
+      </div><div class="article-nav-link-wrap article-nav-link-right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="Redis的入门手册"
+              class="lazyload"
+            /><a href="/post/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">Redis的入门手册</h3>
+      </div></nav></article><section id="comments" data-aos="fade-up">
+<div class="comment-header"><h2 class="comment-title">说些什么吧！</h2>
+  <div class="comment-selector">
+    <div class="comment-selector-wrap"><div class="selector-item" data-selector="giscus">
+          <span>giscus</span>
+        </div></div>
+  </div>
+</div>
+
+<div class="comment-content"><div class="comment giscus-comment" data-aos="fade-up"
+     >
+    </div></div>
+</section></section>
+        </div><footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2020-2025<span class="footer-info-sep rotate"></span>
+      5say
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;35.8k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;01:23</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#-引入依赖">✅ 引入依赖</a></li>
+        <li><a href="#-基本配置">✅ 基本配置</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#-注解方式">① 注解方式</a></li>
+        <li><a href="#-api-配置规则代码里写规则">② API 配置规则（代码里写规则）</a></li>
+        <li><a href="#-控制台动态配置">③ 控制台动态配置</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#51-引入依赖">5.1 引入依赖</a></li>
+    <li><a href="#52-基本配置">5.2 基本配置</a></li>
+    <li><a href="#53-启动-sentinel-dashboard">5.3 启动 Sentinel Dashboard</a></li>
+    <li><a href="#54-在代码中使用-sentinel">5.4 在代码中使用 Sentinel</a>
+      <ul>
+        <li><a href="#-注解方式-1">✅ 注解方式</a></li>
+        <li><a href="#-api-方式">✅ API 方式</a></li>
+      </ul>
+    </li>
+    <li><a href="#55-sentinel--feign">5.5 Sentinel + Feign</a></li>
+    <li><a href="#56-sentinel--gateway">5.6 Sentinel + Gateway</a></li>
+    <li><a href="#-总结">🔹 总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.jpg"
+    data-sizes="auto"
+    alt="5say"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">5say</div>
+  <div class="sidebar-description">我的博客</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">20</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">14</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/tags"
+        aria-label="标签"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">标签</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/links"
+        aria-label="传送门"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">传送门</div>
+    </div></div>
+</div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div class="reimu-search-input" id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png" />
+        </div>
+      </div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" ></script><script src="/js/aos.js" ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" data-pjax></script><script>
+    var ALGOLIA_CONFIG = {
+      logo: '\/images\/algolia_logo.svg',
+      algolia: {
+        applicationID: "8HX06YAPFB",
+        apiKey: "f021335f33afc81efe70ac9a4e292f8b",
+        indexName: "blog",
+        hits: {
+          "per_page": parseInt("10")
+        },
+        labels: {
+          "input_placeholder": '搜索.....',
+          "hits_empty": '未发现与 「${query}」相关内容',
+          "hits_stats": '找到${hits}条结果（用时 ${time} ms）'
+        }
+      }
+    };
+  </script><script
+    src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js"
+    deferintegrity="sha384-xvLS0jfKuoREs7pqkRI/OI8GcqohO5S&#43;jQz7ZBtQXnsXmD&#43;9jDOOY4cL6dCPzlrk" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/@reimujs/instantsearch.js@4.57.0-beta.1/dist/instantsearch.production.min.js"
+    deferintegrity="sha384-aagKMe8nkqaP2DYQc8kkYOL5l&#43;M5Q2WH/Uhr4teOh0Ybp0RZj0kUSDm45qPikMjK" crossorigin="anonymous"></script><script src="/js/algolia_search.js" ></script><script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "5say",
+          title: "了解Sentinel",
+          url: "http:\/\/localhost:1313\/post\/20250825004-%E4%BA%86%E8%A7%A3sentinel\/",
+          description: "Sentinel 是 阿里巴巴开源的流量防卫兵，在 Spring Cloud Alibaba 体系里非常常用，主要解决 流量控制、熔断降级、系统保护 等问题。可以理解成 服务稳定性的核心工具。我给你从几个角度讲清楚：\n",
+          cover: "http:\/\/localhost:1313\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script><script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+  var commentConfigKeys = ['valine', 'waline', 'twikoo', 'gitalk', 'giscus'];
+  var commentConfig = {
+    valine: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.valine-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/valine@1.5.1\/dist\/Valine.min.js',
+          !'webcache|valine@1.5.1\/dist\/Valine.min.js'.startsWith('local') ? 'sha384-3ma91AExDeMAZ1rjTjaP8V2A2obQE\u002bs5ltKRwYlwdpArz9xVbp0tF3b0VV2ACNPn' : undefined
+        );
+        script.onload = () => {
+          const GUEST_INFO = ['nick', 'mail', 'link'];
+          const guest_info = 'nick,mail,link'.split(',').filter((item) => {
+            return GUEST_INFO.indexOf(item) > -1
+          });
+          const recordIP = JSON.parse('true');
+          const highlight = JSON.parse('true');
+          const visitor = JSON.parse('false');
+          const serverURLs = undefined;
+
+          new Valine({
+            el: '.valine-comment',
+            appId: "",
+            appKey: "",
+            placeholder: "Just go go",
+            pageSize: '10',
+            avatar: 'mp',
+            lang: document.documentElement.lang || 'en',
+            recordIP: recordIP,
+            highlight: highlight,
+            visitor: visitor,
+            requiredFields: guest_info,
+            path: window.location.pathname,
+            serverURLs,
+          });
+        };
+        document.head.appendChild(script);
+      }
+    },
+    waline: {
+      enable: false,
+      load: async () => {
+        const container = document.querySelector('.waline-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        let walineInit;
+        const walineCdn = 'https:\/\/npm.webcache.cn\/@waline\/client@2.15.8\/dist\/waline.mjs';
+        
+        if ('webcache|@waline\/client@2.15.8\/dist\/waline.mjs'.startsWith('local')) {
+          
+          const module = await safeImport(walineCdn);
+          walineInit = module.init;
+        } else {
+          
+          const module = await safeImport(
+            walineCdn, 
+            'sha384-9sbqJjrfGjbkI6\/PI4nU\/MvBfEmkkPC4YK9I4zBeMIf1CVCZdCMH\/KinBEAZII\/5'
+          );
+          walineInit = module.init;
+        }
+        
+        window.walineInstance = walineInit({
+          el: '.waline-comment',
+          serverURL: '',
+          lang: document.documentElement.lang || 'en',
+          locale: JSON.parse("{}"),
+          emoji: JSON.parse("[\"https://unpkg.com/@waline/emojis@1.2.0/weibo\",\"https://unpkg.com/@waline/emojis@1.2.0/alus\",\"https://unpkg.com/@waline/emojis@1.2.0/bilibili\",\"https://unpkg.com/@waline/emojis@1.2.0/qq\",\"https://unpkg.com/@waline/emojis@1.2.0/tieba\",\"https://unpkg.com/@waline/emojis@1.2.0/tw-emoji\"]"),
+          meta: JSON.parse("[\"nick\",\"mail\",\"link\"]"),
+          requiredMeta: JSON.parse("[\"nick\",\"mail\"]"),
+          wordLimit:  0 ,
+          comment: true,
+          pageSize:  10 ,
+          dark: 'html[data-theme="dark"]',
+          pageview:  true ,
+        });
+      }
+    },
+    twikoo: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.twikoo-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/twikoo@1.6.44\/dist\/twikoo.all.min.js',
+          !'webcache|twikoo@1.6.44\/dist\/twikoo.all.min.js'.startsWith('local') ? 'sha384-kwWLC0HjeZZnVPqCJ1AncI8tsk\u002bkQqF9TbAmCclcc9Z0hGkfgHRzeQZxmdmZhE0K' : undefined
+        );
+        script.onload = () => {
+          twikoo.init({
+            envId: '',
+            el: '.twikoo-comment',
+            region: '',
+            lang: document.documentElement.lang || 'en',
+          });
+          twikoo.getCommentsCount({
+            envId: '',
+            region: '',
+            urls: [
+              'http\/\/localhost1313\/post\/20250825004-%e4%ba%86%e8%a7%a3sentinel\/'
+            ],
+            includeReply: false
+          }).then((res) => {
+            document.querySelector('.twikoo-comment-count').innerText = res[0].count;
+          }).catch((err) => {
+            console.error(err);
+          });
+        };
+        document.head.appendChild(script);
+      }
+    },
+    gitalk: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.gitalk-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/gitalk@1.8.0\/dist\/gitalk.min.js',
+          !'webcache|gitalk@1.8.0\/dist\/gitalk.min.js'.startsWith('local') ? 'sha384-kspnZUWBoSWwoJHa0hBCXYbHGbhvU\/lcEH5O8eVbSDhbPwsiVUTp\/aGX\/z\/5EuMA' : undefined
+        );
+        script.onload = () => {
+          if ( false ) {
+            
+            const md5Script = loadScript(
+              'https:\/\/npm.webcache.cn\/blueimp-md5@2.19.0\/js\/md5.min.js',
+              !'webcache|blueimp-md5@2.19.0\/js\/md5.min.js'.startsWith('local') ? 'sha384-JmVtRz6RWiXnA14QbIOJzPuU3MidULOpBP66deeLLyyoF4Tr\/gZlbkHkL6vTthxH' : undefined
+            );
+            md5Script.onload = initGitalk;
+            document.head.appendChild(md5Script);
+          } else {
+            
+            initGitalk();
+          }
+        };
+        document.head.appendChild(script);
+
+        function initGitalk() {
+          let gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: '',
+            owner: '',
+            admin: JSON.parse("null"),
+            id: location.pathname,
+            distractionFreeMode: false,
+            language: document.documentElement.lang || 'en',
+          });
+          gitalk.render('gitalk-comment');
+        }
+      }
+    },
+    giscus: {
+      enable: true,
+      load: () => {
+        const container = document.querySelector('.giscus-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        
+        const existingScript = container.querySelector('script[src*="giscus.app/client.js"]');
+        if (existingScript) existingScript.remove();
+        const existingFrame = document.querySelector('iframe.giscus-frame');
+        if (existingFrame) existingFrame.remove();
+
+        
+        const giscusScript = document.createElement('script');
+        const domMode = document.documentElement.getAttribute("data-theme");
+
+        const docLang = document.documentElement.lang || 'en';
+        const langBase = docLang.split('-')[0];
+        const supportedLangs = ['ar', 'be', 'bg', 'ca', 'cs', 'da', 'de', 'en', 
+        'eo', 'es', 'eu', 'fa', 'fr', 'gr', 'hbs', 'he', 'hu', 'id', 'it', 'ja', 
+        'kh', 'ko', 'nl', 'pl', 'pt', 'ro', 'ru', 'th', 'tr', 'uk', 'uz', 'vi', 'zh-CN', 'zh-HK', 'zh-TW'];
+        const giscusLang = supportedLangs.includes(docLang) ? docLang : supportedLangs.includes(langBase) ? langBase : 'en';
+
+        giscusScript.src = 'https://giscus.app/client.js';
+        giscusScript.setAttribute('data-repo', '5say\/5say');
+        giscusScript.setAttribute('data-repo-id', 'R_kgDOPUICig');
+        giscusScript.setAttribute('data-category', 'Announcements');
+        giscusScript.setAttribute('data-category-id', 'DIC_kwDOPUICis4CtgLS');
+        giscusScript.setAttribute('data-mapping', '0');
+        giscusScript.setAttribute('data-strict', '0');
+        giscusScript.setAttribute('data-reactions-enabled', '1');
+        giscusScript.setAttribute('data-emit-metadata', '0');
+        giscusScript.setAttribute('data-input-position', 'bottom');
+        giscusScript.setAttribute('data-theme', domMode === 'dark' ? 'dark' : 'light');
+        giscusScript.setAttribute('data-lang', giscusLang);
+        giscusScript.setAttribute('crossorigin', 'anonymous');
+        giscusScript.async = true;
+        container.appendChild(giscusScript);
+        document.body.addEventListener('light-theme-set', () => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: 'light' } } }, 'https://giscus.app');
+        });
+        document.body.addEventListener('dark-theme-set', () => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: 'dark' } } }, 'https://giscus.app');
+        });
+      }
+    }
+  };
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig[key].enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    
+    var savedCommentType = localStorage.getItem('commentType');
+    
+    
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+    
+    
+    if (!defaultComment) {
+      var configDefault = 'giscus';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+    
+    
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig[sys].enable) || '';
+    }
+  }
+
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false
+    };
+
+    
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      
+      const commentType = item.getAttribute('data-selector');
+
+      
+      hideAllComments();
+
+      
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          
+          changeActiveCommentItems(item);
+        });
+      }
+
+      
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script></div>
+</div><script data-pjax>
+    var updateTime = _$('#post-update-time')?.innerHTML;
+
+    if (updateTime) {
+      const update = new Date(updateTime);
+      const now = new Date();
+      const diff = now - update;
+      const days = diff / 86400000;
+      const { daysago: daysAgo, message: template } = window.siteConfig.outdate;
+      if (days >= daysAgo) {
+        let message = `This article was last updated on ${updateTime}. Please note that the content may no longer be applicable.`;
+        if (typeof template === 'string') {
+          message = template.replace(/{time}/, updateTime);
+        } else if (typeof template === 'object') {
+          const lang = document.documentElement.lang;
+          const messageKey = Object.keys(template).find(key => key.toLowerCase() === lang.toLowerCase());
+          if (messageKey && template[messageKey]) {
+            message = template[messageKey].replace(/{time}/, updateTime);
+          }
+        }
+        const blockquote = _$('#outdate-blockquote');
+        if (blockquote) {
+          blockquote.querySelector('p').innerText = message;
+          blockquote.style.display = 'block';
+        }
+      }
+    }
+  </script><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    asyncintegrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script><script
+    src="https://npm.webcache.cn/pangu@4.0.7/dist/browser/pangu.min.js"
+    integrity="sha384-HeUHqi0nVsPUm/E0ss7OfnIV/yD96JWB8ehZvUuoVax9DpNHL17jj9pdfXHzqDxm" crossorigin="anonymous"></script><script data-pjax>
+    if (document.readyState === "loading") {
+      document.addEventListener('DOMContentLoaded', () => {
+        pangu?.spacingPage();
+      });
+    } else {
+      pangu?.spacingPage();
+    }
+  </script></body>
+</html>

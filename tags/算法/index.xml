@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>算法 on 5say</title>
+    <link>http://localhost:1313/tags/%E7%AE%97%E6%B3%95/</link>
+    <description>Recent content from 5say</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    
+    <managingEditor>xxx@example.com (5say)</managingEditor>
+    <webMaster>xxx@example.com (5say)</webMaster>
+    
+    <copyright>本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</copyright>
+    
+    <lastBuildDate>Tue, 29 Jul 2025 17:49:00 +0800</lastBuildDate>
+    
+    
+    <atom:link href="http://localhost:1313/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss&#43;xml" />
+    
+
+    
+    
+
+    <item>
+      <title>算法-树是怎么变成红黑树的？</title>
+      <link>http://localhost:1313/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</link>
+      <pubDate>Tue, 29 Jul 2025 17:49:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</guid>
+      <description>
+        <![CDATA[<h1>算法-树是怎么变成红黑树的？</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <h1 id="一什么是树">
+<a class="header-anchor" href="#%e4%b8%80%e4%bb%80%e4%b9%88%e6%98%af%e6%a0%91"></a>
+一、什么是树
+</h1><h2 id="11-树的定义与相关概念">
+<a class="header-anchor" href="#11-%e6%a0%91%e7%9a%84%e5%ae%9a%e4%b9%89%e4%b8%8e%e7%9b%b8%e5%85%b3%e6%a6%82%e5%bf%b5"></a>
+1.1 树的定义与相关概念
+</h2><blockquote>
+<p>🌱 <strong>树（Tree）</strong> 是一种<strong>非线性数据结构</strong>，是一种“分层”的结构，最常见的是“二叉树”。</p></blockquote>
+<h4 id="-树的基本术语">
+<a class="header-anchor" href="#-%e6%a0%91%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%9c%af%e8%af%ad"></a>
+📌 树的基本术语：
+</h4><ul>
+<li><strong>根节点（root）</strong>：树的起点</li>
+<li><strong>子节点（children）</strong>：根的下一级</li>
+<li><strong>叶子节点（leaf）</strong>：没有子节点的节点</li>
+<li><strong>高度（height）</strong>：从节点到叶子的最长路径</li>
+<li><strong>深度（depth）</strong>：从根到该节点的路径长度</li>
+<li><strong>二叉树</strong>：每个节点最多有两个子节点（左/右）</li>
+<li><strong>前序遍历</strong>：根 -&gt; 左 -&gt; 右</li>
+<li><strong>中序遍历</strong>：左 -&gt; 根 -&gt; 右</li>
+<li><strong>后序遍历</strong>：左 -&gt; 右 -&gt; 根</li>
+<li><strong>层序遍历</strong>：一层一层从上往下</li>
+</ul>
+<h4 id="-画个图文字版">
+<a class="header-anchor" href="#-%e7%94%bb%e4%b8%aa%e5%9b%be%e6%96%87%e5%ad%97%e7%89%88"></a>
+✅ 画个图（文字版）：
+</h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mathematica" data-lang="mathematica"><span style="display:flex;"><span>        A
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">/</span> <span style="color:#960050;background-color:#1e0010">\</span>
+</span></span><span style="display:flex;"><span>      B   C
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">/</span> <span style="color:#960050;background-color:#1e0010">\</span>   <span style="color:#960050;background-color:#1e0010">\</span>
+</span></span><span style="display:flex;"><span>    D   E   F
+</span></span></code></pre></div><ul>
+<li>根：A</li>
+<li>A 的子节点：B, C</li>
+<li>叶子节点：D, E, F</li>
+<li>A 高度 = 3（从 A→D 路径有3层）</li>
+</ul>
+<h2 id="12-怎么使用java代码定义一个树">
+<a class="header-anchor" href="#12-%e6%80%8e%e4%b9%88%e4%bd%bf%e7%94%a8java%e4%bb%a3%e7%a0%81%e5%ae%9a%e4%b9%89%e4%b8%80%e4%b8%aa%e6%a0%91"></a>
+1.2 怎么使用Java代码定义一个树
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TreeNode</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> val;
+</span></span><span style="display:flex;"><span>    TreeNode left,right;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="13-树的初始化">
+<a class="header-anchor" href="#13-%e6%a0%91%e7%9a%84%e5%88%9d%e5%a7%8b%e5%8c%96"></a>
+1.3 树的初始化
+</h2><h3 id="131-手动初始化">
+<a class="header-anchor" href="#131-%e6%89%8b%e5%8a%a8%e5%88%9d%e5%a7%8b%e5%8c%96"></a>
+1.3.1 手动初始化
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testInit</span>(){
+</span></span><span style="display:flex;"><span>    TreeNode root <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(1);
+</span></span><span style="display:flex;"><span>    root.<span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(2);
+</span></span><span style="display:flex;"><span>    root.<span style="color:#a6e22e">right</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(3);
+</span></span><span style="display:flex;"><span>    root.<span style="color:#a6e22e">left</span>.<span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(4);
+</span></span><span style="display:flex;"><span>    root.<span style="color:#a6e22e">left</span>.<span style="color:#a6e22e">right</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(5);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="132-通过数组初始化完全二叉树">
+<a class="header-anchor" href="#132-%e9%80%9a%e8%bf%87%e6%95%b0%e7%bb%84%e5%88%9d%e5%a7%8b%e5%8c%96%e5%ae%8c%e5%85%a8%e4%ba%8c%e5%8f%89%e6%a0%91"></a>
+1.3.2 通过数组初始化（完全二叉树）
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testBuildTree</span>(){
+</span></span><span style="display:flex;"><span>    Integer<span style="color:#f92672">[]</span> values <span style="color:#f92672">=</span> {1, 2, 3, 4, 5};
+</span></span><span style="display:flex;"><span>    TreeNode root <span style="color:#f92672">=</span> buildTree(values, 0);
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;层序遍历:&#34;</span>);
+</span></span><span style="display:flex;"><span>    levelOrder(root);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> TreeNode  <span style="color:#a6e22e">buildTree</span>(Integer<span style="color:#f92672">[]</span> arr,<span style="color:#66d9ef">int</span> index){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (index <span style="color:#f92672">&gt;=</span> arr.<span style="color:#a6e22e">length</span> <span style="color:#f92672">||</span> arr<span style="color:#f92672">[</span>index<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    TreeNode node <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(arr<span style="color:#f92672">[</span>index<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>    node.<span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> buildTree(arr, 2 <span style="color:#f92672">*</span> index <span style="color:#f92672">+</span> 1);
+</span></span><span style="display:flex;"><span>    node.<span style="color:#a6e22e">right</span> <span style="color:#f92672">=</span> buildTree(arr, 2 <span style="color:#f92672">*</span> index <span style="color:#f92672">+</span> 2);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> node;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="二二叉树">
+<a class="header-anchor" href="#%e4%ba%8c%e4%ba%8c%e5%8f%89%e6%a0%91"></a>
+二、二叉树
+</h1><p>二叉树是最常见的树状结构，通过二叉树我们可以找到许多树状结构的特点</p>
+        
+        <hr><p>本文2025-07-29首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-07-29</p>]]>
+      </description>
+      
+        <category>编程</category>
+      
+    </item>
+    
+  </channel>
+</rss>

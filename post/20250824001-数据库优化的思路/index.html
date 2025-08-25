@@ -1,0 +1,1875 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  数据库优化的思路 | 5say
+</title>
+<meta
+  name="description"
+  content="我的博客"
+/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":true,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><link rel="stylesheet" href="/css/loader.css" />
+<meta property="og:type" content="website" />
+  <meta property="og:title" content="数据库优化的思路 | 5say" />
+  <meta
+    property="og:description"
+    content="我的博客"
+  />
+  <meta property="og:url" content="http://localhost:1313/post/20250824001-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E7%9A%84%E6%80%9D%E8%B7%AF/" />
+  <meta
+    property="og:site_name"
+    content="5say"
+  />
+  <meta
+    property="og:image"
+    content="/"
+  />
+  <meta property="article:author" content="5say" />
+  <meta property="article:published_time" content="2025-08-24T16:36:00&#43;08:00" />
+  <meta property="article:modified_time" content="2025-08-24T16:36:00&#43;08:00" /><meta property="article:tag" content="数据库系统优化面试" /><meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" />
+<link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.22/dist/katex.min.css"
+    integrity="sha384-5TcZemv2l/9On385z///&#43;d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate"><svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg></div><div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script><div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+<div id="lang-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav"><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/tags">标签</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/links">传送门</a>
+      </span><a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav"><a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a></nav></div>
+<header id="header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="数据库优化的思路"><div id="header-outer">
+    <div id="header-title"><a href="/" id="logo">
+            <h1 data-aos="slide-up">数据库优化的思路</h1>
+          </a><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          
+          class="sidebar-right"  ><aside id="sidebar"><div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#21-sql-执行过程">2.1 SQL 执行过程</a></li>
+    <li><a href="#22-sql-优化建议">2.2 SQL 优化建议</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#31-索引优化的原理">3.1 索引优化的原理</a>
+      <ul>
+        <li><a href="#311-索引创建过程">3.1.1 索引创建过程</a></li>
+        <li><a href="#312-索引查询过程">3.1.2 索引查询过程</a></li>
+        <li><a href="#313-查询原理示意b-树">3.1.3 查询原理示意（B+ 树）</a></li>
+      </ul>
+    </li>
+    <li><a href="#32-索引类型与适用场景">3.2 索引类型与适用场景</a></li>
+    <li><a href="#33-索引优化方案">3.3 索引优化方案</a>
+      <ul>
+        <li><a href="#1-单列索引">1️⃣ 单列索引</a></li>
+        <li><a href="#2-联合索引复合索引">2️⃣ 联合索引（复合索引）</a></li>
+        <li><a href="#3-覆盖索引covering-index">3️⃣ 覆盖索引（Covering Index）</a></li>
+        <li><a href="#4-唯一索引">4️⃣ 唯一索引</a></li>
+        <li><a href="#5-前缀索引适用于大文本列">5️⃣ 前缀索引（适用于大文本列）</a></li>
+        <li><a href="#6-覆盖组合技巧">6️⃣ 覆盖组合技巧</a></li>
+      </ul>
+    </li>
+    <li><a href="#34-索引优化原理总结">3.4 索引优化原理总结</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#41-表结构优化的总体目标">4.1 表结构优化的总体目标</a></li>
+    <li><a href="#42-常见的优化方案">4.2 常见的优化方案</a>
+      <ul>
+        <li><a href="#1-合理的字段设计">1️⃣ 合理的字段设计</a></li>
+        <li><a href="#2-规范化设计normal-form">2️⃣ 规范化设计（Normal Form）</a></li>
+        <li><a href="#3-适度反规范化">3️⃣ 适度反规范化</a></li>
+        <li><a href="#4-主键设计">4️⃣ 主键设计</a></li>
+        <li><a href="#5-分库分表sharding">5️⃣ 分库分表（Sharding）</a></li>
+        <li><a href="#6-分区表">6️⃣ 分区表</a></li>
+        <li><a href="#7-索引优化与覆盖索引">7️⃣ 索引优化与覆盖索引</a></li>
+        <li><a href="#8-归档与冷热数据分离">8️⃣ 归档与冷热数据分离</a></li>
+        <li><a href="#9-避免过度设计">9️⃣ 避免过度设计</a></li>
+      </ul>
+    </li>
+    <li><a href="#43-sql-执行与表结构的关系">4.3 SQL 执行与表结构的关系</a></li>
+    <li><a href="#44-总结">4.4 总结</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#51-系统层面优化的目标">5.1 系统层面优化的目标</a></li>
+    <li><a href="#52-常见系统层面优化方案">5.2 常见系统层面优化方案</a>
+      <ul>
+        <li><a href="#1-硬件层面优化">1️⃣ 硬件层面优化</a></li>
+        <li><a href="#2-文件系统与存储优化">2️⃣ 文件系统与存储优化</a></li>
+        <li><a href="#3-内核参数优化linux">3️⃣ 内核参数优化（Linux）</a></li>
+        <li><a href="#4-数据库-buffer-pool-与操作系统缓存协同">4️⃣ 数据库 Buffer Pool 与操作系统缓存协同</a></li>
+        <li><a href="#5-并发与线程调度优化">5️⃣ 并发与线程调度优化</a></li>
+        <li><a href="#6-网络优化">6️⃣ 网络优化</a></li>
+        <li><a href="#7-操作系统调度与-numa-优化">7️⃣ 操作系统调度与 NUMA 优化</a></li>
+      </ul>
+    </li>
+    <li><a href="#53-总结表格">5.3 总结表格</a></li>
+  </ul>
+</nav>
+  </div>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.jpg"
+    data-sizes="auto"
+    alt="5say"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">5say</div>
+  <div class="sidebar-description">我的博客</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">20</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">14</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/tags"
+        aria-label="标签"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">标签</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/links"
+        aria-label="传送门"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">传送门</div>
+    </div></div>
+</div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div>
+
+  <div class="sidebar-widget"></div></aside>
+<section id="main"><article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2025-08-24 16:36:00 &#43;0800 CST" itemprop="datePublished"
+      >2025-08-24</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2025-08-24</time
+    >
+  </span>
+</div>
+<div class="article-category"><a
+      class="article-category-link"
+      href="/categories/%e6%95%b0%e6%8d%ae%e5%ba%93"
+      data-aos="zoom-in"
+      >数据库</a
+    ><a
+      class="article-category-link"
+      href="/categories/%e7%bc%96%e7%a8%8b"
+      data-aos="zoom-in"
+      >编程</a
+    ><a
+      class="article-category-link"
+      href="/categories/%e9%9d%a2%e8%af%95"
+      data-aos="zoom-in"
+      >面试</a
+    ></div>
+</div>
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><blockquote id="outdate-blockquote" style="display: none;">
+          <p></p>
+        </blockquote><h1 id="-一数据库优化的整体思路">
+<a class="header-anchor" href="#-%e4%b8%80%e6%95%b0%e6%8d%ae%e5%ba%93%e4%bc%98%e5%8c%96%e7%9a%84%e6%95%b4%e4%bd%93%e6%80%9d%e8%b7%af"></a>
+🗄️ 一、数据库优化的整体思路
+</h1><p>数据库优化的目标是：</p>
+<ol>
+<li><strong>更快</strong> —— 减少查询时间</li>
+<li><strong>更稳</strong> —— 避免锁等待、死锁、资源耗尽</li>
+<li><strong>更省</strong> —— 节省磁盘、内存、CPU</li>
+</ol>
+<p>优化通常分 4 个层次：</p>
+<ol>
+<li><strong>SQL 语句优化</strong>（写得是否高效）</li>
+<li><strong>索引优化</strong>（有没有用对索引）</li>
+<li><strong>表结构设计优化</strong>（范式 vs 反范式）</li>
+<li><strong>系统层面优化</strong>（缓存、分库分表、读写分离等）</li>
+</ol>
+<h1 id="-二sql-优化">
+<a class="header-anchor" href="#-%e4%ba%8csql-%e4%bc%98%e5%8c%96"></a>
+🔍 二、SQL 优化
+</h1><p>要理解SQL优化，那么我们先了解一下SQL的执行过程</p>
+<h2 id="21-sql-执行过程">
+<a class="header-anchor" href="#21-sql-%e6%89%a7%e8%a1%8c%e8%bf%87%e7%a8%8b"></a>
+2.1 SQL 执行过程
+</h2><p>在 MySQL（以 InnoDB 为例）中，SQL 的执行大致流程如下：</p>
+<ol>
+<li><strong>解析阶段（Parser）</strong>
+<ul>
+<li>SQL 文本 → 解析成语法树（AST）</li>
+<li>语法错误会在这个阶段报错</li>
+</ul>
+</li>
+<li><strong>预处理阶段（Preprocessor）</strong>
+<ul>
+<li>检查表、字段是否存在</li>
+<li>权限检查</li>
+<li>默认值、列类型校验</li>
+</ul>
+</li>
+<li><strong>优化阶段（Optimizer）</strong>
+<ul>
+<li><strong>生成执行计划</strong></li>
+<li><strong>选择索引</strong></li>
+<li><strong>重写 SQL</strong>（比如将 <code>OR</code> 转换为 <code>UNION</code>）</li>
+<li><strong>成本评估</strong>：使用代价模型（Cost-Based Optimizer）选择最优执行路径</li>
+</ul>
+</li>
+<li><strong>执行阶段（Executor）</strong>
+<ul>
+<li>按执行计划访问数据</li>
+<li>读取数据页 → 加锁 → 返回结果</li>
+<li>对于 JOIN、排序、GROUP BY 等，执行器会按索引或临时表处理</li>
+</ul>
+</li>
+<li><strong>返回结果</strong>
+<ul>
+<li>执行完成 → 返回给客户端</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>⚡ 优化点主要集中在 <strong>优化阶段</strong> 和 <strong>执行阶段</strong>，这也是为什么索引、SQL 写法和表设计对性能影响最大。</p></blockquote>
+<h2 id="22-sql-优化建议">
+<a class="header-anchor" href="#22-sql-%e4%bc%98%e5%8c%96%e5%bb%ba%e8%ae%ae"></a>
+2.2 SQL 优化建议
+</h2><ol>
+<li>
+<p><strong>SELECT 指定字段，不要 <code>\*</code></strong></p>
+<ul>
+<li>减少 IO 读取</li>
+</ul>
+</li>
+<li>
+<p><strong>WHERE 条件走索引</strong></p>
+<ul>
+<li>避免函数或运算导致索引失效</li>
+<li>避免 <code>NOT IN</code>、<code>&lt;&gt;</code>，改用 <code>IN</code> 或 <code>=</code></li>
+</ul>
+</li>
+<li>
+<p><strong>LIMIT 深分页优化</strong></p>
+<ul>
+<li><code>LIMIT 100000, 10</code> 性能差</li>
+<li>用索引游标分页：<code>WHERE id &gt; last_id LIMIT 10</code></li>
+</ul>
+</li>
+<li>
+<p><strong>避免不必要的 JOIN / 子查询</strong></p>
+<ul>
+<li>子查询可考虑改成 JOIN 或临时表</li>
+</ul>
+</li>
+<li>
+<p><strong>ORDER BY / GROUP BY 优化</strong></p>
+<ul>
+<li>尽量使用索引覆盖</li>
+<li>对大数据量排序 → 建立复合索引或用分页</li>
+</ul>
+</li>
+</ol>
+<h1 id="-三索引优化">
+<a class="header-anchor" href="#-%e4%b8%89%e7%b4%a2%e5%bc%95%e4%bc%98%e5%8c%96"></a>
+🗂️ 三、索引优化
+</h1><h2 id="31-索引优化的原理">
+<a class="header-anchor" href="#31-%e7%b4%a2%e5%bc%95%e4%bc%98%e5%8c%96%e7%9a%84%e5%8e%9f%e7%90%86"></a>
+3.1 索引优化的原理
+</h2><p><strong>核心目的</strong>：加快数据访问，减少全表扫描</p>
+<p><strong>原理</strong>：</p>
+<ul>
+<li>索引在数据库里本质上是 <strong>数据结构</strong>（常见 B+ 树、哈希、位图、全文索引等）</li>
+<li>查询时，通过索引快速定位数据行 → 减少 IO</li>
+<li><strong>覆盖索引</strong>：查询字段都在索引中，避免回表</li>
+<li><strong>联合索引最左前缀</strong>：MySQL 的 B+ 树索引只能从左往右匹配列</li>
+</ul>
+<p><strong>索引代价</strong>：</p>
+<ul>
+<li>占用额外空间</li>
+<li>插入/更新/删除需要维护索引 → 写性能下降</li>
+</ul>
+<h3 id="311-索引创建过程">
+<a class="header-anchor" href="#311-%e7%b4%a2%e5%bc%95%e5%88%9b%e5%bb%ba%e8%bf%87%e7%a8%8b"></a>
+3.1.1 索引创建过程
+</h3><p>以 <strong>B+ 树索引</strong> 为例（MySQL InnoDB 默认索引类型）：</p>
+<ol>
+<li><strong>定义索引</strong></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-SQL" data-lang="SQL"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">INDEX</span> idx_user_name <span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">user</span>(name);
+</span></span></code></pre></div><ul>
+<li>MySQL 会在数据表中创建一个 <strong>B+ 树结构</strong>，节点存储键值和对应的主键或行指针。</li>
+</ul>
+<ol start="2">
+<li><strong>构建 B+ 树</strong></li>
+</ol>
+<ul>
+<li><strong>叶子节点</strong>：存储索引列 + 指向表行的指针（主键索引是聚簇索引，叶子节点存储完整行）</li>
+<li><strong>非叶子节点</strong>：存储键值范围，用于快速查找</li>
+<li><strong>排序插入</strong>：索引按键值大小排序，保证查找是 O(logN)</li>
+</ul>
+<ol start="3">
+<li><strong>维护索引</strong></li>
+</ol>
+<ul>
+<li><strong>插入数据</strong> → B+ 树自动平衡，分裂节点</li>
+<li><strong>删除数据</strong> → 合并节点，保持树平衡</li>
+<li><strong>更新索引列</strong> → 相当于删除 + 插入</li>
+</ul>
+<blockquote>
+<p>🔑 特点：</p>
+<ul>
+<li>聚簇索引（主键）叶子节点存整行</li>
+<li>辅助索引（非主键）叶子节点存索引列 + 主键，用于回表</li>
+</ul></blockquote>
+<h3 id="312-索引查询过程">
+<a class="header-anchor" href="#312-%e7%b4%a2%e5%bc%95%e6%9f%a5%e8%af%a2%e8%bf%87%e7%a8%8b"></a>
+3.1.2 索引查询过程
+</h3><h4 id="1-查询带索引的-sql">
+<a class="header-anchor" href="#1-%e6%9f%a5%e8%af%a2%e5%b8%a6%e7%b4%a2%e5%bc%95%e7%9a%84-sql"></a>
+1️⃣ 查询带索引的 SQL
+</h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-SQL" data-lang="SQL"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">user</span> <span style="color:#66d9ef">WHERE</span> name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Alice&#39;</span>;
+</span></span></code></pre></div><h4 id="2-执行流程">
+<a class="header-anchor" href="#2-%e6%89%a7%e8%a1%8c%e6%b5%81%e7%a8%8b"></a>
+2️⃣ 执行流程
+</h4><ol>
+<li><strong>MySQL 查询优化器</strong>
+<ul>
+<li>判断是否存在可用索引</li>
+<li>生成执行计划（选择索引、扫描方式）</li>
+</ul>
+</li>
+<li><strong>B+ 树索引查找</strong>
+<ul>
+<li>从根节点开始，比较键值</li>
+<li>按范围选择子节点 → 下一个节点</li>
+<li>到达叶子节点 → 找到索引值对应的行指针或主键</li>
+</ul>
+</li>
+<li><strong>回表（若非聚簇索引）</strong>
+<ul>
+<li>如果是非主键索引（辅助索引），通过叶子节点的主键找到完整行数据</li>
+</ul>
+</li>
+<li><strong>返回结果</strong></li>
+</ol>
+<h3 id="313-查询原理示意b-树">
+<a class="header-anchor" href="#313-%e6%9f%a5%e8%af%a2%e5%8e%9f%e7%90%86%e7%a4%ba%e6%84%8fb-%e6%a0%91"></a>
+3.1.3 查询原理示意（B+ 树）
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">根节点</span>
+</span></span><span style="display:flex;"><span> <span style="color:#960050;background-color:#1e0010">├─</span> key1 -&gt; <span style="color:#960050;background-color:#1e0010">子节点</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span> <span style="color:#960050;background-color:#1e0010">├─</span> key2 -&gt; <span style="color:#960050;background-color:#1e0010">子节点</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span> <span style="color:#960050;background-color:#1e0010">└─</span> key3 -&gt; <span style="color:#960050;background-color:#1e0010">子节点</span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">..</span>.
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">叶子节点</span>
+</span></span><span style="display:flex;"><span> <span style="color:#960050;background-color:#1e0010">├─</span> Alice -&gt; <span style="color:#a6e22e">row_id</span><span style="color:#f92672">=</span><span style="color:#ae81ff">101</span>
+</span></span><span style="display:flex;"><span> <span style="color:#960050;background-color:#1e0010">├─</span> Bob   -&gt; <span style="color:#a6e22e">row_id</span><span style="color:#f92672">=</span><span style="color:#ae81ff">102</span>
+</span></span><span style="display:flex;"><span> <span style="color:#960050;background-color:#1e0010">└─</span> Carol -&gt; <span style="color:#a6e22e">row_id</span><span style="color:#f92672">=</span><span style="color:#ae81ff">103</span>
+</span></span></code></pre></div><p>查询 <code>'Alice'</code> → 根节点找 key1/key2/key3 → 走到叶子节点 → 找到行指针</p>
+<p>回表取完整行数据（辅助索引），或直接取叶子节点（聚簇索引）</p>
+<h2 id="32-索引类型与适用场景">
+<a class="header-anchor" href="#32-%e7%b4%a2%e5%bc%95%e7%b1%bb%e5%9e%8b%e4%b8%8e%e9%80%82%e7%94%a8%e5%9c%ba%e6%99%af"></a>
+3.2 索引类型与适用场景
+</h2><table>
+  <thead>
+      <tr>
+          <th>索引类型</th>
+          <th>数据结构</th>
+          <th>优点</th>
+          <th>适用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>B+ 树索引</td>
+          <td>B+ 树</td>
+          <td>范围查询、排序、等值查询</td>
+          <td>主键、联合索引、ORDER BY、GROUP BY</td>
+      </tr>
+      <tr>
+          <td>哈希索引</td>
+          <td>哈希表</td>
+          <td>等值查询非常快</td>
+          <td>缓存型查询（Memcached、InnoDB 辅助索引少用）</td>
+      </tr>
+      <tr>
+          <td>全文索引</td>
+          <td>倒排索引</td>
+          <td>模糊文本搜索</td>
+          <td>搜索文章、商品描述</td>
+      </tr>
+      <tr>
+          <td>位图索引</td>
+          <td>位图</td>
+          <td>高压缩、低基数字段（性别、状态）查询快</td>
+          <td>OLAP 数据仓库场景</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="33-索引优化方案">
+<a class="header-anchor" href="#33-%e7%b4%a2%e5%bc%95%e4%bc%98%e5%8c%96%e6%96%b9%e6%a1%88"></a>
+3.3 索引优化方案
+</h2><h3 id="1-单列索引">
+<a class="header-anchor" href="#1-%e5%8d%95%e5%88%97%e7%b4%a2%e5%bc%95"></a>
+1️⃣ 单列索引
+</h3><ul>
+<li>每个字段建单独索引</li>
+<li>优点：灵活</li>
+<li>缺点：多个条件时可能不走索引组合 → 需要联合索引</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<pre tabindex="0"><code>CREATE INDEX idx_user_name ON user(name);
+</code></pre><hr>
+<h3 id="2-联合索引复合索引">
+<a class="header-anchor" href="#2-%e8%81%94%e5%90%88%e7%b4%a2%e5%bc%95%e5%a4%8d%e5%90%88%e7%b4%a2%e5%bc%95"></a>
+2️⃣ 联合索引（复合索引）
+</h3><ul>
+<li>原理：B+ 树按照列顺序排列</li>
+<li>最左前缀原则：只有查询条件包含最左列才能走索引</li>
+<li>优点：
+<ul>
+<li>支持多条件查询</li>
+<li>可以覆盖部分查询字段，避免回表</li>
+</ul>
+</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<pre tabindex="0"><code>CREATE INDEX idx_user_age_name ON user(age, name);
+-- WHERE age=20 AND name=&#39;Alice&#39; 可以走索引
+-- WHERE name=&#39;Alice&#39; 单独查询不走索引
+</code></pre><hr>
+<h3 id="3-覆盖索引covering-index">
+<a class="header-anchor" href="#3-%e8%a6%86%e7%9b%96%e7%b4%a2%e5%bc%95covering-index"></a>
+3️⃣ 覆盖索引（Covering Index）
+</h3><ul>
+<li>查询字段都包含在索引中 → 查询无需访问表</li>
+<li>优点：减少 IO，提升性能</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<pre tabindex="0"><code>CREATE INDEX idx_user_age_name ON user(age, name);
+SELECT age, name FROM user WHERE age=20; -- 覆盖索引
+</code></pre><hr>
+<h3 id="4-唯一索引">
+<a class="header-anchor" href="#4-%e5%94%af%e4%b8%80%e7%b4%a2%e5%bc%95"></a>
+4️⃣ 唯一索引
+</h3><ul>
+<li>索引同时保证唯一性</li>
+<li>原理：B+ 树叶子节点存储主键或唯一值 → 快速定位</li>
+<li>优点：查询快 + 数据完整性</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<pre tabindex="0"><code>CREATE UNIQUE INDEX idx_user_email ON user(email);
+</code></pre><hr>
+<h3 id="5-前缀索引适用于大文本列">
+<a class="header-anchor" href="#5-%e5%89%8d%e7%bc%80%e7%b4%a2%e5%bc%95%e9%80%82%e7%94%a8%e4%ba%8e%e5%a4%a7%e6%96%87%e6%9c%ac%e5%88%97"></a>
+5️⃣ 前缀索引（适用于大文本列）
+</h3><ul>
+<li>对 varchar/text 的前 N 个字符建索引</li>
+<li>原理：减少索引占用空间</li>
+<li>注意：只能做等值或 LIKE ‘xxx%’ 查询，无法做 LIKE ‘%xxx’</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<pre tabindex="0"><code>CREATE INDEX idx_content_prefix ON article(content(20));
+</code></pre><hr>
+<h3 id="6-覆盖组合技巧">
+<a class="header-anchor" href="#6-%e8%a6%86%e7%9b%96%e7%bb%84%e5%90%88%e6%8a%80%e5%b7%a7"></a>
+6️⃣ 覆盖组合技巧
+</h3><ul>
+<li><strong>联合索引 + 前缀索引 + 覆盖索引</strong> → 平衡 IO、查询效率、空间</li>
+<li><strong>热点字段优先建索引</strong>，低选择性字段慎建</li>
+</ul>
+<h2 id="34-索引优化原理总结">
+<a class="header-anchor" href="#34-%e7%b4%a2%e5%bc%95%e4%bc%98%e5%8c%96%e5%8e%9f%e7%90%86%e6%80%bb%e7%bb%93"></a>
+3.4 索引优化原理总结
+</h2><ol>
+<li>
+<p><strong>减少扫描行数</strong></p>
+<ul>
+<li>B+ 树 → O(logN) 定位数据</li>
+<li>哈希 → O(1) 查找</li>
+</ul>
+</li>
+<li>
+<p><strong>减少回表 IO</strong></p>
+<ul>
+<li>覆盖索引避免访问表数据页</li>
+</ul>
+</li>
+<li>
+<p><strong>提高排序/分组效率</strong></p>
+<ul>
+<li>B+ 树叶子节点顺序存储 → ORDER BY/ GROUP BY 可以直接走索引</li>
+</ul>
+</li>
+<li>
+<p><strong>注意成本</strong></p>
+<ul>
+<li>
+<p>插入/更新会增加索引维护开销</p>
+</li>
+<li>
+<p>索引占空间 → 表空间大，缓存效率下降</p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="-四表结构优化">
+<a class="header-anchor" href="#-%e5%9b%9b%e8%a1%a8%e7%bb%93%e6%9e%84%e4%bc%98%e5%8c%96"></a>
+📐 四、表结构优化
+</h1><p>表结构设计是数据库性能优化的核心环节之一，往往比“事后加索引”更重要。</p>
+<h2 id="41-表结构优化的总体目标">
+<a class="header-anchor" href="#41-%e8%a1%a8%e7%bb%93%e6%9e%84%e4%bc%98%e5%8c%96%e7%9a%84%e6%80%bb%e4%bd%93%e7%9b%ae%e6%a0%87"></a>
+4.1 表结构优化的总体目标
+</h2><ol>
+<li><strong>存储合理</strong>：字段类型与长度合适，避免浪费空间。</li>
+<li><strong>查询高效</strong>：便于索引建立、减少 I/O、降低锁竞争。</li>
+<li><strong>结构清晰</strong>：可维护性强，支持业务扩展。</li>
+<li><strong>避免冗余</strong>：减少数据不一致与更新开销。</li>
+</ol>
+<hr>
+<h2 id="42-常见的优化方案">
+<a class="header-anchor" href="#42-%e5%b8%b8%e8%a7%81%e7%9a%84%e4%bc%98%e5%8c%96%e6%96%b9%e6%a1%88"></a>
+4.2 常见的优化方案
+</h2><h3 id="1-合理的字段设计">
+<a class="header-anchor" href="#1-%e5%90%88%e7%90%86%e7%9a%84%e5%ad%97%e6%ae%b5%e8%ae%be%e8%ae%a1"></a>
+1️⃣ 合理的字段设计
+</h3><ul>
+<li><strong>原则</strong>
+<ul>
+<li>用合适的数据类型（避免过大类型）</li>
+<li>避免 NULL 字段（可能导致存储和索引额外开销）</li>
+<li>字段长度尽量精简</li>
+</ul>
+</li>
+<li><strong>示例</strong>
+<ul>
+<li><code>INT(11)</code> → 实际只占 4 字节，长度无意义，不要误用</li>
+<li><code>CHAR</code> 适合定长字段（如身份证号、MD5），<code>VARCHAR</code> 适合变长字段（昵称、备注）</li>
+<li>金额用 <code>DECIMAL(10,2)</code> 而不是 <code>FLOAT</code>（避免精度丢失）</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>
+电商订单表（金额、数量、状态），字段设计合理可大幅减少存储空间，提高查询速度。</li>
+</ul>
+<hr>
+<h3 id="2-规范化设计normal-form">
+<a class="header-anchor" href="#2-%e8%a7%84%e8%8c%83%e5%8c%96%e8%ae%be%e8%ae%a1normal-form"></a>
+2️⃣ 规范化设计（Normal Form）
+</h3><ul>
+<li><strong>原理</strong>
+通过范式分解，减少数据冗余和异常（更新、插入、删除异常）。</li>
+<li><strong>方案</strong>
+<ul>
+<li>第1范式：字段不可再分</li>
+<li>第2范式：消除部分依赖</li>
+<li>第3范式：消除传递依赖</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>
+银行系统：账户、交易、客户信息必须规范化存储，避免冗余错误。</li>
+</ul>
+<hr>
+<h3 id="3-适度反规范化">
+<a class="header-anchor" href="#3-%e9%80%82%e5%ba%a6%e5%8f%8d%e8%a7%84%e8%8c%83%e5%8c%96"></a>
+3️⃣ 适度反规范化
+</h3><ul>
+<li><strong>原理</strong>
+范式能减少冗余，但多表 JOIN 查询成本高。反规范化通过 <strong>冗余字段</strong>、<strong>汇总表</strong> 来换取查询性能。</li>
+<li><strong>方案</strong>
+<ul>
+<li>冗余存储部分高频字段（如订单表冗余存储用户昵称）</li>
+<li>建立物化视图或中间表，加速统计查询</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>
+报表系统、大数据查询系统 → 反规范化加快统计效率。</li>
+</ul>
+<hr>
+<h3 id="4-主键设计">
+<a class="header-anchor" href="#4-%e4%b8%bb%e9%94%ae%e8%ae%be%e8%ae%a1"></a>
+4️⃣ 主键设计
+</h3><ul>
+<li><strong>原理</strong>
+InnoDB 聚簇索引以主键顺序存储数据，主键设计直接影响性能。</li>
+<li><strong>方案</strong>
+<ul>
+<li>使用自增 ID 或雪花算法 → 保证顺序写入，减少页分裂</li>
+<li>避免 UUID 这种随机主键（会导致页分裂、碎片化）</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>
+高频写入的日志表、交易流水表。</li>
+</ul>
+<hr>
+<h3 id="5-分库分表sharding">
+<a class="header-anchor" href="#5-%e5%88%86%e5%ba%93%e5%88%86%e8%a1%a8sharding"></a>
+5️⃣ 分库分表（Sharding）
+</h3><ul>
+<li><strong>原理</strong>
+单表数据量太大（上亿级），索引深度增加，查询变慢。通过分库分表把数据拆开。</li>
+<li><strong>方案</strong>
+<ul>
+<li><strong>垂直分表</strong>：把大表拆成主表 + 扩展表（解决字段过多的问题）</li>
+<li><strong>水平分表</strong>：按照 ID 范围或哈希拆分（解决数据量过大的问题）</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>
+用户表（1亿用户），订单表（千万级订单），必须分库分表。</li>
+</ul>
+<hr>
+<h3 id="6-分区表">
+<a class="header-anchor" href="#6-%e5%88%86%e5%8c%ba%e8%a1%a8"></a>
+6️⃣ 分区表
+</h3><ul>
+<li><strong>原理</strong>
+MySQL 分区（Partition）在逻辑上是一张表，物理上数据分布在多个分区文件中。</li>
+<li><strong>方案</strong>
+<ul>
+<li>Range 分区（按日期范围）</li>
+<li>Hash 分区（按 ID 哈希值）</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>
+日志表、历史交易表（按月份分区，查询更快）。</li>
+</ul>
+<hr>
+<h3 id="7-索引优化与覆盖索引">
+<a class="header-anchor" href="#7-%e7%b4%a2%e5%bc%95%e4%bc%98%e5%8c%96%e4%b8%8e%e8%a6%86%e7%9b%96%e7%b4%a2%e5%bc%95"></a>
+7️⃣ 索引优化与覆盖索引
+</h3><ul>
+<li><strong>原理</strong>
+表结构优化必须考虑索引结构（B+ 树，覆盖索引避免回表）。</li>
+<li><strong>方案</strong>
+<ul>
+<li>常用查询字段建立联合索引</li>
+<li>覆盖索引（查询字段都在索引里，不需要回表）</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>
+电商订单表，查询 <code>order_id + status</code>，可以建 <code>(order_id, status)</code> 联合索引。</li>
+</ul>
+<hr>
+<h3 id="8-归档与冷热数据分离">
+<a class="header-anchor" href="#8-%e5%bd%92%e6%a1%a3%e4%b8%8e%e5%86%b7%e7%83%ad%e6%95%b0%e6%8d%ae%e5%88%86%e7%a6%bb"></a>
+8️⃣ 归档与冷热数据分离
+</h3><ul>
+<li><strong>原理</strong>
+历史数据不常用，但会拖慢查询。通过冷热分离提高效率。</li>
+<li><strong>方案</strong>
+<ul>
+<li>热数据：当前 1 年内的数据，放在主库</li>
+<li>冷数据：历史数据，归档到历史库 / 分区表</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>
+银行流水，日志系统（最近半年热数据，5年前冷数据）。</li>
+</ul>
+<hr>
+<h3 id="9-避免过度设计">
+<a class="header-anchor" href="#9-%e9%81%bf%e5%85%8d%e8%bf%87%e5%ba%a6%e8%ae%be%e8%ae%a1"></a>
+9️⃣ 避免过度设计
+</h3><ul>
+<li>不要为了未来的“不确定需求”预留过多冗余字段（如 <code>col1, col2, col3</code>）。</li>
+<li>大字段、低频字段单独拆表。</li>
+<li><strong>原理</strong>：保持表结构简洁，减少维护成本。</li>
+</ul>
+<hr>
+<h2 id="43-sql-执行与表结构的关系">
+<a class="header-anchor" href="#43-sql-%e6%89%a7%e8%a1%8c%e4%b8%8e%e8%a1%a8%e7%bb%93%e6%9e%84%e7%9a%84%e5%85%b3%e7%b3%bb"></a>
+4.3 SQL 执行与表结构的关系
+</h2><ol>
+<li><strong>解析 → 优化 → 执行</strong>：SQL 优化器会参考表结构（字段类型、索引、主键）来决定执行计划。</li>
+<li><strong>字段设计影响执行计划</strong>：字段过大、缺乏索引，会导致扫描代价增加。</li>
+<li><strong>表结构与存储引擎协同</strong>：InnoDB 以主键为聚簇索引，字段设计直接影响存储布局与查询效率。</li>
+</ol>
+<hr>
+<h2 id="44-总结">
+<a class="header-anchor" href="#44-%e6%80%bb%e7%bb%93"></a>
+4.4 总结
+</h2><table>
+  <thead>
+      <tr>
+          <th>优化方向</th>
+          <th>方案</th>
+          <th>原理</th>
+          <th>使用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>字段设计</td>
+          <td>精简字段，合理类型</td>
+          <td>节省存储，减少 I/O</td>
+          <td>高并发 OLTP 系统</td>
+      </tr>
+      <tr>
+          <td>主键设计</td>
+          <td>顺序 ID 优于 UUID</td>
+          <td>避免页分裂，提高写入效率</td>
+          <td>高频写入表</td>
+      </tr>
+      <tr>
+          <td>索引设计</td>
+          <td>单列、联合、覆盖索引</td>
+          <td>提高查询效率，减少扫描</td>
+          <td>高频查询场景</td>
+      </tr>
+      <tr>
+          <td>表结构范式</td>
+          <td>规范化 &amp; 反规范化</td>
+          <td>平衡一致性与性能</td>
+          <td>银行、ERP 系统，报表、大数据统计</td>
+      </tr>
+      <tr>
+          <td>分库分表</td>
+          <td>按业务/范围拆分</td>
+          <td>减少单表数据量，分散压力</td>
+          <td>用户、订单、日志表</td>
+      </tr>
+      <tr>
+          <td>读写分离</td>
+          <td>主写从读</td>
+          <td>提升吞吐量</td>
+          <td>电商系统，内容系统（查询量大，更新量小）</td>
+      </tr>
+      <tr>
+          <td>分区表</td>
+          <td>时间/范围分区</td>
+          <td>提高大表查询效率</td>
+          <td>时间序列数据</td>
+      </tr>
+      <tr>
+          <td>冷热分离</td>
+          <td>热数据与归档数据拆分</td>
+          <td>提高热点数据查询性能</td>
+          <td>历史表、日志表</td>
+      </tr>
+  </tbody>
+</table>
+<h1 id="-五系统层面优化">
+<a class="header-anchor" href="#-%e4%ba%94%e7%b3%bb%e7%bb%9f%e5%b1%82%e9%9d%a2%e4%bc%98%e5%8c%96"></a>
+⚙️ 五、系统层面优化
+</h1><p>你问得很好 👍，之前我们讲了 <strong>SQL/表结构层面优化</strong>，这次换个角度：
+我们来看 <strong>系统层面（System Level）数据库优化方案</strong> —— 主要是数据库所依赖的 <strong>操作系统、硬件、网络、存储</strong> 这些底层环境的优化。</p>
+<hr>
+<h2 id="51-系统层面优化的目标">
+<a class="header-anchor" href="#51-%e7%b3%bb%e7%bb%9f%e5%b1%82%e9%9d%a2%e4%bc%98%e5%8c%96%e7%9a%84%e7%9b%ae%e6%a0%87"></a>
+5.1 系统层面优化的目标
+</h2><ol>
+<li><strong>减少 I/O 瓶颈</strong> → 提高磁盘读写效率</li>
+<li><strong>减少上下文切换</strong> → 提高 CPU 利用率</li>
+<li><strong>优化内存管理</strong> → 提高缓存命中率，减少磁盘交互</li>
+<li><strong>减少网络延迟</strong> → 提高客户端到数据库的交互性能</li>
+</ol>
+<hr>
+<h2 id="52-常见系统层面优化方案">
+<a class="header-anchor" href="#52-%e5%b8%b8%e8%a7%81%e7%b3%bb%e7%bb%9f%e5%b1%82%e9%9d%a2%e4%bc%98%e5%8c%96%e6%96%b9%e6%a1%88"></a>
+5.2 常见系统层面优化方案
+</h2><h3 id="1-硬件层面优化">
+<a class="header-anchor" href="#1-%e7%a1%ac%e4%bb%b6%e5%b1%82%e9%9d%a2%e4%bc%98%e5%8c%96"></a>
+1️⃣ 硬件层面优化
+</h3><ul>
+<li><strong>方案</strong>
+<ul>
+<li>使用 <strong>SSD / NVMe</strong> 替代 HDD → 磁盘 IOPS 提升数量级</li>
+<li>增加内存 → 提高缓存池大小（Buffer Pool），更多数据留在内存中</li>
+<li>CPU 多核化 → 提高并发处理能力</li>
+</ul>
+</li>
+<li><strong>原理</strong>
+<ul>
+<li>数据库 80% 瓶颈在磁盘 I/O，SSD 大幅减少随机读写延迟；更多内存可存储更多索引和热数据，避免频繁换页。</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>
+<ul>
+<li>高并发业务（电商、金融），大表随机读写场景（订单、日志）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="2-文件系统与存储优化">
+<a class="header-anchor" href="#2-%e6%96%87%e4%bb%b6%e7%b3%bb%e7%bb%9f%e4%b8%8e%e5%ad%98%e5%82%a8%e4%bc%98%e5%8c%96"></a>
+2️⃣ 文件系统与存储优化
+</h3><ul>
+<li><strong>方案</strong>
+<ul>
+<li>文件系统选择：Linux 下推荐 <code>XFS</code> 或 <code>EXT4</code>，避免 <code>NTFS</code> 等低效系统</li>
+<li>磁盘阵列（RAID）：RAID 10 &gt; RAID 5（读写均衡，适合数据库场景）</li>
+<li>使用直写（O_DIRECT）绕过 OS 缓存，避免双重缓存浪费</li>
+</ul>
+</li>
+<li><strong>原理</strong>
+<ul>
+<li>文件系统不同，I/O 调度机制不同；RAID 通过冗余和并行读写提高可靠性与性能；直写减少内核缓存与数据库缓存的冲突。</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>
+<ul>
+<li>大型数据库（OLTP），高写入压力场景。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="3-内核参数优化linux">
+<a class="header-anchor" href="#3-%e5%86%85%e6%a0%b8%e5%8f%82%e6%95%b0%e4%bc%98%e5%8c%96linux"></a>
+3️⃣ 内核参数优化（Linux）
+</h3><ul>
+<li><strong>方案</strong>
+<ul>
+<li>调整 <code>vm.swappiness=1</code> → 减少 swap 使用</li>
+<li>调整 <code>vm.dirty_ratio</code> / <code>vm.dirty_background_ratio</code> → 控制脏页刷盘策略</li>
+<li>提高文件句柄数 <code>ulimit -n</code></li>
+<li>网络参数优化：
+<ul>
+<li><code>net.core.somaxconn</code> 提升 TCP 连接队列</li>
+<li><code>net.ipv4.tcp_tw_reuse=1</code> 复用 TIME_WAIT 状态连接</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>原理</strong>
+<ul>
+<li>数据库极度依赖内存缓存，swap 会导致严重性能下降；合理的脏页策略避免大规模阻塞；网络参数优化减少连接延迟。</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>
+<ul>
+<li>高并发连接场景（API 服务、大型电商网站）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="4-数据库-buffer-pool-与操作系统缓存协同">
+<a class="header-anchor" href="#4-%e6%95%b0%e6%8d%ae%e5%ba%93-buffer-pool-%e4%b8%8e%e6%93%8d%e4%bd%9c%e7%b3%bb%e7%bb%9f%e7%bc%93%e5%ad%98%e5%8d%8f%e5%90%8c"></a>
+4️⃣ 数据库 Buffer Pool 与操作系统缓存协同
+</h3><ul>
+<li><strong>方案</strong>
+<ul>
+<li>InnoDB <code>innodb_buffer_pool_size</code> 设置为物理内存 60~70%</li>
+<li>关闭 OS 的 page cache（配合 <code>O_DIRECT</code>）</li>
+</ul>
+</li>
+<li><strong>原理</strong>
+<ul>
+<li>避免数据库与操作系统重复缓存，节省内存，提高缓存命中率。</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>
+<ul>
+<li>单机 MySQL / PostgreSQL 服务器。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="5-并发与线程调度优化">
+<a class="header-anchor" href="#5-%e5%b9%b6%e5%8f%91%e4%b8%8e%e7%ba%bf%e7%a8%8b%e8%b0%83%e5%ba%a6%e4%bc%98%e5%8c%96"></a>
+5️⃣ 并发与线程调度优化
+</h3><ul>
+<li><strong>方案</strong>
+<ul>
+<li>使用 <strong>连接池</strong>（如 HikariCP、Druid）而不是频繁创建/销毁连接</li>
+<li>数据库层面启用 <strong>线程池</strong>（MySQL 8.0/Percona 支持）</li>
+</ul>
+</li>
+<li><strong>原理</strong>
+<ul>
+<li>线程创建/销毁开销大，池化技术减少上下文切换，提高 CPU 有效利用率。</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>
+<ul>
+<li>高频短事务的业务，例如 Web 服务、订单系统。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="6-网络优化">
+<a class="header-anchor" href="#6-%e7%bd%91%e7%bb%9c%e4%bc%98%e5%8c%96"></a>
+6️⃣ 网络优化
+</h3><ul>
+<li><strong>方案</strong>
+<ul>
+<li>数据库与应用部署在同一局域网，减少跨 IDC 网络延迟</li>
+<li>使用 <strong>连接池 + 长连接</strong>，减少 TCP 三次握手开销</li>
+<li>启用压缩（如 MySQL <code>--compress</code>）减少网络传输量</li>
+</ul>
+</li>
+<li><strong>原理</strong>
+<ul>
+<li>网络延迟和带宽直接影响查询响应速度，尤其是大数据量传输。</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>
+<ul>
+<li>分布式系统、读写分离架构。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="7-操作系统调度与-numa-优化">
+<a class="header-anchor" href="#7-%e6%93%8d%e4%bd%9c%e7%b3%bb%e7%bb%9f%e8%b0%83%e5%ba%a6%e4%b8%8e-numa-%e4%bc%98%e5%8c%96"></a>
+7️⃣ 操作系统调度与 NUMA 优化
+</h3><ul>
+<li><strong>方案</strong>
+<ul>
+<li>关闭 NUMA（<code>numactl --interleave=all</code>）或为数据库进程绑定 CPU 节点</li>
+</ul>
+</li>
+<li><strong>原理</strong>
+<ul>
+<li>NUMA 架构下，内存访问速度取决于分配在哪个 CPU 节点；数据库需要均衡内存访问。</li>
+</ul>
+</li>
+<li><strong>使用场景</strong>
+<ul>
+<li>大内存服务器（128GB+），多核 CPU 场景。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="53-总结表格">
+<a class="header-anchor" href="#53-%e6%80%bb%e7%bb%93%e8%a1%a8%e6%a0%bc"></a>
+5.3 总结表格
+</h2><table>
+  <thead>
+      <tr>
+          <th>优化方向</th>
+          <th>方案</th>
+          <th>原理</th>
+          <th>使用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>硬件</td>
+          <td>SSD / 更多内存 / 多核CPU</td>
+          <td>降低 I/O 延迟，缓存更多数据</td>
+          <td>高并发、大表查询</td>
+      </tr>
+      <tr>
+          <td>存储</td>
+          <td>XFS/EXT4，RAID10，O_DIRECT</td>
+          <td>提高并行读写性能，减少缓存冲突</td>
+          <td>OLTP 大量写入</td>
+      </tr>
+      <tr>
+          <td>内核参数</td>
+          <td>swap 限制、脏页调度、文件句柄、TCP 优化</td>
+          <td>减少内存抖动，降低网络延迟</td>
+          <td>高并发连接场景</td>
+      </tr>
+      <tr>
+          <td>缓存</td>
+          <td>调整 buffer pool，禁用双缓存</td>
+          <td>避免重复缓存，提升命中率</td>
+          <td>单机数据库</td>
+      </tr>
+      <tr>
+          <td>线程</td>
+          <td>连接池、线程池</td>
+          <td>减少上下文切换，提高 CPU 利用率</td>
+          <td>高频事务业务</td>
+      </tr>
+      <tr>
+          <td>网络</td>
+          <td>局域网部署、长连接、压缩传输</td>
+          <td>降低延迟，减少带宽占用</td>
+          <td>分布式架构</td>
+      </tr>
+      <tr>
+          <td>NUMA</td>
+          <td>关闭 NUMA 或绑定节点</td>
+          <td>避免内存访问不均衡</td>
+          <td>大内存多核服务器</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<p>👉 这样你就可以看到：<strong>SQL 优化解决的是逻辑层面问题，而系统优化是从资源利用率和硬件/内核层面解决性能瓶颈</strong>。</p>
+</div>
+    <footer class="article-footer"><blockquote class="article-copyright"><p><strong><span class="icon-user icon"></span>本文作者：</strong>5say @ 5say</p><p>
+      <strong><span class="icon-link icon"></span>本文链接：</strong><a href="http://localhost:1313/post/20250824001-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E7%9A%84%E6%80%9D%E8%B7%AF/">http://localhost:1313/post/20250824001-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E7%9A%84%E6%80%9D%E8%B7%AF/</a>
+    </p><p>
+      
+      <strong><span class="icon-copyright icon"></span>本文版权：</strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener external nofollow noreferrer" target="_blank"><span class="icon-creative-commons"></span>BY-NC-SA</a> 许可协议。转载请注明出处！
+    </p>
+    <span class="icon-creative-commons article-copyright-bg"></span></blockquote>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e6%95%b0%e6%8d%ae%e5%ba%93"
+        rel="tag"
+        >数据库</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e7%b3%bb%e7%bb%9f%e4%bc%98%e5%8c%96"
+        rel="tag"
+        >系统优化</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e9%9d%a2%e8%af%95"
+        rel="tag"
+        >面试</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap article-nav-link-left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="数据库中索引的创建和查询过程"
+              class="lazyload"
+            /><a href="/post/20250824003-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">数据库中索引的创建和查询过程</h3>
+      </div><div class="article-nav-link-wrap article-nav-link-right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="数据库索引失效的几种情况"
+              class="lazyload"
+            /><a href="/post/20250824002-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">数据库索引失效的几种情况</h3>
+      </div></nav></article><section id="comments" data-aos="fade-up">
+<div class="comment-header"><h2 class="comment-title">说些什么吧！</h2>
+  <div class="comment-selector">
+    <div class="comment-selector-wrap"><div class="selector-item" data-selector="giscus">
+          <span>giscus</span>
+        </div></div>
+  </div>
+</div>
+
+<div class="comment-content"><div class="comment giscus-comment" data-aos="fade-up"
+     >
+    </div></div>
+</section></section>
+        </div><footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2020-2025<span class="footer-info-sep rotate"></span>
+      5say
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;35.8k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;01:23</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#21-sql-执行过程">2.1 SQL 执行过程</a></li>
+    <li><a href="#22-sql-优化建议">2.2 SQL 优化建议</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#31-索引优化的原理">3.1 索引优化的原理</a>
+      <ul>
+        <li><a href="#311-索引创建过程">3.1.1 索引创建过程</a></li>
+        <li><a href="#312-索引查询过程">3.1.2 索引查询过程</a></li>
+        <li><a href="#313-查询原理示意b-树">3.1.3 查询原理示意（B+ 树）</a></li>
+      </ul>
+    </li>
+    <li><a href="#32-索引类型与适用场景">3.2 索引类型与适用场景</a></li>
+    <li><a href="#33-索引优化方案">3.3 索引优化方案</a>
+      <ul>
+        <li><a href="#1-单列索引">1️⃣ 单列索引</a></li>
+        <li><a href="#2-联合索引复合索引">2️⃣ 联合索引（复合索引）</a></li>
+        <li><a href="#3-覆盖索引covering-index">3️⃣ 覆盖索引（Covering Index）</a></li>
+        <li><a href="#4-唯一索引">4️⃣ 唯一索引</a></li>
+        <li><a href="#5-前缀索引适用于大文本列">5️⃣ 前缀索引（适用于大文本列）</a></li>
+        <li><a href="#6-覆盖组合技巧">6️⃣ 覆盖组合技巧</a></li>
+      </ul>
+    </li>
+    <li><a href="#34-索引优化原理总结">3.4 索引优化原理总结</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#41-表结构优化的总体目标">4.1 表结构优化的总体目标</a></li>
+    <li><a href="#42-常见的优化方案">4.2 常见的优化方案</a>
+      <ul>
+        <li><a href="#1-合理的字段设计">1️⃣ 合理的字段设计</a></li>
+        <li><a href="#2-规范化设计normal-form">2️⃣ 规范化设计（Normal Form）</a></li>
+        <li><a href="#3-适度反规范化">3️⃣ 适度反规范化</a></li>
+        <li><a href="#4-主键设计">4️⃣ 主键设计</a></li>
+        <li><a href="#5-分库分表sharding">5️⃣ 分库分表（Sharding）</a></li>
+        <li><a href="#6-分区表">6️⃣ 分区表</a></li>
+        <li><a href="#7-索引优化与覆盖索引">7️⃣ 索引优化与覆盖索引</a></li>
+        <li><a href="#8-归档与冷热数据分离">8️⃣ 归档与冷热数据分离</a></li>
+        <li><a href="#9-避免过度设计">9️⃣ 避免过度设计</a></li>
+      </ul>
+    </li>
+    <li><a href="#43-sql-执行与表结构的关系">4.3 SQL 执行与表结构的关系</a></li>
+    <li><a href="#44-总结">4.4 总结</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#51-系统层面优化的目标">5.1 系统层面优化的目标</a></li>
+    <li><a href="#52-常见系统层面优化方案">5.2 常见系统层面优化方案</a>
+      <ul>
+        <li><a href="#1-硬件层面优化">1️⃣ 硬件层面优化</a></li>
+        <li><a href="#2-文件系统与存储优化">2️⃣ 文件系统与存储优化</a></li>
+        <li><a href="#3-内核参数优化linux">3️⃣ 内核参数优化（Linux）</a></li>
+        <li><a href="#4-数据库-buffer-pool-与操作系统缓存协同">4️⃣ 数据库 Buffer Pool 与操作系统缓存协同</a></li>
+        <li><a href="#5-并发与线程调度优化">5️⃣ 并发与线程调度优化</a></li>
+        <li><a href="#6-网络优化">6️⃣ 网络优化</a></li>
+        <li><a href="#7-操作系统调度与-numa-优化">7️⃣ 操作系统调度与 NUMA 优化</a></li>
+      </ul>
+    </li>
+    <li><a href="#53-总结表格">5.3 总结表格</a></li>
+  </ul>
+</nav>
+  </div>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.jpg"
+    data-sizes="auto"
+    alt="5say"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">5say</div>
+  <div class="sidebar-description">我的博客</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">20</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">14</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/tags"
+        aria-label="标签"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">标签</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/links"
+        aria-label="传送门"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">传送门</div>
+    </div></div>
+</div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div class="reimu-search-input" id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png" />
+        </div>
+      </div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" ></script><script src="/js/aos.js" ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" data-pjax></script><script>
+    var ALGOLIA_CONFIG = {
+      logo: '\/images\/algolia_logo.svg',
+      algolia: {
+        applicationID: "8HX06YAPFB",
+        apiKey: "f021335f33afc81efe70ac9a4e292f8b",
+        indexName: "blog",
+        hits: {
+          "per_page": parseInt("10")
+        },
+        labels: {
+          "input_placeholder": '搜索.....',
+          "hits_empty": '未发现与 「${query}」相关内容',
+          "hits_stats": '找到${hits}条结果（用时 ${time} ms）'
+        }
+      }
+    };
+  </script><script
+    src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js"
+    deferintegrity="sha384-xvLS0jfKuoREs7pqkRI/OI8GcqohO5S&#43;jQz7ZBtQXnsXmD&#43;9jDOOY4cL6dCPzlrk" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/@reimujs/instantsearch.js@4.57.0-beta.1/dist/instantsearch.production.min.js"
+    deferintegrity="sha384-aagKMe8nkqaP2DYQc8kkYOL5l&#43;M5Q2WH/Uhr4teOh0Ybp0RZj0kUSDm45qPikMjK" crossorigin="anonymous"></script><script src="/js/algolia_search.js" ></script><script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "5say",
+          title: "数据库优化的思路",
+          url: "http:\/\/localhost:1313\/post\/20250824001-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E7%9A%84%E6%80%9D%E8%B7%AF\/",
+          description: " 🗄️ 一、数据库优化的整体思路 数据库优化的目标是：\n更快 —— 减少查询时间 更稳 —— 避免锁等待、死锁、资源耗尽 更省 —— 节省磁盘、内存、CPU 优化通常分 4 个层次：\n",
+          cover: "http:\/\/localhost:1313\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script><script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+  var commentConfigKeys = ['valine', 'waline', 'twikoo', 'gitalk', 'giscus'];
+  var commentConfig = {
+    valine: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.valine-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/valine@1.5.1\/dist\/Valine.min.js',
+          !'webcache|valine@1.5.1\/dist\/Valine.min.js'.startsWith('local') ? 'sha384-3ma91AExDeMAZ1rjTjaP8V2A2obQE\u002bs5ltKRwYlwdpArz9xVbp0tF3b0VV2ACNPn' : undefined
+        );
+        script.onload = () => {
+          const GUEST_INFO = ['nick', 'mail', 'link'];
+          const guest_info = 'nick,mail,link'.split(',').filter((item) => {
+            return GUEST_INFO.indexOf(item) > -1
+          });
+          const recordIP = JSON.parse('true');
+          const highlight = JSON.parse('true');
+          const visitor = JSON.parse('false');
+          const serverURLs = undefined;
+
+          new Valine({
+            el: '.valine-comment',
+            appId: "",
+            appKey: "",
+            placeholder: "Just go go",
+            pageSize: '10',
+            avatar: 'mp',
+            lang: document.documentElement.lang || 'en',
+            recordIP: recordIP,
+            highlight: highlight,
+            visitor: visitor,
+            requiredFields: guest_info,
+            path: window.location.pathname,
+            serverURLs,
+          });
+        };
+        document.head.appendChild(script);
+      }
+    },
+    waline: {
+      enable: false,
+      load: async () => {
+        const container = document.querySelector('.waline-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        let walineInit;
+        const walineCdn = 'https:\/\/npm.webcache.cn\/@waline\/client@2.15.8\/dist\/waline.mjs';
+        
+        if ('webcache|@waline\/client@2.15.8\/dist\/waline.mjs'.startsWith('local')) {
+          
+          const module = await safeImport(walineCdn);
+          walineInit = module.init;
+        } else {
+          
+          const module = await safeImport(
+            walineCdn, 
+            'sha384-9sbqJjrfGjbkI6\/PI4nU\/MvBfEmkkPC4YK9I4zBeMIf1CVCZdCMH\/KinBEAZII\/5'
+          );
+          walineInit = module.init;
+        }
+        
+        window.walineInstance = walineInit({
+          el: '.waline-comment',
+          serverURL: '',
+          lang: document.documentElement.lang || 'en',
+          locale: JSON.parse("{}"),
+          emoji: JSON.parse("[\"https://unpkg.com/@waline/emojis@1.2.0/weibo\",\"https://unpkg.com/@waline/emojis@1.2.0/alus\",\"https://unpkg.com/@waline/emojis@1.2.0/bilibili\",\"https://unpkg.com/@waline/emojis@1.2.0/qq\",\"https://unpkg.com/@waline/emojis@1.2.0/tieba\",\"https://unpkg.com/@waline/emojis@1.2.0/tw-emoji\"]"),
+          meta: JSON.parse("[\"nick\",\"mail\",\"link\"]"),
+          requiredMeta: JSON.parse("[\"nick\",\"mail\"]"),
+          wordLimit:  0 ,
+          comment: true,
+          pageSize:  10 ,
+          dark: 'html[data-theme="dark"]',
+          pageview:  true ,
+        });
+      }
+    },
+    twikoo: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.twikoo-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/twikoo@1.6.44\/dist\/twikoo.all.min.js',
+          !'webcache|twikoo@1.6.44\/dist\/twikoo.all.min.js'.startsWith('local') ? 'sha384-kwWLC0HjeZZnVPqCJ1AncI8tsk\u002bkQqF9TbAmCclcc9Z0hGkfgHRzeQZxmdmZhE0K' : undefined
+        );
+        script.onload = () => {
+          twikoo.init({
+            envId: '',
+            el: '.twikoo-comment',
+            region: '',
+            lang: document.documentElement.lang || 'en',
+          });
+          twikoo.getCommentsCount({
+            envId: '',
+            region: '',
+            urls: [
+              'http\/\/localhost1313\/post\/20250824001-%e6%95%b0%e6%8d%ae%e5%ba%93%e4%bc%98%e5%8c%96%e7%9a%84%e6%80%9d%e8%b7%af\/'
+            ],
+            includeReply: false
+          }).then((res) => {
+            document.querySelector('.twikoo-comment-count').innerText = res[0].count;
+          }).catch((err) => {
+            console.error(err);
+          });
+        };
+        document.head.appendChild(script);
+      }
+    },
+    gitalk: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.gitalk-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/gitalk@1.8.0\/dist\/gitalk.min.js',
+          !'webcache|gitalk@1.8.0\/dist\/gitalk.min.js'.startsWith('local') ? 'sha384-kspnZUWBoSWwoJHa0hBCXYbHGbhvU\/lcEH5O8eVbSDhbPwsiVUTp\/aGX\/z\/5EuMA' : undefined
+        );
+        script.onload = () => {
+          if ( false ) {
+            
+            const md5Script = loadScript(
+              'https:\/\/npm.webcache.cn\/blueimp-md5@2.19.0\/js\/md5.min.js',
+              !'webcache|blueimp-md5@2.19.0\/js\/md5.min.js'.startsWith('local') ? 'sha384-JmVtRz6RWiXnA14QbIOJzPuU3MidULOpBP66deeLLyyoF4Tr\/gZlbkHkL6vTthxH' : undefined
+            );
+            md5Script.onload = initGitalk;
+            document.head.appendChild(md5Script);
+          } else {
+            
+            initGitalk();
+          }
+        };
+        document.head.appendChild(script);
+
+        function initGitalk() {
+          let gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: '',
+            owner: '',
+            admin: JSON.parse("null"),
+            id: location.pathname,
+            distractionFreeMode: false,
+            language: document.documentElement.lang || 'en',
+          });
+          gitalk.render('gitalk-comment');
+        }
+      }
+    },
+    giscus: {
+      enable: true,
+      load: () => {
+        const container = document.querySelector('.giscus-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        
+        const existingScript = container.querySelector('script[src*="giscus.app/client.js"]');
+        if (existingScript) existingScript.remove();
+        const existingFrame = document.querySelector('iframe.giscus-frame');
+        if (existingFrame) existingFrame.remove();
+
+        
+        const giscusScript = document.createElement('script');
+        const domMode = document.documentElement.getAttribute("data-theme");
+
+        const docLang = document.documentElement.lang || 'en';
+        const langBase = docLang.split('-')[0];
+        const supportedLangs = ['ar', 'be', 'bg', 'ca', 'cs', 'da', 'de', 'en', 
+        'eo', 'es', 'eu', 'fa', 'fr', 'gr', 'hbs', 'he', 'hu', 'id', 'it', 'ja', 
+        'kh', 'ko', 'nl', 'pl', 'pt', 'ro', 'ru', 'th', 'tr', 'uk', 'uz', 'vi', 'zh-CN', 'zh-HK', 'zh-TW'];
+        const giscusLang = supportedLangs.includes(docLang) ? docLang : supportedLangs.includes(langBase) ? langBase : 'en';
+
+        giscusScript.src = 'https://giscus.app/client.js';
+        giscusScript.setAttribute('data-repo', '5say\/5say');
+        giscusScript.setAttribute('data-repo-id', 'R_kgDOPUICig');
+        giscusScript.setAttribute('data-category', 'Announcements');
+        giscusScript.setAttribute('data-category-id', 'DIC_kwDOPUICis4CtgLS');
+        giscusScript.setAttribute('data-mapping', '0');
+        giscusScript.setAttribute('data-strict', '0');
+        giscusScript.setAttribute('data-reactions-enabled', '1');
+        giscusScript.setAttribute('data-emit-metadata', '0');
+        giscusScript.setAttribute('data-input-position', 'bottom');
+        giscusScript.setAttribute('data-theme', domMode === 'dark' ? 'dark' : 'light');
+        giscusScript.setAttribute('data-lang', giscusLang);
+        giscusScript.setAttribute('crossorigin', 'anonymous');
+        giscusScript.async = true;
+        container.appendChild(giscusScript);
+        document.body.addEventListener('light-theme-set', () => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: 'light' } } }, 'https://giscus.app');
+        });
+        document.body.addEventListener('dark-theme-set', () => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: 'dark' } } }, 'https://giscus.app');
+        });
+      }
+    }
+  };
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig[key].enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    
+    var savedCommentType = localStorage.getItem('commentType');
+    
+    
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+    
+    
+    if (!defaultComment) {
+      var configDefault = 'giscus';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+    
+    
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig[sys].enable) || '';
+    }
+  }
+
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false
+    };
+
+    
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      
+      const commentType = item.getAttribute('data-selector');
+
+      
+      hideAllComments();
+
+      
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          
+          changeActiveCommentItems(item);
+        });
+      }
+
+      
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script></div>
+</div><script data-pjax>
+    var updateTime = _$('#post-update-time')?.innerHTML;
+
+    if (updateTime) {
+      const update = new Date(updateTime);
+      const now = new Date();
+      const diff = now - update;
+      const days = diff / 86400000;
+      const { daysago: daysAgo, message: template } = window.siteConfig.outdate;
+      if (days >= daysAgo) {
+        let message = `This article was last updated on ${updateTime}. Please note that the content may no longer be applicable.`;
+        if (typeof template === 'string') {
+          message = template.replace(/{time}/, updateTime);
+        } else if (typeof template === 'object') {
+          const lang = document.documentElement.lang;
+          const messageKey = Object.keys(template).find(key => key.toLowerCase() === lang.toLowerCase());
+          if (messageKey && template[messageKey]) {
+            message = template[messageKey].replace(/{time}/, updateTime);
+          }
+        }
+        const blockquote = _$('#outdate-blockquote');
+        if (blockquote) {
+          blockquote.querySelector('p').innerText = message;
+          blockquote.style.display = 'block';
+        }
+      }
+    }
+  </script><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    asyncintegrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script><script
+    src="https://npm.webcache.cn/pangu@4.0.7/dist/browser/pangu.min.js"
+    integrity="sha384-HeUHqi0nVsPUm/E0ss7OfnIV/yD96JWB8ehZvUuoVax9DpNHL17jj9pdfXHzqDxm" crossorigin="anonymous"></script><script data-pjax>
+    if (document.readyState === "loading") {
+      document.addEventListener('DOMContentLoaded', () => {
+        pangu?.spacingPage();
+      });
+    } else {
+      pangu?.spacingPage();
+    }
+  </script></body>
+</html>

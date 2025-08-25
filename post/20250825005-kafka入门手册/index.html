@@ -1,0 +1,1406 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  Kafka的入门手册 | 5say
+</title>
+<meta
+  name="description"
+  content="我的博客"
+/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":true,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><link rel="stylesheet" href="/css/loader.css" />
+<meta property="og:type" content="website" />
+  <meta property="og:title" content="Kafka的入门手册 | 5say" />
+  <meta
+    property="og:description"
+    content="我的博客"
+  />
+  <meta property="og:url" content="http://localhost:1313/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/" />
+  <meta
+    property="og:site_name"
+    content="5say"
+  />
+  <meta
+    property="og:image"
+    content="/"
+  />
+  <meta property="article:author" content="5say" />
+  <meta property="article:published_time" content="2025-08-25T13:28:00&#43;08:00" />
+  <meta property="article:modified_time" content="2025-08-25T13:28:00&#43;08:00" /><meta property="article:tag" content="中间件面试" /><meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" />
+<link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.22/dist/katex.min.css"
+    integrity="sha384-5TcZemv2l/9On385z///&#43;d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate"><svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg></div><div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script><div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+<div id="lang-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav"><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/tags">标签</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/links">传送门</a>
+      </span><a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav"><a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a></nav></div>
+<header id="header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="Kafka的入门手册"><div id="header-outer">
+    <div id="header-title"><a href="/" id="logo">
+            <h1 data-aos="slide-up">Kafka的入门手册</h1>
+          </a><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          
+          class="sidebar-right"  ><aside id="sidebar"><div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#31-kafka-消息存储机制">3.1 Kafka 消息存储机制</a></li>
+    <li><a href="#32-消费机制consumer">3.2 消费机制（Consumer）</a>
+      <ul>
+        <li><a href="#321-顺序消费partition-内消息有序">3.2.1 顺序消费（Partition 内消息有序）</a></li>
+        <li><a href="#322-消费者组负载均衡">3.2.2 消费者组（负载均衡）</a></li>
+        <li><a href="#323-offset-管理断点续传">3.2.3 Offset 管理（断点续传）</a></li>
+      </ul>
+    </li>
+    <li><a href="#33-高可用与可靠性">3.3 高可用与可靠性</a>
+      <ul>
+        <li><a href="#331-高可用副本--ack-策略">3.3.1 高可用（副本 + ACK 策略）</a></li>
+        <li><a href="#332-可靠性ack--isr--重试">3.3.2 可靠性（ACK + ISR + 重试）</a></li>
+      </ul>
+    </li>
+    <li><a href="#34-高吞吐和扩展原理">3.4 高吞吐和扩展原理</a></li>
+    <li><a href="#35-kafka-核心设计总结">3.5 Kafka 核心设计总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.jpg"
+    data-sizes="auto"
+    alt="5say"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">5say</div>
+  <div class="sidebar-description">我的博客</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">20</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">14</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/tags"
+        aria-label="标签"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">标签</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/links"
+        aria-label="传送门"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">传送门</div>
+    </div></div>
+</div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div>
+
+  <div class="sidebar-widget"></div></aside>
+<section id="main"><article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2025-08-25 13:28:00 &#43;0800 CST" itemprop="datePublished"
+      >2025-08-25</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2025-08-25</time
+    >
+  </span>
+</div>
+<div class="article-category"><a
+      class="article-category-link"
+      href="/categories/%e7%bc%96%e7%a8%8b"
+      data-aos="zoom-in"
+      >编程</a
+    ><a
+      class="article-category-link"
+      href="/categories/%e4%b8%ad%e9%97%b4%e4%bb%b6"
+      data-aos="zoom-in"
+      >中间件</a
+    ><a
+      class="article-category-link"
+      href="/categories/%e9%9d%a2%e8%af%95"
+      data-aos="zoom-in"
+      >面试</a
+    ></div>
+</div>
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><blockquote id="outdate-blockquote" style="display: none;">
+          <p></p>
+        </blockquote><p><strong>Kafka</strong>是微服务、高并发系统中常用的消息中间件，很多人一开始只知道它“能发消息、能解耦”，但实际上 Kafka 的设计思想、架构原理和使用场景很有深度。</p>
+<hr>
+<h1 id="-一kafka-是什么">
+<a class="header-anchor" href="#-%e4%b8%80kafka-%e6%98%af%e4%bb%80%e4%b9%88"></a>
+📌 一、Kafka 是什么
+</h1><p>Apache Kafka 是一个 <strong>分布式流处理平台</strong>，本质上是一个高吞吐量、低延迟的消息队列系统。
+它可以用来：</p>
+<ol>
+<li><strong>消息队列（MQ）</strong>：服务解耦、削峰填谷。</li>
+<li><strong>日志收集</strong>：统一采集服务日志。</li>
+<li><strong>流式计算</strong>：结合 Kafka Streams 或 Flink，实时处理数据流。</li>
+<li><strong>事件驱动架构</strong>：各微服务通过事件（消息）来协作。</li>
+</ol>
+<p>Kafka 的特点：</p>
+<ul>
+<li>高吞吐（百万级 QPS）</li>
+<li>高可用（分区副本 + ISR 机制）</li>
+<li>可持久化（消息存储在磁盘）</li>
+<li>可扩展（分布式架构，Topic/Partition）</li>
+</ul>
+<hr>
+<h1 id="-二kafka-核心概念">
+<a class="header-anchor" href="#-%e4%ba%8ckafka-%e6%a0%b8%e5%bf%83%e6%a6%82%e5%bf%b5"></a>
+📌 二、Kafka 核心概念
+</h1><ol>
+<li><strong>Producer（生产者）</strong>
+<ul>
+<li>负责发送消息到 Kafka。支持异步发送、批量发送，提高吞吐量。</li>
+<li>可以指定发送到哪个 <strong>Topic</strong>，并且可根据 <strong>key</strong> 决定落到哪个 <strong>Partition</strong>。</li>
+</ul>
+</li>
+<li><strong>Consumer（消费者）</strong>
+<ul>
+<li>从 Kafka 拉取消息。</li>
+<li>消费 Topic 消息，多个消费者组成 <strong>Consumer Group</strong>。</li>
+<li>同一组内每条消息只会被一个消费者消费，实现负载均衡。</li>
+<li>Kafka <strong>offset</strong> 用于记录消费进度，可手动或自动提交。</li>
+</ul>
+</li>
+<li><strong>Broker（代理）</strong>
+<ul>
+<li>Kafka 集群中的节点，每个 Broker 存储部分数据。</li>
+</ul>
+</li>
+<li><strong>Topic（主题）</strong>
+<ul>
+<li>消息按主题分类，比如 <code>order_topic</code>、<code>user_topic</code>。</li>
+<li>一个 Topic 可以划分多个 <strong>Partition</strong>，每个 Partition 是有序的消息队列。</li>
+</ul>
+</li>
+<li><strong>Partition（分区）</strong>
+<ul>
+<li>Kafka 的并行单位，提供高吞吐。</li>
+<li>一个 Topic 下可以有多个 Partition（分区）。</li>
+<li>同一个 Topic 的数据会被分散到不同 Partition，提高并发能力。</li>
+<li><strong>同一分区内消息有序</strong>，但跨分区无序。</li>
+<li>分区可以有多个副本（Replication），Leader 副本负责读写，Follower 做备份。</li>
+</ul>
+</li>
+<li><strong>Offset（偏移量）</strong>
+<ul>
+<li>消费者消费的进度。</li>
+<li>Kafka 会记录 offset，支持“断点续传”。</li>
+</ul>
+</li>
+<li><strong>副本机制（Replication）</strong>
+<ul>
+<li>每个 Partition 有多个副本（leader + follower）。</li>
+<li><strong>Leader</strong> 负责读写，<strong>Follower</strong> 负责备份。</li>
+<li>如果 Leader 挂了，Follower 会选举为新 Leader。</li>
+</ul>
+</li>
+<li><strong>Broker（服务器）</strong>
+<ol>
+<li>Kafka 集群中的节点，每个 Broker 管理一部分 Topic 的 Partition。</li>
+<li>集群中通过 <strong>Leader/Follower 副本机制</strong>保证高可用。</li>
+</ol>
+</li>
+</ol>
+<hr>
+<h1 id="-三kafka-架构">
+<a class="header-anchor" href="#-%e4%b8%89kafka-%e6%9e%b6%e6%9e%84"></a>
+📌 三、Kafka 架构
+</h1><p>👉 <strong>生产者 → Broker（存储到分区日志） → 消费者</strong></p>
+<p>简单流程：</p>
+<ol>
+<li>Producer 将消息发送到某个 Topic 的 Partition。</li>
+<li>Broker 接收消息，顺序写入日志文件（磁盘 + PageCache）。</li>
+<li>Consumer Group 中的消费者读取消息，并提交 Offset。</li>
+<li>Kafka 通过 Zookeeper（早期）或 KRaft（新版本自带）管理集群、选举 leader。</li>
+</ol>
+<h2 id="31-kafka-消息存储机制">
+<a class="header-anchor" href="#31-kafka-%e6%b6%88%e6%81%af%e5%ad%98%e5%82%a8%e6%9c%ba%e5%88%b6"></a>
+3.1 Kafka 消息存储机制
+</h2><p>Kafka 的高性能关键在于 <strong>顺序写 + 零拷贝 + 索引 + 分段日志</strong>。</p>
+<ol>
+<li><strong>顺序写</strong>
+<ul>
+<li>Kafka 将消息追加写入 Partition 对应的 <strong>日志文件</strong>（commit log）。</li>
+<li>顺序写比随机写快很多，利用操作系统 PageCache。</li>
+</ul>
+</li>
+<li><strong>分段日志（Segment）</strong>
+<ul>
+<li>Partition 的日志分成多个 <strong>segment 文件</strong>。</li>
+<li>旧日志可删除或归档（通过 retention 配置控制）。</li>
+</ul>
+</li>
+<li><strong>索引（Offset Index）</strong>
+<ul>
+<li>Kafka 用索引文件快速定位消息偏移量。</li>
+<li>消费者通过 offset 拉取消息，不需要遍历整个日志。</li>
+</ul>
+</li>
+<li><strong>零拷贝机制</strong>
+<ul>
+<li>消息直接从 PageCache 传给网络 Socket，减少内存复制，提高吞吐。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="32-消费机制consumer">
+<a class="header-anchor" href="#32-%e6%b6%88%e8%b4%b9%e6%9c%ba%e5%88%b6consumer"></a>
+3.2 消费机制（Consumer）
+</h2><ol>
+<li><strong>Pull 模型</strong>
+<ul>
+<li>消费者主动拉取消息，而不是 Broker 推送。</li>
+<li>可以控制拉取速率，削峰填谷。</li>
+</ul>
+</li>
+<li><strong>Consumer Group</strong>
+<ul>
+<li>同一组内每条消息只被消费一次。</li>
+<li>如果组内有多个消费者，Partition 会自动均衡分配。</li>
+</ul>
+</li>
+<li><strong>Offset 管理</strong>
+<ul>
+<li>每条消息在 Partition 中有唯一 offset。</li>
+<li>消费者可以：
+<ul>
+<li>自动提交 offset</li>
+<li>手动提交 offset</li>
+<li>从特定 offset 开始消费（断点续传）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="321-顺序消费partition-内消息有序">
+<a class="header-anchor" href="#321-%e9%a1%ba%e5%ba%8f%e6%b6%88%e8%b4%b9partition-%e5%86%85%e6%b6%88%e6%81%af%e6%9c%89%e5%ba%8f"></a>
+3.2.1 顺序消费（Partition 内消息有序）
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@KafkaListener</span>(topics <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;user_click_topic&#34;</span>, groupId <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;click_group&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">listenUserClicks</span>(String message, <span style="color:#a6e22e">@Header</span>(KafkaHeaders.<span style="color:#a6e22e">RECEIVED_PARTITION_ID</span>) <span style="color:#66d9ef">int</span> partition) {
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Partition &#34;</span> <span style="color:#f92672">+</span> partition <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; 消费消息：&#34;</span> <span style="color:#f92672">+</span> message);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>特点：</p>
+<ul>
+<li>Kafka 同一分区内消息顺序消费。</li>
+<li>可以通过 key 分区保证同一用户事件在同一 Partition。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>kafkaTemplate.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;user_click_topic&#34;</span>, userId, message); <span style="color:#75715e">// key=userId</span>
+</span></span></code></pre></div><h3 id="322-消费者组负载均衡">
+<a class="header-anchor" href="#322-%e6%b6%88%e8%b4%b9%e8%80%85%e7%bb%84%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1"></a>
+3.2.2 消费者组（负载均衡）
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@KafkaListener</span>(topics <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;order_topic&#34;</span>, groupId <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;inventory_group&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">listenOrders</span>(String orderMessage) {
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;消费者处理订单：&#34;</span> <span style="color:#f92672">+</span> orderMessage);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>特点：</p>
+<ul>
+<li>多个实例同属一个组，消息均匀分配。</li>
+<li>保证每条消息只被组内一个消费者消费。</li>
+</ul>
+<h3 id="323-offset-管理断点续传">
+<a class="header-anchor" href="#323-offset-%e7%ae%a1%e7%90%86%e6%96%ad%e7%82%b9%e7%bb%ad%e4%bc%a0"></a>
+3.2.3 Offset 管理（断点续传）
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@KafkaListener</span>(topics <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;task_topic&#34;</span>, groupId <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;task_group&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">listenTask</span>(ConsumerRecord<span style="color:#f92672">&lt;</span>String, String<span style="color:#f92672">&gt;</span> record, Acknowledgment ack) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;处理任务：&#34;</span> <span style="color:#f92672">+</span> record.<span style="color:#a6e22e">value</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 手动提交 offset</span>
+</span></span><span style="display:flex;"><span>        ack.<span style="color:#a6e22e">acknowledge</span>();
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">catch</span> (Exception e) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 消费失败，可重试或跳过</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h2 id="33-高可用与可靠性">
+<a class="header-anchor" href="#33-%e9%ab%98%e5%8f%af%e7%94%a8%e4%b8%8e%e5%8f%af%e9%9d%a0%e6%80%a7"></a>
+3.3 高可用与可靠性
+</h2><ol>
+<li><strong>副本机制（Replication）</strong>
+<ul>
+<li>Partition 有多个副本（默认 1 个 Leader + N 个 Follower）。</li>
+<li>Leader 负责读写，Follower 异步复制。</li>
+</ul>
+</li>
+<li><strong>ISR（In-Sync Replicas）</strong>
+<ul>
+<li>同步副本集合，保证消息写入至少同步到 ISR 才算成功。</li>
+<li>Leader 挂掉时，从 ISR 中选出新的 Leader。</li>
+</ul>
+</li>
+<li><strong>ACK 策略</strong>
+<ul>
+<li><code>acks=0</code>：生产者不等待，最快，但可能丢消息</li>
+<li><code>acks=1</code>：Leader 写入成功即返回</li>
+<li><code>acks=all</code>：所有 ISR 写入成功才返回，保证强一致性</li>
+</ul>
+</li>
+</ol>
+<h3 id="331-高可用副本--ack-策略">
+<a class="header-anchor" href="#331-%e9%ab%98%e5%8f%af%e7%94%a8%e5%89%af%e6%9c%ac--ack-%e7%ad%96%e7%95%a5"></a>
+3.3.1 高可用（副本 + ACK 策略）
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">spring</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">kafka</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">producer</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">bootstrap-servers</span>: <span style="color:#ae81ff">localhost:9092</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">key-serializer</span>: <span style="color:#ae81ff">org.apache.kafka.common.serialization.StringSerializer</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">value-serializer</span>: <span style="color:#ae81ff">org.apache.kafka.common.serialization.StringSerializer</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">acks</span>: <span style="color:#ae81ff">all  </span> <span style="color:#75715e"># Leader + ISR 全部写入才算成功</span>
+</span></span></code></pre></div><p>特点：</p>
+<ul>
+<li>副本机制保证 Broker 挂掉不丢消息。</li>
+<li><code>acks=all</code> 确保高可靠性。</li>
+</ul>
+<h3 id="332-可靠性ack--isr--重试">
+<a class="header-anchor" href="#332-%e5%8f%af%e9%9d%a0%e6%80%a7ack--isr--%e9%87%8d%e8%af%95"></a>
+3.3.2 可靠性（ACK + ISR + 重试）
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>kafkaTemplate.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;payment_topic&#34;</span>, message)
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">addCallback</span>(
+</span></span><span style="display:flex;"><span>        result <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;支付消息发送成功&#34;</span>),
+</span></span><span style="display:flex;"><span>        ex <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;支付消息发送失败，重试中...&#34;</span>)
+</span></span><span style="display:flex;"><span>    );
+</span></span></code></pre></div><p>特点：</p>
+<ul>
+<li>配合 <code>acks=all</code> + ISR + Producer 重试保证消息可靠送达。</li>
+</ul>
+<hr>
+<h2 id="34-高吞吐和扩展原理">
+<a class="header-anchor" href="#34-%e9%ab%98%e5%90%9e%e5%90%90%e5%92%8c%e6%89%a9%e5%b1%95%e5%8e%9f%e7%90%86"></a>
+3.4 高吞吐和扩展原理
+</h2><ol>
+<li><strong>分区并行</strong>
+<ul>
+<li>Topic 分多个 Partition，生产者和消费者可并行处理不同分区，吞吐几乎线性扩展。</li>
+</ul>
+</li>
+<li><strong>批量发送与压缩</strong>
+<ul>
+<li>Producer 支持批量发送消息，减少网络请求。</li>
+<li>支持 GZIP/Snappy/LZ4 压缩，提高网络和存储效率。</li>
+</ul>
+</li>
+<li><strong>异步复制</strong>
+<ul>
+<li>Follower 异步拉取 Leader 的消息，提高写入吞吐。</li>
+</ul>
+</li>
+<li><strong>无中心化消费</strong>
+<ul>
+<li>Consumer 通过拉取和 offset 自管理，不依赖 Broker 主动推送，减少 Broker 压力。</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Autowired</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> KafkaTemplate<span style="color:#f92672">&lt;</span>String, String<span style="color:#f92672">&gt;</span> kafkaTemplate;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sendBatchMessages</span>(List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> messages) {
+</span></span><span style="display:flex;"><span>    messages.<span style="color:#a6e22e">forEach</span>(msg <span style="color:#f92672">-&gt;</span> 
+</span></span><span style="display:flex;"><span>        kafkaTemplate.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;order_topic&#34;</span>, msg)
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">addCallback</span>(
+</span></span><span style="display:flex;"><span>                success <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;发送成功：&#34;</span> <span style="color:#f92672">+</span> success.<span style="color:#a6e22e">getRecordMetadata</span>()),
+</span></span><span style="display:flex;"><span>                failure <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;发送失败：&#34;</span> <span style="color:#f92672">+</span> failure.<span style="color:#a6e22e">getMessage</span>())
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>特点：</p>
+<ul>
+<li>异步发送，提高吞吐量。</li>
+<li>可以批量发送消息，减少网络请求。</li>
+</ul>
+<hr>
+<h2 id="35-kafka-核心设计总结">
+<a class="header-anchor" href="#35-kafka-%e6%a0%b8%e5%bf%83%e8%ae%be%e8%ae%a1%e6%80%bb%e7%bb%93"></a>
+3.5 Kafka 核心设计总结
+</h2><table>
+  <thead>
+      <tr>
+          <th>设计点</th>
+          <th>原理 / 优势</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>顺序写日志</td>
+          <td>磁盘 IO 高效，低延迟</td>
+      </tr>
+      <tr>
+          <td>分段 + 索引</td>
+          <td>快速定位消息，支持大数据量</td>
+      </tr>
+      <tr>
+          <td>Pull 消费模型</td>
+          <td>消费者自控速率，削峰填谷</td>
+      </tr>
+      <tr>
+          <td>Partition 并行</td>
+          <td>高吞吐、可水平扩展</td>
+      </tr>
+      <tr>
+          <td>ISR 副本机制</td>
+          <td>高可用、高可靠</td>
+      </tr>
+      <tr>
+          <td>ACK 策略</td>
+          <td>可调一致性和性能</td>
+      </tr>
+      <tr>
+          <td>零拷贝</td>
+          <td>减少内存拷贝，提高性能</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<p>✅ 总结一句话：
+<strong>Kafka 的核心原理就是“顺序写 + 分区并行 + 副本同步 + 拉取消费 + offset 管理”，在保证高吞吐的同时又保证可靠性和可扩展性”。</strong></p>
+<hr>
+<h1 id="-四kafka-的优势">
+<a class="header-anchor" href="#-%e5%9b%9bkafka-%e7%9a%84%e4%bc%98%e5%8a%bf"></a>
+📌 四、Kafka 的优势
+</h1><ol>
+<li><strong>高性能</strong>：利用磁盘顺序写 + PageCache，性能比传统 MQ 高。</li>
+<li><strong>可扩展</strong>：通过增加 Partition 和 Broker 实现水平扩展。</li>
+<li><strong>高可用</strong>：多副本 + Leader 选举。</li>
+<li><strong>强大的消费模型</strong>：
+<ul>
+<li>点对点（一个消息给一个消费者）</li>
+<li>发布订阅（多个 Consumer Group 各自独立消费）</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h1 id="-五kafka-的典型使用场景">
+<a class="header-anchor" href="#-%e4%ba%94kafka-%e7%9a%84%e5%85%b8%e5%9e%8b%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af"></a>
+📌 五、Kafka 的典型使用场景
+</h1><ol>
+<li><strong>日志收集系统</strong>：ELK（Elasticsearch + Logstash + Kafka）</li>
+<li><strong>电商订单系统</strong>：下单消息写入 Kafka，后续由库存、支付、物流等消费。</li>
+<li><strong>流量削峰</strong>：高峰时 Kafka 临时存储请求，后台服务按能力消费。</li>
+<li><strong>实时大数据处理</strong>：Kafka + Flink 实时统计 UV、PV、交易量等。</li>
+</ol>
+<hr>
+<h1 id="-六kafka-在-spring-cloud-中的使用">
+<a class="header-anchor" href="#-%e5%85%adkafka-%e5%9c%a8-spring-cloud-%e4%b8%ad%e7%9a%84%e4%bd%bf%e7%94%a8"></a>
+📌 六、Kafka 在 Spring Cloud 中的使用
+</h1><p>Spring Cloud Stream 提供了对 Kafka 的封装，使用起来非常方便：</p>
+<ol>
+<li><strong>引入依赖</strong></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.cloud<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;artifactId&gt;</span>spring-cloud-starter-stream-kafka<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><ol>
+<li><strong>配置文件</strong></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">spring</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cloud</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">stream</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">default-binder</span>: <span style="color:#ae81ff">kafka</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">bindings</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">output</span>:   <span style="color:#75715e"># 生产者</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">destination</span>: <span style="color:#ae81ff">order-topic</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">input</span>:    <span style="color:#75715e"># 消费者</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">destination</span>: <span style="color:#ae81ff">order-topic</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">group</span>: <span style="color:#ae81ff">order-service-group</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">kafka</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">binder</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">brokers</span>: <span style="color:#ae81ff">localhost:9092</span>
+</span></span></code></pre></div><ol>
+<li><strong>代码示例</strong></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@EnableBinding</span>({Source.<span style="color:#a6e22e">class</span>, Sink.<span style="color:#a6e22e">class</span>})
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderMessageService</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Autowired</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> MessageChannel output;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 生产消息</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sendMessage</span>(String msg) {
+</span></span><span style="display:flex;"><span>        output.<span style="color:#a6e22e">send</span>(MessageBuilder.<span style="color:#a6e22e">withPayload</span>(msg).<span style="color:#a6e22e">build</span>());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 消费消息</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@StreamListener</span>(Sink.<span style="color:#a6e22e">INPUT</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">receiveMessage</span>(String msg) {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;收到消息：&#34;</span> <span style="color:#f92672">+</span> msg);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h1 id="-七和其他-mq-的对比">
+<a class="header-anchor" href="#-%e4%b8%83%e5%92%8c%e5%85%b6%e4%bb%96-mq-%e7%9a%84%e5%af%b9%e6%af%94"></a>
+📌 七、和其他 MQ 的对比
+</h1><table>
+  <thead>
+      <tr>
+          <th>特性</th>
+          <th>Kafka</th>
+          <th>RabbitMQ</th>
+          <th>RocketMQ</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>性能</td>
+          <td>百万级 QPS</td>
+          <td>万级 QPS</td>
+          <td>十万级 QPS</td>
+      </tr>
+      <tr>
+          <td>消息顺序</td>
+          <td>分区内有序</td>
+          <td>队列内有序</td>
+          <td>队列内有序</td>
+      </tr>
+      <tr>
+          <td>事务消息</td>
+          <td>弱支持（幂等处理）</td>
+          <td>支持事务消息</td>
+          <td>强支持事务消息</td>
+      </tr>
+      <tr>
+          <td>延时消息</td>
+          <td>需结合定时任务实现</td>
+          <td>支持</td>
+          <td>支持（更强大）</td>
+      </tr>
+      <tr>
+          <td>使用场景</td>
+          <td>大数据、日志、流计算</td>
+          <td>普通业务解耦</td>
+          <td>金融、电商</td>
+      </tr>
+  </tbody>
+</table>
+</div>
+    <footer class="article-footer"><blockquote class="article-copyright"><p><strong><span class="icon-user icon"></span>本文作者：</strong>5say @ 5say</p><p>
+      <strong><span class="icon-link icon"></span>本文链接：</strong><a href="http://localhost:1313/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/">http://localhost:1313/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</a>
+    </p><p>
+      
+      <strong><span class="icon-copyright icon"></span>本文版权：</strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener external nofollow noreferrer" target="_blank"><span class="icon-creative-commons"></span>BY-NC-SA</a> 许可协议。转载请注明出处！
+    </p>
+    <span class="icon-creative-commons article-copyright-bg"></span></blockquote>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e4%b8%ad%e9%97%b4%e4%bb%b6"
+        rel="tag"
+        >中间件</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e9%9d%a2%e8%af%95"
+        rel="tag"
+        >面试</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap article-nav-link-left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="Feign的使用"
+              class="lazyload"
+            /><a href="/post/20250825002-feign%E7%9A%84%E4%BD%BF%E7%94%A8/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">Feign的使用</h3>
+      </div></nav></article><section id="comments" data-aos="fade-up">
+<div class="comment-header"><h2 class="comment-title">说些什么吧！</h2>
+  <div class="comment-selector">
+    <div class="comment-selector-wrap"><div class="selector-item" data-selector="giscus">
+          <span>giscus</span>
+        </div></div>
+  </div>
+</div>
+
+<div class="comment-content"><div class="comment giscus-comment" data-aos="fade-up"
+     >
+    </div></div>
+</section></section>
+        </div><footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2020-2025<span class="footer-info-sep rotate"></span>
+      5say
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;35.8k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;01:23</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#31-kafka-消息存储机制">3.1 Kafka 消息存储机制</a></li>
+    <li><a href="#32-消费机制consumer">3.2 消费机制（Consumer）</a>
+      <ul>
+        <li><a href="#321-顺序消费partition-内消息有序">3.2.1 顺序消费（Partition 内消息有序）</a></li>
+        <li><a href="#322-消费者组负载均衡">3.2.2 消费者组（负载均衡）</a></li>
+        <li><a href="#323-offset-管理断点续传">3.2.3 Offset 管理（断点续传）</a></li>
+      </ul>
+    </li>
+    <li><a href="#33-高可用与可靠性">3.3 高可用与可靠性</a>
+      <ul>
+        <li><a href="#331-高可用副本--ack-策略">3.3.1 高可用（副本 + ACK 策略）</a></li>
+        <li><a href="#332-可靠性ack--isr--重试">3.3.2 可靠性（ACK + ISR + 重试）</a></li>
+      </ul>
+    </li>
+    <li><a href="#34-高吞吐和扩展原理">3.4 高吞吐和扩展原理</a></li>
+    <li><a href="#35-kafka-核心设计总结">3.5 Kafka 核心设计总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.jpg"
+    data-sizes="auto"
+    alt="5say"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">5say</div>
+  <div class="sidebar-description">我的博客</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">20</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">14</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/tags"
+        aria-label="标签"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">标签</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/links"
+        aria-label="传送门"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">传送门</div>
+    </div></div>
+</div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div class="reimu-search-input" id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png" />
+        </div>
+      </div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" ></script><script src="/js/aos.js" ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" data-pjax></script><script>
+    var ALGOLIA_CONFIG = {
+      logo: '\/images\/algolia_logo.svg',
+      algolia: {
+        applicationID: "8HX06YAPFB",
+        apiKey: "f021335f33afc81efe70ac9a4e292f8b",
+        indexName: "blog",
+        hits: {
+          "per_page": parseInt("10")
+        },
+        labels: {
+          "input_placeholder": '搜索.....',
+          "hits_empty": '未发现与 「${query}」相关内容',
+          "hits_stats": '找到${hits}条结果（用时 ${time} ms）'
+        }
+      }
+    };
+  </script><script
+    src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js"
+    deferintegrity="sha384-xvLS0jfKuoREs7pqkRI/OI8GcqohO5S&#43;jQz7ZBtQXnsXmD&#43;9jDOOY4cL6dCPzlrk" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/@reimujs/instantsearch.js@4.57.0-beta.1/dist/instantsearch.production.min.js"
+    deferintegrity="sha384-aagKMe8nkqaP2DYQc8kkYOL5l&#43;M5Q2WH/Uhr4teOh0Ybp0RZj0kUSDm45qPikMjK" crossorigin="anonymous"></script><script src="/js/algolia_search.js" ></script><script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "5say",
+          title: "Kafka的入门手册",
+          url: "http:\/\/localhost:1313\/post\/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C\/",
+          description: "Kafka是微服务、高并发系统中常用的消息中间件，很多人一开始只知道它“能发消息、能解耦”，但实际上 Kafka 的设计思想、架构原理和使用场景很有深度。\n",
+          cover: "http:\/\/localhost:1313\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script><script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+  var commentConfigKeys = ['valine', 'waline', 'twikoo', 'gitalk', 'giscus'];
+  var commentConfig = {
+    valine: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.valine-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/valine@1.5.1\/dist\/Valine.min.js',
+          !'webcache|valine@1.5.1\/dist\/Valine.min.js'.startsWith('local') ? 'sha384-3ma91AExDeMAZ1rjTjaP8V2A2obQE\u002bs5ltKRwYlwdpArz9xVbp0tF3b0VV2ACNPn' : undefined
+        );
+        script.onload = () => {
+          const GUEST_INFO = ['nick', 'mail', 'link'];
+          const guest_info = 'nick,mail,link'.split(',').filter((item) => {
+            return GUEST_INFO.indexOf(item) > -1
+          });
+          const recordIP = JSON.parse('true');
+          const highlight = JSON.parse('true');
+          const visitor = JSON.parse('false');
+          const serverURLs = undefined;
+
+          new Valine({
+            el: '.valine-comment',
+            appId: "",
+            appKey: "",
+            placeholder: "Just go go",
+            pageSize: '10',
+            avatar: 'mp',
+            lang: document.documentElement.lang || 'en',
+            recordIP: recordIP,
+            highlight: highlight,
+            visitor: visitor,
+            requiredFields: guest_info,
+            path: window.location.pathname,
+            serverURLs,
+          });
+        };
+        document.head.appendChild(script);
+      }
+    },
+    waline: {
+      enable: false,
+      load: async () => {
+        const container = document.querySelector('.waline-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        let walineInit;
+        const walineCdn = 'https:\/\/npm.webcache.cn\/@waline\/client@2.15.8\/dist\/waline.mjs';
+        
+        if ('webcache|@waline\/client@2.15.8\/dist\/waline.mjs'.startsWith('local')) {
+          
+          const module = await safeImport(walineCdn);
+          walineInit = module.init;
+        } else {
+          
+          const module = await safeImport(
+            walineCdn, 
+            'sha384-9sbqJjrfGjbkI6\/PI4nU\/MvBfEmkkPC4YK9I4zBeMIf1CVCZdCMH\/KinBEAZII\/5'
+          );
+          walineInit = module.init;
+        }
+        
+        window.walineInstance = walineInit({
+          el: '.waline-comment',
+          serverURL: '',
+          lang: document.documentElement.lang || 'en',
+          locale: JSON.parse("{}"),
+          emoji: JSON.parse("[\"https://unpkg.com/@waline/emojis@1.2.0/weibo\",\"https://unpkg.com/@waline/emojis@1.2.0/alus\",\"https://unpkg.com/@waline/emojis@1.2.0/bilibili\",\"https://unpkg.com/@waline/emojis@1.2.0/qq\",\"https://unpkg.com/@waline/emojis@1.2.0/tieba\",\"https://unpkg.com/@waline/emojis@1.2.0/tw-emoji\"]"),
+          meta: JSON.parse("[\"nick\",\"mail\",\"link\"]"),
+          requiredMeta: JSON.parse("[\"nick\",\"mail\"]"),
+          wordLimit:  0 ,
+          comment: true,
+          pageSize:  10 ,
+          dark: 'html[data-theme="dark"]',
+          pageview:  true ,
+        });
+      }
+    },
+    twikoo: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.twikoo-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/twikoo@1.6.44\/dist\/twikoo.all.min.js',
+          !'webcache|twikoo@1.6.44\/dist\/twikoo.all.min.js'.startsWith('local') ? 'sha384-kwWLC0HjeZZnVPqCJ1AncI8tsk\u002bkQqF9TbAmCclcc9Z0hGkfgHRzeQZxmdmZhE0K' : undefined
+        );
+        script.onload = () => {
+          twikoo.init({
+            envId: '',
+            el: '.twikoo-comment',
+            region: '',
+            lang: document.documentElement.lang || 'en',
+          });
+          twikoo.getCommentsCount({
+            envId: '',
+            region: '',
+            urls: [
+              'http\/\/localhost1313\/post\/20250825005-kafka%e5%85%a5%e9%97%a8%e6%89%8b%e5%86%8c\/'
+            ],
+            includeReply: false
+          }).then((res) => {
+            document.querySelector('.twikoo-comment-count').innerText = res[0].count;
+          }).catch((err) => {
+            console.error(err);
+          });
+        };
+        document.head.appendChild(script);
+      }
+    },
+    gitalk: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.gitalk-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/gitalk@1.8.0\/dist\/gitalk.min.js',
+          !'webcache|gitalk@1.8.0\/dist\/gitalk.min.js'.startsWith('local') ? 'sha384-kspnZUWBoSWwoJHa0hBCXYbHGbhvU\/lcEH5O8eVbSDhbPwsiVUTp\/aGX\/z\/5EuMA' : undefined
+        );
+        script.onload = () => {
+          if ( false ) {
+            
+            const md5Script = loadScript(
+              'https:\/\/npm.webcache.cn\/blueimp-md5@2.19.0\/js\/md5.min.js',
+              !'webcache|blueimp-md5@2.19.0\/js\/md5.min.js'.startsWith('local') ? 'sha384-JmVtRz6RWiXnA14QbIOJzPuU3MidULOpBP66deeLLyyoF4Tr\/gZlbkHkL6vTthxH' : undefined
+            );
+            md5Script.onload = initGitalk;
+            document.head.appendChild(md5Script);
+          } else {
+            
+            initGitalk();
+          }
+        };
+        document.head.appendChild(script);
+
+        function initGitalk() {
+          let gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: '',
+            owner: '',
+            admin: JSON.parse("null"),
+            id: location.pathname,
+            distractionFreeMode: false,
+            language: document.documentElement.lang || 'en',
+          });
+          gitalk.render('gitalk-comment');
+        }
+      }
+    },
+    giscus: {
+      enable: true,
+      load: () => {
+        const container = document.querySelector('.giscus-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        
+        const existingScript = container.querySelector('script[src*="giscus.app/client.js"]');
+        if (existingScript) existingScript.remove();
+        const existingFrame = document.querySelector('iframe.giscus-frame');
+        if (existingFrame) existingFrame.remove();
+
+        
+        const giscusScript = document.createElement('script');
+        const domMode = document.documentElement.getAttribute("data-theme");
+
+        const docLang = document.documentElement.lang || 'en';
+        const langBase = docLang.split('-')[0];
+        const supportedLangs = ['ar', 'be', 'bg', 'ca', 'cs', 'da', 'de', 'en', 
+        'eo', 'es', 'eu', 'fa', 'fr', 'gr', 'hbs', 'he', 'hu', 'id', 'it', 'ja', 
+        'kh', 'ko', 'nl', 'pl', 'pt', 'ro', 'ru', 'th', 'tr', 'uk', 'uz', 'vi', 'zh-CN', 'zh-HK', 'zh-TW'];
+        const giscusLang = supportedLangs.includes(docLang) ? docLang : supportedLangs.includes(langBase) ? langBase : 'en';
+
+        giscusScript.src = 'https://giscus.app/client.js';
+        giscusScript.setAttribute('data-repo', '5say\/5say');
+        giscusScript.setAttribute('data-repo-id', 'R_kgDOPUICig');
+        giscusScript.setAttribute('data-category', 'Announcements');
+        giscusScript.setAttribute('data-category-id', 'DIC_kwDOPUICis4CtgLS');
+        giscusScript.setAttribute('data-mapping', '0');
+        giscusScript.setAttribute('data-strict', '0');
+        giscusScript.setAttribute('data-reactions-enabled', '1');
+        giscusScript.setAttribute('data-emit-metadata', '0');
+        giscusScript.setAttribute('data-input-position', 'bottom');
+        giscusScript.setAttribute('data-theme', domMode === 'dark' ? 'dark' : 'light');
+        giscusScript.setAttribute('data-lang', giscusLang);
+        giscusScript.setAttribute('crossorigin', 'anonymous');
+        giscusScript.async = true;
+        container.appendChild(giscusScript);
+        document.body.addEventListener('light-theme-set', () => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: 'light' } } }, 'https://giscus.app');
+        });
+        document.body.addEventListener('dark-theme-set', () => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: 'dark' } } }, 'https://giscus.app');
+        });
+      }
+    }
+  };
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig[key].enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    
+    var savedCommentType = localStorage.getItem('commentType');
+    
+    
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+    
+    
+    if (!defaultComment) {
+      var configDefault = 'giscus';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+    
+    
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig[sys].enable) || '';
+    }
+  }
+
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false
+    };
+
+    
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      
+      const commentType = item.getAttribute('data-selector');
+
+      
+      hideAllComments();
+
+      
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          
+          changeActiveCommentItems(item);
+        });
+      }
+
+      
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script></div>
+</div><script data-pjax>
+    var updateTime = _$('#post-update-time')?.innerHTML;
+
+    if (updateTime) {
+      const update = new Date(updateTime);
+      const now = new Date();
+      const diff = now - update;
+      const days = diff / 86400000;
+      const { daysago: daysAgo, message: template } = window.siteConfig.outdate;
+      if (days >= daysAgo) {
+        let message = `This article was last updated on ${updateTime}. Please note that the content may no longer be applicable.`;
+        if (typeof template === 'string') {
+          message = template.replace(/{time}/, updateTime);
+        } else if (typeof template === 'object') {
+          const lang = document.documentElement.lang;
+          const messageKey = Object.keys(template).find(key => key.toLowerCase() === lang.toLowerCase());
+          if (messageKey && template[messageKey]) {
+            message = template[messageKey].replace(/{time}/, updateTime);
+          }
+        }
+        const blockquote = _$('#outdate-blockquote');
+        if (blockquote) {
+          blockquote.querySelector('p').innerText = message;
+          blockquote.style.display = 'block';
+        }
+      }
+    }
+  </script><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    asyncintegrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script><script
+    src="https://npm.webcache.cn/pangu@4.0.7/dist/browser/pangu.min.js"
+    integrity="sha384-HeUHqi0nVsPUm/E0ss7OfnIV/yD96JWB8ehZvUuoVax9DpNHL17jj9pdfXHzqDxm" crossorigin="anonymous"></script><script data-pjax>
+    if (document.readyState === "loading") {
+      document.addEventListener('DOMContentLoaded', () => {
+        pangu?.spacingPage();
+      });
+    } else {
+      pangu?.spacingPage();
+    }
+  </script></body>
+</html>

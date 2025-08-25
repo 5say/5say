@@ -12,7 +12,7 @@
     
     <copyright>本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</copyright>
     
-    <lastBuildDate>Mon, 28 Jul 2025 14:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 25 Aug 2025 13:28:00 +0800</lastBuildDate>
     
     
     <atom:link href="http://localhost:1313/categories/%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss&#43;xml" />
@@ -22,33 +22,372 @@
     
 
     <item>
-      <title>整理一下这些年遇到的配置文件</title>
-      <link>http://localhost:1313/post/20250728001-%E6%95%B4%E7%90%86%E4%B8%80%E4%B8%8B%E8%BF%99%E4%BA%9B%E5%B9%B4%E9%81%87%E5%88%B0%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</link>
-      <pubDate>Mon, 28 Jul 2025 14:30:00 &#43;0800</pubDate>
+      <title>Kafka的入门手册</title>
+      <link>http://localhost:1313/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</link>
+      <pubDate>Mon, 25 Aug 2025 13:28:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250728001-%E6%95%B4%E7%90%86%E4%B8%80%E4%B8%8B%E8%BF%99%E4%BA%9B%E5%B9%B4%E9%81%87%E5%88%B0%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</guid>
+      <guid>http://localhost:1313/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</guid>
       <description>
-        <![CDATA[<h1>整理一下这些年遇到的配置文件</h1><p>作者：5say（xxx@example.com）</p>
+        <![CDATA[<h1>Kafka的入门手册</h1><p>作者：5say（xxx@example.com）</p>
         
-          <h1 id="一通用的配置文件格式">
-<a class="header-anchor" href="#%e4%b8%80%e9%80%9a%e7%94%a8%e7%9a%84%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f"></a>
-一、通用的配置文件格式
-</h1><h2 id="11-json">
-<a class="header-anchor" href="#11-json"></a>
-1.1 JSON
-</h2><h3 id="-起源">
-<a class="header-anchor" href="#-%e8%b5%b7%e6%ba%90"></a>
-🧬 起源
-</h3><p>由 Douglas Crockford 在 2001 年推广，源自 JavaScript 的对象表示方式。</p>
-<h3 id="-发展">
-<a class="header-anchor" href="#-%e5%8f%91%e5%b1%95"></a>
-📈 发展
-</h3><p>成为 Web API 通信和配置的通用格式，广泛用于 Node.js、VSCode 等工具。</p>
+          <p><strong>Kafka</strong>是微服务、高并发系统中常用的消息中间件，很多人一开始只知道它“能发消息、能解耦”，但实际上 Kafka 的设计思想、架构原理和使用场景很有深度。</p>
         
-        <hr><p>本文2025-07-28首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-07-28</p>]]>
+        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
       </description>
       
-        <category>编程</category>
+        <category>编程</category><category>中间件</category><category>面试</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>了解Spring Cloud Gateway的使用</title>
+      <link>http://localhost:1313/post/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <description>
+        <![CDATA[<h1>了解Spring Cloud Gateway的使用</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p><strong>Spring Cloud Gateway</strong>这是 Spring Cloud 体系里非常重要的一个组件。</p>
+<hr>
+<h1 id="-一spring-cloud-gateway-是什么">
+<a class="header-anchor" href="#-%e4%b8%80spring-cloud-gateway-%e6%98%af%e4%bb%80%e4%b9%88"></a>
+🔹 一、Spring Cloud Gateway 是什么
+</h1><p><strong>Spring Cloud Gateway</strong> 是 Spring 官方推出的新一代网关组件，用来替代 Zuul。</p>
+<p>👉 它的定位：</p>
+<ul>
+<li><strong>统一入口</strong>：所有请求先经过 Gateway，再路由到具体微服务。</li>
+<li><strong>功能</strong>：路由、负载均衡、权限校验、限流、熔断、日志监控、CORS。</li>
+<li><strong>底层基于 WebFlux（Reactor 模型）</strong>，比 Zuul（Servlet 阻塞 IO）性能更好。</li>
+</ul>
+<p>一句话：
+<strong>Spring Cloud Gateway = 高性能的 API 网关，负责请求转发和统一治理</strong>。</p>
+        
+        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+      </description>
+      
+        <category>编程</category><category>中间件</category><category>面试</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>了解Sentinel</title>
+      <link>http://localhost:1313/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/</link>
+      <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/</guid>
+      <description>
+        <![CDATA[<h1>了解Sentinel</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p>Sentinel 是 <strong>阿里巴巴开源的流量防卫兵</strong>，在 <strong>Spring Cloud Alibaba</strong> 体系里非常常用，主要解决 <strong>流量控制、熔断降级、系统保护</strong> 等问题。可以理解成 <strong>服务稳定性的核心工具</strong>。我给你从几个角度讲清楚：</p>
+        
+        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+      </description>
+      
+        <category>编程</category><category>中间件</category><category>面试</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Redis的入门手册</title>
+      <link>http://localhost:1313/post/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</link>
+      <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</guid>
+      <description>
+        <![CDATA[<h1>Redis的入门手册</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <h1 id="-一redis-是什么">
+<a class="header-anchor" href="#-%e4%b8%80redis-%e6%98%af%e4%bb%80%e4%b9%88"></a>
+📌 一、Redis 是什么
+</h1><p><strong>Redis</strong>（REmote DIctionary Server）是一个开源的 <strong>高性能内存键值数据库</strong>，支持多种数据结构（String、Hash、List、Set、Sorted Set、Bitmap、HyperLogLog、Stream 等）。</p>
+        
+        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+      </description>
+      
+        <category>编程</category><category>中间件</category><category>面试</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Nacos的使用</title>
+      <link>http://localhost:1313/post/20250825001-nacos%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250825001-nacos%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <description>
+        <![CDATA[<h1>Nacos的使用</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p>Nacos 在 Spring Cloud 体系里用得非常多，我们可以从 <strong>它的定位 → 使用方式 → 实现原理</strong> 三个角度来理解。</p>
+<hr>
+<h1 id="-一nacos-是干嘛的">
+<a class="header-anchor" href="#-%e4%b8%80nacos-%e6%98%af%e5%b9%b2%e5%98%9b%e7%9a%84"></a>
+🔹 一、Nacos 是干嘛的
+</h1><p>Nacos 全称是 <strong>Dynamic Naming and Configuration Service</strong>，是阿里开源的一体化服务平台，主要提供两个核心能力：</p>
+        
+        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+      </description>
+      
+        <category>编程</category><category>中间件</category><category>面试</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Feign的使用</title>
+      <link>http://localhost:1313/post/20250825002-feign%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250825002-feign%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <description>
+        <![CDATA[<h1>Feign的使用</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p><strong>Feign</strong>Spring Cloud 中非常核心的服务调用组件。
+我会从 <strong>它是什么 → 怎么用 → 常见配置 → 实现原理 → 常用注解和方法</strong> 给你讲清楚。</p>
+<hr>
+<h1 id="-一feign-是什么">
+<a class="header-anchor" href="#-%e4%b8%80feign-%e6%98%af%e4%bb%80%e4%b9%88"></a>
+🔹 一、Feign 是什么
+</h1><p><strong>Feign</strong> 是一个 <strong>声明式 HTTP 客户端</strong>，最早由 Netflix 开源，后来被 Spring Cloud 集成（现在常用的是 <strong>Spring Cloud OpenFeign</strong>）。</p>
+        
+        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+      </description>
+      
+        <category>编程</category><category>中间件</category><category>面试</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Java并发编程</title>
+      <link>http://localhost:1313/post/20250824004-java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Sun, 24 Aug 2025 17:28:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250824004-java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</guid>
+      <description>
+        <![CDATA[<h1>Java并发编程</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <h2 id="一java多线程的设计原理">
+<a class="header-anchor" href="#%e4%b8%80java%e5%a4%9a%e7%ba%bf%e7%a8%8b%e7%9a%84%e8%ae%be%e8%ae%a1%e5%8e%9f%e7%90%86"></a>
+一、Java多线程的设计原理
+</h2><p>Java 的多线程机制是基于 <strong>Java 内存模型（JMM）</strong> 和 <strong>线程调度机制</strong> 设计的：</p>
+<ol>
+<li><strong>Java内存模型（JMM）</strong>
+<ul>
+<li>每个线程有自己的 <strong>工作内存（缓存）</strong>，主内存中存放共享变量。</li>
+<li>线程对共享变量的操作必须先从主内存拷贝到工作内存，再修改，最后刷新回主内存。</li>
+<li>为了解决线程之间的数据可见性和有序性问题，Java 提供了 <strong>volatile、synchronized、Lock</strong> 等关键字和类。</li>
+<li><strong>happens-before 规则</strong>：定义了线程间操作的可见性。</li>
+</ul>
+</li>
+<li><strong>线程调度模型</strong>
+<ul>
+<li>Java 使用 <strong>抢占式调度（Preemptive Scheduling）</strong>，由操作系统决定哪个线程获得 CPU 时间片。</li>
+<li>每个线程都有一个优先级（1~10），但是否真正按优先级执行由操作系统决定。</li>
+</ul>
+</li>
+<li><strong>并发设计三大问题</strong>
+<ul>
+<li><strong>原子性</strong>：
+<ul>
+<li>一系列操作要么全部执行，要么全部不执行（如 <code>i++</code> 不是原子操作）。</li>
+<li>解决方式：<code>synchronized</code>、<code>Lock</code>、<code>Atomic</code> 类。</li>
+</ul>
+</li>
+<li><strong>可见性</strong>：
+<ul>
+<li>一个线程修改共享变量，其他线程能否立刻看见。</li>
+<li>解决方式：<code>volatile</code>、<code>synchronized</code>、<code>final</code>。</li>
+</ul>
+</li>
+<li><strong>有序性</strong>：
+<ul>
+<li>指令是否会因为编译器或CPU优化而乱序执行。</li>
+<li>解决方式：<code>volatile</code>、内存屏障（happens-before 原则）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="二java多线程的使用方式">
+<a class="header-anchor" href="#%e4%ba%8cjava%e5%a4%9a%e7%ba%bf%e7%a8%8b%e7%9a%84%e4%bd%bf%e7%94%a8%e6%96%b9%e5%bc%8f"></a>
+二、Java多线程的使用方式
+</h2><h2 id="21-java-多线程最基础的用法有三种">
+<a class="header-anchor" href="#21-java-%e5%a4%9a%e7%ba%bf%e7%a8%8b%e6%9c%80%e5%9f%ba%e7%a1%80%e7%9a%84%e7%94%a8%e6%b3%95%e6%9c%89%e4%b8%89%e7%a7%8d"></a>
+2.1 Java 多线程最基础的用法有三种：
+</h2><ol>
+<li>
+<p><strong>继承 Thread 类</strong></p>
+        
+        <hr><p>本文2025-08-24首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-24</p>]]>
+      </description>
+      
+        <category>编程</category><category>面试</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>数据库中索引的创建和查询过程</title>
+      <link>http://localhost:1313/post/20250824003-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Sun, 24 Aug 2025 16:36:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250824003-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/</guid>
+      <description>
+        <![CDATA[<h1>数据库中索引的创建和查询过程</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <h1 id="一索引创建过程">
+<a class="header-anchor" href="#%e4%b8%80%e7%b4%a2%e5%bc%95%e5%88%9b%e5%bb%ba%e8%bf%87%e7%a8%8b"></a>
+一、索引创建过程
+</h1><p>以 <strong>B+ 树索引</strong> 为例（MySQL InnoDB 默认索引类型）：</p>
+<ol>
+<li><strong>定义索引</strong></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">INDEX</span> idx_user_name <span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">user</span>(name);
+</span></span></code></pre></div><ul>
+<li>MySQL 会在数据表中创建一个 <strong>B+ 树结构</strong>，节点存储键值和对应的主键或行指针。</li>
+</ul>
+<ol>
+<li><strong>构建 B+ 树</strong></li>
+</ol>
+<ul>
+<li><strong>叶子节点</strong>：存储索引列 + 指向表行的指针（主键索引是聚簇索引，叶子节点存储完整行）</li>
+<li><strong>非叶子节点</strong>：存储键值范围，用于快速查找</li>
+<li><strong>排序插入</strong>：索引按键值大小排序，保证查找是 O(logN)</li>
+</ul>
+<ol>
+<li><strong>维护索引</strong></li>
+</ol>
+<ul>
+<li><strong>插入数据</strong> → B+ 树自动平衡，分裂节点</li>
+<li><strong>删除数据</strong> → 合并节点，保持树平衡</li>
+<li><strong>更新索引列</strong> → 相当于删除 + 插入</li>
+</ul>
+<blockquote>
+<p>🔑 特点：</p>
+        
+        <hr><p>本文2025-08-24首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-24</p>]]>
+      </description>
+      
+        <category>数据库</category><category>编程</category><category>面试</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>数据库优化的思路</title>
+      <link>http://localhost:1313/post/20250824001-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E7%9A%84%E6%80%9D%E8%B7%AF/</link>
+      <pubDate>Sun, 24 Aug 2025 16:36:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250824001-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E7%9A%84%E6%80%9D%E8%B7%AF/</guid>
+      <description>
+        <![CDATA[<h1>数据库优化的思路</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <h1 id="-一数据库优化的整体思路">
+<a class="header-anchor" href="#-%e4%b8%80%e6%95%b0%e6%8d%ae%e5%ba%93%e4%bc%98%e5%8c%96%e7%9a%84%e6%95%b4%e4%bd%93%e6%80%9d%e8%b7%af"></a>
+🗄️ 一、数据库优化的整体思路
+</h1><p>数据库优化的目标是：</p>
+<ol>
+<li><strong>更快</strong> —— 减少查询时间</li>
+<li><strong>更稳</strong> —— 避免锁等待、死锁、资源耗尽</li>
+<li><strong>更省</strong> —— 节省磁盘、内存、CPU</li>
+</ol>
+<p>优化通常分 4 个层次：</p>
+        
+        <hr><p>本文2025-08-24首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-24</p>]]>
+      </description>
+      
+        <category>数据库</category><category>编程</category><category>面试</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>数据库索引失效的几种情况</title>
+      <link>http://localhost:1313/post/20250824002-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/</link>
+      <pubDate>Sun, 24 Aug 2025 16:36:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250824002-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/</guid>
+      <description>
+        <![CDATA[<h1>数据库索引失效的几种情况</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <h1 id="一索引失效的核心原理">
+<a class="header-anchor" href="#%e4%b8%80%e7%b4%a2%e5%bc%95%e5%a4%b1%e6%95%88%e7%9a%84%e6%a0%b8%e5%bf%83%e5%8e%9f%e7%90%86"></a>
+一、索引失效的核心原理
+</h1><ul>
+<li><strong>索引本质</strong>是 B+ 树（或其他数据结构），查找时要求：
+<ul>
+<li>索引列直接参与条件</li>
+<li>条件支持范围查找或等值查找</li>
+</ul>
+</li>
+<li><strong>索引失效</strong>就是 MySQL 优化器决定 <strong>不走索引，全表扫描</strong>。</li>
+</ul>
+<hr>
+<h1 id="二常见导致索引失效的情况">
+<a class="header-anchor" href="#%e4%ba%8c%e5%b8%b8%e8%a7%81%e5%af%bc%e8%87%b4%e7%b4%a2%e5%bc%95%e5%a4%b1%e6%95%88%e7%9a%84%e6%83%85%e5%86%b5"></a>
+二、常见导致索引失效的情况
+</h1><h2 id="1-对索引列进行函数表达式运算">
+<a class="header-anchor" href="#1-%e5%af%b9%e7%b4%a2%e5%bc%95%e5%88%97%e8%bf%9b%e8%a1%8c%e5%87%bd%e6%95%b0%e8%a1%a8%e8%be%be%e5%bc%8f%e8%bf%90%e7%ae%97"></a>
+1️⃣ 对索引列进行函数/表达式运算
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">user</span> <span style="color:#66d9ef">WHERE</span> DATE(create_time) <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2025-08-24&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">user</span> <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>;
+</span></span></code></pre></div><ul>
+<li>原因：B+ 树索引存的是列原始值，函数/运算会改变原值 → 无法用树查找</li>
+<li>优化：用范围条件替代函数</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> create_time <span style="color:#f92672">&gt;=</span> <span style="color:#e6db74">&#39;2025-08-24 00:00:00&#39;</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">AND</span> create_time <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;2025-08-25 00:00:00&#39;</span>
+</span></span></code></pre></div><hr>
+<h2 id="2-前置通配符-like">
+<a class="header-anchor" href="#2-%e5%89%8d%e7%bd%ae%e9%80%9a%e9%85%8d%e7%ac%a6-like"></a>
+2️⃣ 前置通配符 LIKE
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">user</span> <span style="color:#66d9ef">WHERE</span> name <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%Alice&#39;</span>;
+</span></span></code></pre></div><ul>
+<li>原因：B+ 树索引按字典序存储，前置通配符破坏顺序</li>
+<li>优化：
+<ul>
+<li>改为前缀匹配：<code>LIKE 'Alice%'</code></li>
+<li>或使用全文索引/倒排索引</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="3-数据类型不匹配或隐式转换">
+<a class="header-anchor" href="#3-%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b%e4%b8%8d%e5%8c%b9%e9%85%8d%e6%88%96%e9%9a%90%e5%bc%8f%e8%bd%ac%e6%8d%a2"></a>
+3️⃣ 数据类型不匹配或隐式转换
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">user</span> <span style="color:#66d9ef">WHERE</span> id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;101&#39;</span>;
+</span></span></code></pre></div><ul>
+<li>若 <code>id</code> 是 int → MySQL 会把 id 转成字符串或把 &lsquo;101&rsquo; 转成 int</li>
+<li>索引可能失效</li>
+<li>优化：保证类型一致</li>
+</ul>
+<hr>
+<h2 id="4-or-条件跨列">
+<a class="header-anchor" href="#4-or-%e6%9d%a1%e4%bb%b6%e8%b7%a8%e5%88%97"></a>
+4️⃣ OR 条件跨列
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">user</span> <span style="color:#66d9ef">WHERE</span> age<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span> <span style="color:#66d9ef">OR</span> name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Alice&#39;</span>;
+</span></span></code></pre></div><ul>
+<li>
+<p>原因：MySQL 对 OR 的优化有限，如果条件跨列且没有覆盖索引，可能走全表</p>
+        
+        <hr><p>本文2025-08-24首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-24</p>]]>
+      </description>
+      
+        <category>数据库</category><category>编程</category><category>面试</category>
       
     </item>
     

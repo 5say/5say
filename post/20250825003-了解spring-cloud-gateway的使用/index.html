@@ -1,0 +1,1487 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  了解Spring Cloud Gateway的使用 | 5say
+</title>
+<meta
+  name="description"
+  content="我的博客"
+/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":true,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><link rel="stylesheet" href="/css/loader.css" />
+<meta property="og:type" content="website" />
+  <meta property="og:title" content="了解Spring Cloud Gateway的使用 | 5say" />
+  <meta
+    property="og:description"
+    content="我的博客"
+  />
+  <meta property="og:url" content="http://localhost:1313/post/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8/" />
+  <meta
+    property="og:site_name"
+    content="5say"
+  />
+  <meta
+    property="og:image"
+    content="/"
+  />
+  <meta property="article:author" content="5say" />
+  <meta property="article:published_time" content="2025-08-25T12:28:00&#43;08:00" />
+  <meta property="article:modified_time" content="2025-08-25T12:28:00&#43;08:00" /><meta property="article:tag" content="中间件Spring面试" /><meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" />
+<link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.22/dist/katex.min.css"
+    integrity="sha384-5TcZemv2l/9On385z///&#43;d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate"><svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg></div><div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script><div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+<div id="lang-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav"><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/tags">标签</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/links">传送门</a>
+      </span><a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav"><a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a></nav></div>
+<header id="header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="了解Spring Cloud Gateway的使用"><div id="header-outer">
+    <div id="header-title"><a href="/" id="logo">
+            <h1 data-aos="slide-up">了解Spring Cloud Gateway的使用</h1>
+          </a><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          
+          class="sidebar-right"  ><aside id="sidebar"><div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-引入依赖">1. 引入依赖</a></li>
+        <li><a href="#2-在-applicationyml-里配置路由">2. 在 <code>application.yml</code> 里配置路由</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#-1-配置说明">🔹 1. 配置说明</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#-41-常用断言predicates">🔹 4.1 常用断言（Predicates）</a></li>
+    <li><a href="#-42-常用过滤器filters">🔹 4.2 常用过滤器（Filters）</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#51-编程式配置gateway">5.1 编程式配置Gateway</a></li>
+    <li><a href="#52-gateway-鉴权authentication--authorization">5.2 Gateway 鉴权（Authentication / Authorization）</a>
+      <ul>
+        <li><a href="#521-实现思路">5.2.1 实现思路</a></li>
+        <li><a href="#522-配置示例仅路由鉴权">5.2.2 配置示例（仅路由鉴权）</a></li>
+        <li><a href="#523-代码示例jwt-鉴权">5.2.3 代码示例（JWT 鉴权）</a></li>
+      </ul>
+    </li>
+    <li><a href="#53-gateway-限流rate-limiting">5.3 Gateway 限流（Rate Limiting）</a>
+      <ul>
+        <li><a href="#531-实现思路">5.3.1 实现思路</a></li>
+        <li><a href="#532-配置示例">5.3.2 配置示例</a></li>
+        <li><a href="#533-keyresolver-代码">5.3.3 KeyResolver 代码</a></li>
+      </ul>
+    </li>
+    <li><a href="#53-gateway-熔断circuit-breaker">5.3 Gateway 熔断（Circuit Breaker）</a>
+      <ul>
+        <li><a href="#531-实现思路-1">5.3.1 实现思路</a></li>
+        <li><a href="#532-配置示例-1">5.3.2 配置示例</a></li>
+        <li><a href="#533-fallback-controller">5.3.3 Fallback Controller</a></li>
+      </ul>
+    </li>
+    <li><a href="#-总结对比">🔹 总结对比</a></li>
+  </ul>
+</nav>
+  </div>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.jpg"
+    data-sizes="auto"
+    alt="5say"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">5say</div>
+  <div class="sidebar-description">我的博客</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">20</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">14</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/tags"
+        aria-label="标签"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">标签</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/links"
+        aria-label="传送门"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">传送门</div>
+    </div></div>
+</div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div>
+
+  <div class="sidebar-widget"></div></aside>
+<section id="main"><article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2025-08-25 12:28:00 &#43;0800 CST" itemprop="datePublished"
+      >2025-08-25</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2025-08-25</time
+    >
+  </span>
+</div>
+<div class="article-category"><a
+      class="article-category-link"
+      href="/categories/%e7%bc%96%e7%a8%8b"
+      data-aos="zoom-in"
+      >编程</a
+    ><a
+      class="article-category-link"
+      href="/categories/%e4%b8%ad%e9%97%b4%e4%bb%b6"
+      data-aos="zoom-in"
+      >中间件</a
+    ><a
+      class="article-category-link"
+      href="/categories/%e9%9d%a2%e8%af%95"
+      data-aos="zoom-in"
+      >面试</a
+    ></div>
+</div>
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><blockquote id="outdate-blockquote" style="display: none;">
+          <p></p>
+        </blockquote><p><strong>Spring Cloud Gateway</strong>这是 Spring Cloud 体系里非常重要的一个组件。</p>
+<hr>
+<h1 id="-一spring-cloud-gateway-是什么">
+<a class="header-anchor" href="#-%e4%b8%80spring-cloud-gateway-%e6%98%af%e4%bb%80%e4%b9%88"></a>
+🔹 一、Spring Cloud Gateway 是什么
+</h1><p><strong>Spring Cloud Gateway</strong> 是 Spring 官方推出的新一代网关组件，用来替代 Zuul。</p>
+<p>👉 它的定位：</p>
+<ul>
+<li><strong>统一入口</strong>：所有请求先经过 Gateway，再路由到具体微服务。</li>
+<li><strong>功能</strong>：路由、负载均衡、权限校验、限流、熔断、日志监控、CORS。</li>
+<li><strong>底层基于 WebFlux（Reactor 模型）</strong>，比 Zuul（Servlet 阻塞 IO）性能更好。</li>
+</ul>
+<p>一句话：
+<strong>Spring Cloud Gateway = 高性能的 API 网关，负责请求转发和统一治理</strong>。</p>
+<hr>
+<h1 id="-二spring-cloud-gateway-怎么用">
+<a class="header-anchor" href="#-%e4%ba%8cspring-cloud-gateway-%e6%80%8e%e4%b9%88%e7%94%a8"></a>
+🔹 二、Spring Cloud Gateway 怎么用
+</h1><h3 id="1-引入依赖">
+<a class="header-anchor" href="#1-%e5%bc%95%e5%85%a5%e4%be%9d%e8%b5%96"></a>
+1. 引入依赖
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.cloud<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;artifactId&gt;</span>spring-cloud-starter-gateway<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h3 id="2-在-applicationyml-里配置路由">
+<a class="header-anchor" href="#2-%e5%9c%a8-applicationyml-%e9%87%8c%e9%85%8d%e7%bd%ae%e8%b7%af%e7%94%b1"></a>
+2. 在 <code>application.yml</code> 里配置路由
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">spring</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cloud</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">gateway</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">routes</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">id</span>: <span style="color:#ae81ff">user-service</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">uri</span>: <span style="color:#ae81ff">lb://user-service    </span> <span style="color:#75715e"># lb:// 表示从注册中心找服务（Nacos/Eureka）</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">predicates</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">Path=/user/**         </span> <span style="color:#75715e"># 路由条件：匹配 /user 开头的路径</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">filters</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">StripPrefix=1         </span> <span style="color:#75715e"># 去掉前缀 /user</span>
+</span></span></code></pre></div><p>这样，访问 <code>http://localhost:8080/user/info</code> → Gateway → <code>user-service</code> 服务的 <code>/info</code>。</p>
+<hr>
+<h1 id="-三常用配置">
+<a class="header-anchor" href="#-%e4%b8%89%e5%b8%b8%e7%94%a8%e9%85%8d%e7%bd%ae"></a>
+🔹 三、常用配置
+</h1><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">spring</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">application</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">gateway-service</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cloud</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">gateway</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># ========= 1. 服务发现配置 =========</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">discovery</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">locator</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>                   <span style="color:#75715e"># 开启服务注册中心自动路由（Nacos/Eureka）</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">lower-case-service-id</span>: <span style="color:#66d9ef">true</span>     <span style="color:#75715e"># 服务名小写映射</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># ========= 2. 路由配置 =========</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">routes</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># ========== 路由到 user-service ==========</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">id</span>: <span style="color:#ae81ff">user-service-route         </span> <span style="color:#75715e"># 路由唯一 ID</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">uri</span>: <span style="color:#ae81ff">lb://user-service         </span> <span style="color:#75715e"># 路由目标（lb:// 表示注册中心负载均衡）</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">predicates</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">Path=/user/**              </span> <span style="color:#75715e"># 路径匹配</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">Method=GET,POST            </span> <span style="color:#75715e"># 请求方法匹配</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">filters</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">StripPrefix=1              </span> <span style="color:#75715e"># 去掉前缀 /user</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">AddRequestHeader=X-Gateway, SpringCloud</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">AddResponseHeader=X-Response, GatewayProcessed</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># ========== 路由到 order-service ==========</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">id</span>: <span style="color:#ae81ff">order-service-route</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">uri</span>: <span style="color:#ae81ff">lb://order-service</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">predicates</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">Path=/order/**</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">Header=X-Version, v1</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">filters</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">RewritePath=/order/(?&lt;segment&gt;.*), /${segment}  </span> <span style="color:#75715e"># 重写路径</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">RequestRateLimiter=1, 5                         </span> <span style="color:#75715e"># 限流配置（自定义 Bean）</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># ========= 3. 全局过滤器配置 =========</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">default-filters</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">AddRequestHeader=X-Request-Id, 123456  </span> <span style="color:#75715e"># 所有请求默认加头</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">RemoveRequestHeader=Cookie             </span> <span style="color:#75715e"># 移除 Cookie 头</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ========= 4. 限流配置（Redis） =========</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spring</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">redis</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">host</span>: <span style="color:#ae81ff">localhost</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">port</span>: <span style="color:#ae81ff">6379</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ========= 5. actuator 监控配置 =========</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">management</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">endpoints</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">web</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">exposure</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">include</span>: <span style="color:#e6db74">&#34;*&#34;</span>
+</span></span></code></pre></div><h2 id="-1-配置说明">
+<a class="header-anchor" href="#-1-%e9%85%8d%e7%bd%ae%e8%af%b4%e6%98%8e"></a>
+🔹 1. 配置说明
+</h2><ol>
+<li>
+<p><strong>服务发现</strong></p>
+<pre tabindex="0"><code>discovery.locator.enabled: true
+</code></pre><ul>
+<li>自动将注册中心的服务映射为路由，访问时可直接用 <code>http://网关地址/服务名/**</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong>路由（routes）</strong></p>
+<ul>
+<li><code>id</code>：路由标识（唯一）。</li>
+<li><code>uri</code>：目标地址（支持 <code>http://</code>、<code>https://</code>、<code>lb://</code>）。</li>
+<li><code>predicates</code>：断言条件（Path、Method、Host、Header、Query 等）。</li>
+<li><code>filters</code>：路由过滤器（请求增强、限流、熔断等）。</li>
+</ul>
+</li>
+<li>
+<p><strong>过滤器常见用法</strong></p>
+<ul>
+<li><code>StripPrefix=1</code>：去掉路径前缀。</li>
+<li><code>AddRequestHeader</code>：加请求头。</li>
+<li><code>RewritePath</code>：重写请求路径。</li>
+<li><code>RequestRateLimiter</code>：限流，需要配置 Redis。</li>
+</ul>
+</li>
+<li>
+<p><strong>限流配置（RequestRateLimiter）</strong></p>
+<ul>
+<li>默认基于 <strong>Redis + 令牌桶算法</strong>，需要在配置类里注册 <code>KeyResolver</code>（限流维度，比如按 IP、按用户 ID）。</li>
+</ul>
+<pre tabindex="0"><code>@Bean
+KeyResolver ipKeyResolver() {
+    return exchange -&gt; Mono.just(exchange.getRequest().getRemoteAddress().getHostString());
+}
+</code></pre></li>
+<li>
+<p><strong>全局过滤器（default-filters）</strong></p>
+<ul>
+<li>对所有路由生效。</li>
+</ul>
+</li>
+</ol>
+<h1 id="-四实现原理">
+<a class="header-anchor" href="#-%e5%9b%9b%e5%ae%9e%e7%8e%b0%e5%8e%9f%e7%90%86"></a>
+🔹 四、实现原理
+</h1><p>Spring Cloud Gateway 的核心由 <strong>三大模块</strong>组成：</p>
+<ol>
+<li><strong>Route（路由）</strong>
+<ul>
+<li>每个路由包括：<code>id</code>、<code>uri</code>（目标服务）、<code>predicates</code>（断言条件）、<code>filters</code>（过滤器）。</li>
+<li>请求先匹配路由 → 然后执行过滤器链 → 转发到目标服务。</li>
+</ul>
+</li>
+<li><strong>Predicate（断言工厂）</strong>
+<ul>
+<li>判断请求是否符合路由规则，比如 <code>Path=/user/**</code>、<code>Host=**.example.com</code>、<code>Method=GET</code>。</li>
+<li>Gateway 内置了十几个断言工厂。</li>
+</ul>
+</li>
+<li><strong>Filter（过滤器工厂）</strong>
+<ul>
+<li>请求转发前后做增强处理，比如鉴权、日志、限流。</li>
+<li>内置过滤器：<code>AddRequestHeader</code>、<code>StripPrefix</code>、<code>RewritePath</code>、<code>RequestRateLimiter</code> 等。</li>
+<li>也可以写自定义过滤器。</li>
+</ul>
+</li>
+</ol>
+<p>👉 工作流程：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>客户端请求 → Gateway Handler Mapping 找到 Route → Predicate 匹配 → Filter 链增强 → 转发到目标服务 → 返回响应
+</span></span></code></pre></div><hr>
+<h2 id="-41-常用断言predicates">
+<a class="header-anchor" href="#-41-%e5%b8%b8%e7%94%a8%e6%96%ad%e8%a8%80predicates"></a>
+🔹 4.1 常用断言（Predicates）
+</h2><table>
+  <thead>
+      <tr>
+          <th>断言工厂</th>
+          <th>作用</th>
+          <th>示例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>Path</code></td>
+          <td>路径匹配</td>
+          <td><code>Path=/user/**</code></td>
+      </tr>
+      <tr>
+          <td><code>Host</code></td>
+          <td>主机名匹配</td>
+          <td><code>Host=**.example.com</code></td>
+      </tr>
+      <tr>
+          <td><code>Method</code></td>
+          <td>请求方法</td>
+          <td><code>Method=GET,POST</code></td>
+      </tr>
+      <tr>
+          <td><code>Header</code></td>
+          <td>请求头匹配</td>
+          <td><code>Header=X-Request-Id, \d+</code></td>
+      </tr>
+      <tr>
+          <td><code>Query</code></td>
+          <td>查询参数匹配</td>
+          <td><code>Query=token, abc123</code></td>
+      </tr>
+      <tr>
+          <td><code>After/Before</code></td>
+          <td>时间匹配</td>
+          <td><code>After=2025-08-25T12:00:00+08:00</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="-42-常用过滤器filters">
+<a class="header-anchor" href="#-42-%e5%b8%b8%e7%94%a8%e8%bf%87%e6%bb%a4%e5%99%a8filters"></a>
+🔹 4.2 常用过滤器（Filters）
+</h2><table>
+  <thead>
+      <tr>
+          <th>过滤器工厂</th>
+          <th>作用</th>
+          <th>示例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>AddRequestHeader</code></td>
+          <td>添加请求头</td>
+          <td><code>AddRequestHeader=X-Token, 123</code></td>
+      </tr>
+      <tr>
+          <td><code>RemoveRequestHeader</code></td>
+          <td>删除请求头</td>
+          <td><code>RemoveRequestHeader=Cookie</code></td>
+      </tr>
+      <tr>
+          <td><code>RewritePath</code></td>
+          <td>重写路径</td>
+          <td><code>RewritePath=/foo/(?&lt;segment&gt;.*), /${segment}</code></td>
+      </tr>
+      <tr>
+          <td><code>StripPrefix</code></td>
+          <td>去掉路径前缀</td>
+          <td><code>StripPrefix=1</code></td>
+      </tr>
+      <tr>
+          <td><code>RequestRateLimiter</code></td>
+          <td>限流</td>
+          <td>使用 Redis + Token Bucket</td>
+      </tr>
+      <tr>
+          <td><code>CircuitBreaker</code></td>
+          <td>熔断</td>
+          <td>整合 Resilience4j/Sentinel</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h1 id="-五常用代码">
+<a class="header-anchor" href="#-%e4%ba%94%e5%b8%b8%e7%94%a8%e4%bb%a3%e7%a0%81"></a>
+🔹 五、常用代码
+</h1><h2 id="51-编程式配置gateway">
+<a class="header-anchor" href="#51-%e7%bc%96%e7%a8%8b%e5%bc%8f%e9%85%8d%e7%bd%aegateway"></a>
+5.1 编程式配置Gateway
+</h2><p>除了 <code>application.yml</code>，还可以用 Java 配置路由：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GatewayConfig</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Bean</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> RouteLocator <span style="color:#a6e22e">customRouteLocator</span>(RouteLocatorBuilder builder) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> builder.<span style="color:#a6e22e">routes</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">route</span>(<span style="color:#e6db74">&#34;user-service&#34;</span>, r <span style="color:#f92672">-&gt;</span> r.<span style="color:#a6e22e">path</span>(<span style="color:#e6db74">&#34;/user/**&#34;</span>)
+</span></span><span style="display:flex;"><span>                .<span style="color:#a6e22e">filters</span>(f <span style="color:#f92672">-&gt;</span> f.<span style="color:#a6e22e">stripPrefix</span>(1)
+</span></span><span style="display:flex;"><span>                               .<span style="color:#a6e22e">addRequestHeader</span>(<span style="color:#e6db74">&#34;X-Gateway&#34;</span>, <span style="color:#e6db74">&#34;SpringCloud&#34;</span>))
+</span></span><span style="display:flex;"><span>                .<span style="color:#a6e22e">uri</span>(<span style="color:#e6db74">&#34;lb://user-service&#34;</span>))
+</span></span><span style="display:flex;"><span>            .<span style="color:#a6e22e">build</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="52-gateway-鉴权authentication--authorization">
+<a class="header-anchor" href="#52-gateway-%e9%89%b4%e6%9d%83authentication--authorization"></a>
+5.2 Gateway 鉴权（Authentication / Authorization）
+</h2><h3 id="521-实现思路">
+<a class="header-anchor" href="#521-%e5%ae%9e%e7%8e%b0%e6%80%9d%e8%b7%af"></a>
+5.2.1 实现思路
+</h3><ul>
+<li>在请求进入网关时，先判断是否携带 <strong>合法 token / session / key</strong>。</li>
+<li>通常通过 <strong>自定义全局过滤器</strong>（GlobalFilter）实现。</li>
+</ul>
+<h3 id="522-配置示例仅路由鉴权">
+<a class="header-anchor" href="#522-%e9%85%8d%e7%bd%ae%e7%a4%ba%e4%be%8b%e4%bb%85%e8%b7%af%e7%94%b1%e9%89%b4%e6%9d%83"></a>
+5.2.2 配置示例（仅路由鉴权）
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">spring</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cloud</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">gateway</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">routes</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">id</span>: <span style="color:#ae81ff">user-service</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">uri</span>: <span style="color:#ae81ff">lb://user-service</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">predicates</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">Path=/user/**</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">filters</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">StripPrefix=1</span>
+</span></span></code></pre></div><h3 id="523-代码示例jwt-鉴权">
+<a class="header-anchor" href="#523-%e4%bb%a3%e7%a0%81%e7%a4%ba%e4%be%8bjwt-%e9%89%b4%e6%9d%83"></a>
+5.2.3 代码示例（JWT 鉴权）
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Component</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AuthFilter</span> <span style="color:#66d9ef">implements</span> GlobalFilter, Ordered {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Mono<span style="color:#f92672">&lt;</span>Void<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">filter</span>(ServerWebExchange exchange, GatewayFilterChain chain) {
+</span></span><span style="display:flex;"><span>        String token <span style="color:#f92672">=</span> exchange.<span style="color:#a6e22e">getRequest</span>().<span style="color:#a6e22e">getHeaders</span>().<span style="color:#a6e22e">getFirst</span>(<span style="color:#e6db74">&#34;Authorization&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (token <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">||</span> <span style="color:#f92672">!</span>isValidToken(token)) {
+</span></span><span style="display:flex;"><span>            exchange.<span style="color:#a6e22e">getResponse</span>().<span style="color:#a6e22e">setStatusCode</span>(HttpStatus.<span style="color:#a6e22e">UNAUTHORIZED</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> exchange.<span style="color:#a6e22e">getResponse</span>().<span style="color:#a6e22e">setComplete</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> chain.<span style="color:#a6e22e">filter</span>(exchange);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">isValidToken</span>(String token) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 校验 JWT 或数据库里的 token</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> token.<span style="color:#a6e22e">startsWith</span>(<span style="color:#e6db74">&#34;Bearer &#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getOrder</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1; <span style="color:#75715e">// 优先级最高</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>👉 实际开发中，可以用 <strong>Spring Security + OAuth2</strong> 做更完善的鉴权。</p>
+<h2 id="53-gateway-限流rate-limiting">
+<a class="header-anchor" href="#53-gateway-%e9%99%90%e6%b5%81rate-limiting"></a>
+5.3 Gateway 限流（Rate Limiting）
+</h2><h3 id="531-实现思路">
+<a class="header-anchor" href="#531-%e5%ae%9e%e7%8e%b0%e6%80%9d%e8%b7%af"></a>
+5.3.1 实现思路
+</h3><ul>
+<li>Gateway 内置了 <code>RequestRateLimiter</code> 过滤器，基于 <strong>Redis + 令牌桶算法</strong>。</li>
+<li>需要自定义一个 <code>KeyResolver</code>（决定限流的维度：按 IP、按用户 ID、按路径等）。</li>
+</ul>
+<h3 id="532-配置示例">
+<a class="header-anchor" href="#532-%e9%85%8d%e7%bd%ae%e7%a4%ba%e4%be%8b"></a>
+5.3.2 配置示例
+</h3><pre tabindex="0"><code>spring:
+  cloud:
+    gateway:
+      routes:
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/order/**
+          filters:
+            - name: RequestRateLimiter
+              args:
+                key-resolver: &#34;#{@ipKeyResolver}&#34;
+                redis-rate-limiter.replenishRate: 5   # 每秒放入令牌
+                redis-rate-limiter.burstCapacity: 10 # 最大突发请求数
+</code></pre><h3 id="533-keyresolver-代码">
+<a class="header-anchor" href="#533-keyresolver-%e4%bb%a3%e7%a0%81"></a>
+5.3.3 KeyResolver 代码
+</h3><pre tabindex="0"><code>@Bean
+KeyResolver ipKeyResolver() {
+    return exchange -&gt; Mono.just(
+        exchange.getRequest().getRemoteAddress().getHostString()
+    );
+}
+</code></pre><p>👉 这样，每个 IP <strong>每秒最多 5 个请求</strong>，突发最多 10 个。</p>
+<h2 id="53-gateway-熔断circuit-breaker">
+<a class="header-anchor" href="#53-gateway-%e7%86%94%e6%96%adcircuit-breaker"></a>
+5.3 Gateway 熔断（Circuit Breaker）
+</h2><h3 id="531-实现思路-1">
+<a class="header-anchor" href="#531-%e5%ae%9e%e7%8e%b0%e6%80%9d%e8%b7%af-1"></a>
+5.3.1 实现思路
+</h3><ul>
+<li>Gateway 内置 <code>CircuitBreaker</code> 过滤器（底层基于 Resilience4j）。</li>
+<li>当下游服务异常 / 超时时，网关快速失败，返回默认响应。</li>
+</ul>
+<h3 id="532-配置示例-1">
+<a class="header-anchor" href="#532-%e9%85%8d%e7%bd%ae%e7%a4%ba%e4%be%8b-1"></a>
+5.3.2 配置示例
+</h3><pre tabindex="0"><code>spring:
+  cloud:
+    gateway:
+      routes:
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/product/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: productCircuitBreaker
+                fallbackUri: forward:/fallback/product
+</code></pre><h3 id="533-fallback-controller">
+<a class="header-anchor" href="#533-fallback-controller"></a>
+5.3.3 Fallback Controller
+</h3><pre tabindex="0"><code>@RestController
+public class FallbackController {
+
+    @RequestMapping(&#34;/fallback/product&#34;)
+    public Map&lt;String, String&gt; fallback() {
+        return Map.of(&#34;message&#34;, &#34;Product service is unavailable, please try later.&#34;);
+    }
+}
+</code></pre><p>👉 当 <code>product-service</code> 宕机或超时时，直接返回 <strong>降级响应</strong>。</p>
+<h2 id="-总结对比">
+<a class="header-anchor" href="#-%e6%80%bb%e7%bb%93%e5%af%b9%e6%af%94"></a>
+🔹 总结对比
+</h2><table>
+  <thead>
+      <tr>
+          <th>功能</th>
+          <th>用途</th>
+          <th>实现方式</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>鉴权</td>
+          <td>判断请求是否合法（token/JWT/权限）</td>
+          <td>自定义 <code>GlobalFilter</code> 或 Spring Security</td>
+      </tr>
+      <tr>
+          <td>限流</td>
+          <td>防止接口被刷、保护服务</td>
+          <td><code>RequestRateLimiter</code> + Redis + KeyResolver</td>
+      </tr>
+      <tr>
+          <td>熔断</td>
+          <td>下游服务异常时快速失败，保证可用性</td>
+          <td><code>CircuitBreaker</code> + fallback 路由</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<p>✅ 这三个功能通常是 <strong>组合使用</strong> 的：</p>
+<ol>
+<li><strong>鉴权</strong>：先拦截非法请求。</li>
+<li><strong>限流</strong>：防止流量过大冲击下游。</li>
+<li><strong>熔断</strong>：兜底保护，服务挂了还能优雅降级。</li>
+</ol>
+<h1 id="-六常用场景">
+<a class="header-anchor" href="#-%e5%85%ad%e5%b8%b8%e7%94%a8%e5%9c%ba%e6%99%af"></a>
+🔹 六、常用场景
+</h1><ul>
+<li><strong>统一鉴权</strong>：拦截请求，校验 JWT/Token。</li>
+<li><strong>流量控制</strong>：用 <code>RequestRateLimiter</code> + Redis 做限流。</li>
+<li><strong>熔断降级</strong>：结合 Sentinel/Resilience4j。</li>
+<li><strong>灰度发布</strong>：通过自定义路由规则按条件转发（用户、版本、IP）。</li>
+<li><strong>日志审计</strong>：在全局过滤器中记录请求日志。</li>
+</ul>
+<hr>
+<h1 id="-七总结">
+<a class="header-anchor" href="#-%e4%b8%83%e6%80%bb%e7%bb%93"></a>
+🔹 七、总结
+</h1><ul>
+<li><strong>Spring Cloud Gateway</strong> 是微服务网关，负责 <strong>路由转发 + 统一治理</strong>。</li>
+<li><strong>核心组成</strong>：Route、Predicate、Filter。</li>
+<li><strong>常用断言</strong>：Path、Host、Method、Header、Query。</li>
+<li><strong>常用过滤器</strong>：AddRequestHeader、RewritePath、RequestRateLimiter、CircuitBreaker。</li>
+<li><strong>扩展能力</strong>：支持自定义过滤器，能结合 Nacos、Sentinel、OAuth2 等实现复杂功能。</li>
+</ul>
+<p>👉 一句话：
+**Spring Cloud Gateway 就是微服务大门口的保安 + 调度员，所有请求都得先过它。</p>
+</div>
+    <footer class="article-footer"><blockquote class="article-copyright"><p><strong><span class="icon-user icon"></span>本文作者：</strong>5say @ 5say</p><p>
+      <strong><span class="icon-link icon"></span>本文链接：</strong><a href="http://localhost:1313/post/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8/">http://localhost:1313/post/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8/</a>
+    </p><p>
+      
+      <strong><span class="icon-copyright icon"></span>本文版权：</strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener external nofollow noreferrer" target="_blank"><span class="icon-creative-commons"></span>BY-NC-SA</a> 许可协议。转载请注明出处！
+    </p>
+    <span class="icon-creative-commons article-copyright-bg"></span></blockquote>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e4%b8%ad%e9%97%b4%e4%bb%b6"
+        rel="tag"
+        >中间件</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/spring"
+        rel="tag"
+        >SPRING</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e9%9d%a2%e8%af%95"
+        rel="tag"
+        >面试</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap article-nav-link-left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="Java并发编程"
+              class="lazyload"
+            /><a href="/post/20250824004-java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">Java并发编程</h3>
+      </div><div class="article-nav-link-wrap article-nav-link-right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="了解Sentinel"
+              class="lazyload"
+            /><a href="/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">了解Sentinel</h3>
+      </div></nav></article><section id="comments" data-aos="fade-up">
+<div class="comment-header"><h2 class="comment-title">说些什么吧！</h2>
+  <div class="comment-selector">
+    <div class="comment-selector-wrap"><div class="selector-item" data-selector="giscus">
+          <span>giscus</span>
+        </div></div>
+  </div>
+</div>
+
+<div class="comment-content"><div class="comment giscus-comment" data-aos="fade-up"
+     >
+    </div></div>
+</section></section>
+        </div><footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2020-2025<span class="footer-info-sep rotate"></span>
+      5say
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;35.8k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;01:23</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-引入依赖">1. 引入依赖</a></li>
+        <li><a href="#2-在-applicationyml-里配置路由">2. 在 <code>application.yml</code> 里配置路由</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#-1-配置说明">🔹 1. 配置说明</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#-41-常用断言predicates">🔹 4.1 常用断言（Predicates）</a></li>
+    <li><a href="#-42-常用过滤器filters">🔹 4.2 常用过滤器（Filters）</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#51-编程式配置gateway">5.1 编程式配置Gateway</a></li>
+    <li><a href="#52-gateway-鉴权authentication--authorization">5.2 Gateway 鉴权（Authentication / Authorization）</a>
+      <ul>
+        <li><a href="#521-实现思路">5.2.1 实现思路</a></li>
+        <li><a href="#522-配置示例仅路由鉴权">5.2.2 配置示例（仅路由鉴权）</a></li>
+        <li><a href="#523-代码示例jwt-鉴权">5.2.3 代码示例（JWT 鉴权）</a></li>
+      </ul>
+    </li>
+    <li><a href="#53-gateway-限流rate-limiting">5.3 Gateway 限流（Rate Limiting）</a>
+      <ul>
+        <li><a href="#531-实现思路">5.3.1 实现思路</a></li>
+        <li><a href="#532-配置示例">5.3.2 配置示例</a></li>
+        <li><a href="#533-keyresolver-代码">5.3.3 KeyResolver 代码</a></li>
+      </ul>
+    </li>
+    <li><a href="#53-gateway-熔断circuit-breaker">5.3 Gateway 熔断（Circuit Breaker）</a>
+      <ul>
+        <li><a href="#531-实现思路-1">5.3.1 实现思路</a></li>
+        <li><a href="#532-配置示例-1">5.3.2 配置示例</a></li>
+        <li><a href="#533-fallback-controller">5.3.3 Fallback Controller</a></li>
+      </ul>
+    </li>
+    <li><a href="#-总结对比">🔹 总结对比</a></li>
+  </ul>
+</nav>
+  </div>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.jpg"
+    data-sizes="auto"
+    alt="5say"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">5say</div>
+  <div class="sidebar-description">我的博客</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">20</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">14</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/tags"
+        aria-label="标签"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">标签</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/links"
+        aria-label="传送门"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">传送门</div>
+    </div></div>
+</div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div class="reimu-search-input" id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png" />
+        </div>
+      </div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" ></script><script src="/js/aos.js" ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" data-pjax></script><script>
+    var ALGOLIA_CONFIG = {
+      logo: '\/images\/algolia_logo.svg',
+      algolia: {
+        applicationID: "8HX06YAPFB",
+        apiKey: "f021335f33afc81efe70ac9a4e292f8b",
+        indexName: "blog",
+        hits: {
+          "per_page": parseInt("10")
+        },
+        labels: {
+          "input_placeholder": '搜索.....',
+          "hits_empty": '未发现与 「${query}」相关内容',
+          "hits_stats": '找到${hits}条结果（用时 ${time} ms）'
+        }
+      }
+    };
+  </script><script
+    src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js"
+    deferintegrity="sha384-xvLS0jfKuoREs7pqkRI/OI8GcqohO5S&#43;jQz7ZBtQXnsXmD&#43;9jDOOY4cL6dCPzlrk" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/@reimujs/instantsearch.js@4.57.0-beta.1/dist/instantsearch.production.min.js"
+    deferintegrity="sha384-aagKMe8nkqaP2DYQc8kkYOL5l&#43;M5Q2WH/Uhr4teOh0Ybp0RZj0kUSDm45qPikMjK" crossorigin="anonymous"></script><script src="/js/algolia_search.js" ></script><script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "5say",
+          title: "了解Spring Cloud Gateway的使用",
+          url: "http:\/\/localhost:1313\/post\/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8\/",
+          description: "Spring Cloud Gateway这是 Spring Cloud 体系里非常重要的一个组件。\n🔹 一、Spring Cloud Gateway 是什么 Spring Cloud Gateway 是 Spring 官方推出的新一代网关组件，用来替代 Zuul。\n👉 它的定位：\n统一入口：所有请求先经过 Gateway，再路由到具体微服务。 功能：路由、负载均衡、权限校验、限流、熔断、日志监控、CORS。 底层基于 WebFlux（Reactor 模型），比 Zuul（Servlet 阻塞 IO）性能更好。 一句话： Spring Cloud Gateway = 高性能的 API 网关，负责 …",
+          cover: "http:\/\/localhost:1313\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script><script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+  var commentConfigKeys = ['valine', 'waline', 'twikoo', 'gitalk', 'giscus'];
+  var commentConfig = {
+    valine: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.valine-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/valine@1.5.1\/dist\/Valine.min.js',
+          !'webcache|valine@1.5.1\/dist\/Valine.min.js'.startsWith('local') ? 'sha384-3ma91AExDeMAZ1rjTjaP8V2A2obQE\u002bs5ltKRwYlwdpArz9xVbp0tF3b0VV2ACNPn' : undefined
+        );
+        script.onload = () => {
+          const GUEST_INFO = ['nick', 'mail', 'link'];
+          const guest_info = 'nick,mail,link'.split(',').filter((item) => {
+            return GUEST_INFO.indexOf(item) > -1
+          });
+          const recordIP = JSON.parse('true');
+          const highlight = JSON.parse('true');
+          const visitor = JSON.parse('false');
+          const serverURLs = undefined;
+
+          new Valine({
+            el: '.valine-comment',
+            appId: "",
+            appKey: "",
+            placeholder: "Just go go",
+            pageSize: '10',
+            avatar: 'mp',
+            lang: document.documentElement.lang || 'en',
+            recordIP: recordIP,
+            highlight: highlight,
+            visitor: visitor,
+            requiredFields: guest_info,
+            path: window.location.pathname,
+            serverURLs,
+          });
+        };
+        document.head.appendChild(script);
+      }
+    },
+    waline: {
+      enable: false,
+      load: async () => {
+        const container = document.querySelector('.waline-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        let walineInit;
+        const walineCdn = 'https:\/\/npm.webcache.cn\/@waline\/client@2.15.8\/dist\/waline.mjs';
+        
+        if ('webcache|@waline\/client@2.15.8\/dist\/waline.mjs'.startsWith('local')) {
+          
+          const module = await safeImport(walineCdn);
+          walineInit = module.init;
+        } else {
+          
+          const module = await safeImport(
+            walineCdn, 
+            'sha384-9sbqJjrfGjbkI6\/PI4nU\/MvBfEmkkPC4YK9I4zBeMIf1CVCZdCMH\/KinBEAZII\/5'
+          );
+          walineInit = module.init;
+        }
+        
+        window.walineInstance = walineInit({
+          el: '.waline-comment',
+          serverURL: '',
+          lang: document.documentElement.lang || 'en',
+          locale: JSON.parse("{}"),
+          emoji: JSON.parse("[\"https://unpkg.com/@waline/emojis@1.2.0/weibo\",\"https://unpkg.com/@waline/emojis@1.2.0/alus\",\"https://unpkg.com/@waline/emojis@1.2.0/bilibili\",\"https://unpkg.com/@waline/emojis@1.2.0/qq\",\"https://unpkg.com/@waline/emojis@1.2.0/tieba\",\"https://unpkg.com/@waline/emojis@1.2.0/tw-emoji\"]"),
+          meta: JSON.parse("[\"nick\",\"mail\",\"link\"]"),
+          requiredMeta: JSON.parse("[\"nick\",\"mail\"]"),
+          wordLimit:  0 ,
+          comment: true,
+          pageSize:  10 ,
+          dark: 'html[data-theme="dark"]',
+          pageview:  true ,
+        });
+      }
+    },
+    twikoo: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.twikoo-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/twikoo@1.6.44\/dist\/twikoo.all.min.js',
+          !'webcache|twikoo@1.6.44\/dist\/twikoo.all.min.js'.startsWith('local') ? 'sha384-kwWLC0HjeZZnVPqCJ1AncI8tsk\u002bkQqF9TbAmCclcc9Z0hGkfgHRzeQZxmdmZhE0K' : undefined
+        );
+        script.onload = () => {
+          twikoo.init({
+            envId: '',
+            el: '.twikoo-comment',
+            region: '',
+            lang: document.documentElement.lang || 'en',
+          });
+          twikoo.getCommentsCount({
+            envId: '',
+            region: '',
+            urls: [
+              'http\/\/localhost1313\/post\/20250825003-%e4%ba%86%e8%a7%a3spring-cloud-gateway%e7%9a%84%e4%bd%bf%e7%94%a8\/'
+            ],
+            includeReply: false
+          }).then((res) => {
+            document.querySelector('.twikoo-comment-count').innerText = res[0].count;
+          }).catch((err) => {
+            console.error(err);
+          });
+        };
+        document.head.appendChild(script);
+      }
+    },
+    gitalk: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.gitalk-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/gitalk@1.8.0\/dist\/gitalk.min.js',
+          !'webcache|gitalk@1.8.0\/dist\/gitalk.min.js'.startsWith('local') ? 'sha384-kspnZUWBoSWwoJHa0hBCXYbHGbhvU\/lcEH5O8eVbSDhbPwsiVUTp\/aGX\/z\/5EuMA' : undefined
+        );
+        script.onload = () => {
+          if ( false ) {
+            
+            const md5Script = loadScript(
+              'https:\/\/npm.webcache.cn\/blueimp-md5@2.19.0\/js\/md5.min.js',
+              !'webcache|blueimp-md5@2.19.0\/js\/md5.min.js'.startsWith('local') ? 'sha384-JmVtRz6RWiXnA14QbIOJzPuU3MidULOpBP66deeLLyyoF4Tr\/gZlbkHkL6vTthxH' : undefined
+            );
+            md5Script.onload = initGitalk;
+            document.head.appendChild(md5Script);
+          } else {
+            
+            initGitalk();
+          }
+        };
+        document.head.appendChild(script);
+
+        function initGitalk() {
+          let gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: '',
+            owner: '',
+            admin: JSON.parse("null"),
+            id: location.pathname,
+            distractionFreeMode: false,
+            language: document.documentElement.lang || 'en',
+          });
+          gitalk.render('gitalk-comment');
+        }
+      }
+    },
+    giscus: {
+      enable: true,
+      load: () => {
+        const container = document.querySelector('.giscus-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        
+        const existingScript = container.querySelector('script[src*="giscus.app/client.js"]');
+        if (existingScript) existingScript.remove();
+        const existingFrame = document.querySelector('iframe.giscus-frame');
+        if (existingFrame) existingFrame.remove();
+
+        
+        const giscusScript = document.createElement('script');
+        const domMode = document.documentElement.getAttribute("data-theme");
+
+        const docLang = document.documentElement.lang || 'en';
+        const langBase = docLang.split('-')[0];
+        const supportedLangs = ['ar', 'be', 'bg', 'ca', 'cs', 'da', 'de', 'en', 
+        'eo', 'es', 'eu', 'fa', 'fr', 'gr', 'hbs', 'he', 'hu', 'id', 'it', 'ja', 
+        'kh', 'ko', 'nl', 'pl', 'pt', 'ro', 'ru', 'th', 'tr', 'uk', 'uz', 'vi', 'zh-CN', 'zh-HK', 'zh-TW'];
+        const giscusLang = supportedLangs.includes(docLang) ? docLang : supportedLangs.includes(langBase) ? langBase : 'en';
+
+        giscusScript.src = 'https://giscus.app/client.js';
+        giscusScript.setAttribute('data-repo', '5say\/5say');
+        giscusScript.setAttribute('data-repo-id', 'R_kgDOPUICig');
+        giscusScript.setAttribute('data-category', 'Announcements');
+        giscusScript.setAttribute('data-category-id', 'DIC_kwDOPUICis4CtgLS');
+        giscusScript.setAttribute('data-mapping', '0');
+        giscusScript.setAttribute('data-strict', '0');
+        giscusScript.setAttribute('data-reactions-enabled', '1');
+        giscusScript.setAttribute('data-emit-metadata', '0');
+        giscusScript.setAttribute('data-input-position', 'bottom');
+        giscusScript.setAttribute('data-theme', domMode === 'dark' ? 'dark' : 'light');
+        giscusScript.setAttribute('data-lang', giscusLang);
+        giscusScript.setAttribute('crossorigin', 'anonymous');
+        giscusScript.async = true;
+        container.appendChild(giscusScript);
+        document.body.addEventListener('light-theme-set', () => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: 'light' } } }, 'https://giscus.app');
+        });
+        document.body.addEventListener('dark-theme-set', () => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: 'dark' } } }, 'https://giscus.app');
+        });
+      }
+    }
+  };
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig[key].enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    
+    var savedCommentType = localStorage.getItem('commentType');
+    
+    
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+    
+    
+    if (!defaultComment) {
+      var configDefault = 'giscus';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+    
+    
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig[sys].enable) || '';
+    }
+  }
+
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false
+    };
+
+    
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      
+      const commentType = item.getAttribute('data-selector');
+
+      
+      hideAllComments();
+
+      
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          
+          changeActiveCommentItems(item);
+        });
+      }
+
+      
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script></div>
+</div><script data-pjax>
+    var updateTime = _$('#post-update-time')?.innerHTML;
+
+    if (updateTime) {
+      const update = new Date(updateTime);
+      const now = new Date();
+      const diff = now - update;
+      const days = diff / 86400000;
+      const { daysago: daysAgo, message: template } = window.siteConfig.outdate;
+      if (days >= daysAgo) {
+        let message = `This article was last updated on ${updateTime}. Please note that the content may no longer be applicable.`;
+        if (typeof template === 'string') {
+          message = template.replace(/{time}/, updateTime);
+        } else if (typeof template === 'object') {
+          const lang = document.documentElement.lang;
+          const messageKey = Object.keys(template).find(key => key.toLowerCase() === lang.toLowerCase());
+          if (messageKey && template[messageKey]) {
+            message = template[messageKey].replace(/{time}/, updateTime);
+          }
+        }
+        const blockquote = _$('#outdate-blockquote');
+        if (blockquote) {
+          blockquote.querySelector('p').innerText = message;
+          blockquote.style.display = 'block';
+        }
+      }
+    }
+  </script><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    asyncintegrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script><script
+    src="https://npm.webcache.cn/pangu@4.0.7/dist/browser/pangu.min.js"
+    integrity="sha384-HeUHqi0nVsPUm/E0ss7OfnIV/yD96JWB8ehZvUuoVax9DpNHL17jj9pdfXHzqDxm" crossorigin="anonymous"></script><script data-pjax>
+    if (document.readyState === "loading") {
+      document.addEventListener('DOMContentLoaded', () => {
+        pangu?.spacingPage();
+      });
+    } else {
+      pangu?.spacingPage();
+    }
+  </script></body>
+</html>

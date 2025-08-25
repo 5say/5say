@@ -1,0 +1,1427 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  Redis的入门手册 | 5say
+</title>
+<meta
+  name="description"
+  content="我的博客"
+/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":true,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><link rel="stylesheet" href="/css/loader.css" />
+<meta property="og:type" content="website" />
+  <meta property="og:title" content="Redis的入门手册 | 5say" />
+  <meta
+    property="og:description"
+    content="我的博客"
+  />
+  <meta property="og:url" content="http://localhost:1313/post/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/" />
+  <meta
+    property="og:site_name"
+    content="5say"
+  />
+  <meta
+    property="og:image"
+    content="/"
+  />
+  <meta property="article:author" content="5say" />
+  <meta property="article:published_time" content="2025-08-25T12:28:00&#43;08:00" />
+  <meta property="article:modified_time" content="2025-08-25T12:28:00&#43;08:00" /><meta property="article:tag" content="中间件面试" /><meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" />
+<link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.22/dist/katex.min.css"
+    integrity="sha384-5TcZemv2l/9On385z///&#43;d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate"><svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg></div><div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script><div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+<div id="lang-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav"><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/tags">标签</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/links">传送门</a>
+      </span><a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav"><a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a></nav></div>
+<header id="header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="Redis的入门手册"><div id="header-outer">
+    <div id="header-title"><a href="/" id="logo">
+            <h1 data-aos="slide-up">Redis的入门手册</h1>
+          </a><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          
+          class="sidebar-right"  ><aside id="sidebar"><div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#21-redis的各种数据类型以及使用场景">2.1 Redis的各种数据类型以及使用场景</a>
+      <ul>
+        <li><a href="#211-string字符串">2.1.1 String（字符串）</a></li>
+        <li><a href="#212-hash哈希表">2.1.2 Hash（哈希表）</a></li>
+        <li><a href="#213-list列表">2.1.3 List（列表）</a></li>
+        <li><a href="#214-set集合">2.1.4 Set（集合）</a></li>
+        <li><a href="#215-sorted-set有序集合">2.1.5 Sorted Set（有序集合）</a></li>
+        <li><a href="#216-bitmap位图">2.1.6 Bitmap（位图）</a></li>
+        <li><a href="#217-hyperloglog">2.1.7 HyperLogLog</a></li>
+        <li><a href="#218-stream消息流">2.1.8 Stream（消息流）</a></li>
+        <li><a href="#-总结">🔹 总结</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#1-缓存穿透cache-penetration">1️⃣ 缓存穿透（Cache Penetration）</a></li>
+    <li><a href="#2-缓存击穿cache-breakdown">2️⃣ 缓存击穿（Cache Breakdown）</a></li>
+    <li><a href="#3-缓存雪崩cache-avalanche">3️⃣ 缓存雪崩（Cache Avalanche）</a></li>
+    <li><a href="#4-缓存更新问题一致性问题">4️⃣ 缓存更新问题（一致性问题）</a></li>
+    <li><a href="#5-redis-内存问题大-key内存泄漏">5️⃣ Redis 内存问题（大 key、内存泄漏）</a></li>
+  </ul>
+</nav>
+  </div>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.jpg"
+    data-sizes="auto"
+    alt="5say"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">5say</div>
+  <div class="sidebar-description">我的博客</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">20</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">14</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/tags"
+        aria-label="标签"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">标签</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/links"
+        aria-label="传送门"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">传送门</div>
+    </div></div>
+</div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div>
+
+  <div class="sidebar-widget"></div></aside>
+<section id="main"><article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2025-08-25 12:28:00 &#43;0800 CST" itemprop="datePublished"
+      >2025-08-25</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2025-08-25</time
+    >
+  </span>
+</div>
+<div class="article-category"><a
+      class="article-category-link"
+      href="/categories/%e7%bc%96%e7%a8%8b"
+      data-aos="zoom-in"
+      >编程</a
+    ><a
+      class="article-category-link"
+      href="/categories/%e4%b8%ad%e9%97%b4%e4%bb%b6"
+      data-aos="zoom-in"
+      >中间件</a
+    ><a
+      class="article-category-link"
+      href="/categories/%e9%9d%a2%e8%af%95"
+      data-aos="zoom-in"
+      >面试</a
+    ></div>
+</div>
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><blockquote id="outdate-blockquote" style="display: none;">
+          <p></p>
+        </blockquote><h1 id="-一redis-是什么">
+<a class="header-anchor" href="#-%e4%b8%80redis-%e6%98%af%e4%bb%80%e4%b9%88"></a>
+📌 一、Redis 是什么
+</h1><p><strong>Redis</strong>（REmote DIctionary Server）是一个开源的 <strong>高性能内存键值数据库</strong>，支持多种数据结构（String、Hash、List、Set、Sorted Set、Bitmap、HyperLogLog、Stream 等）。</p>
+<p>Redis 特点：</p>
+<ol>
+<li><strong>高速</strong>：基于内存存储，读写非常快（百万级 QPS）。</li>
+<li><strong>丰富数据结构</strong>：不仅是简单 KV，还支持复杂数据操作。</li>
+<li><strong>持久化</strong>：可选 RDB 快照、AOF 日志，实现数据持久化。</li>
+<li><strong>单线程模型</strong>：利用事件驱动 + I/O 多路复用，避免线程切换开销。</li>
+<li><strong>支持分布式</strong>：Cluster 模式、主从复制、哨兵（Sentinel）高可用。</li>
+<li><strong>丰富功能</strong>：事务、Lua 脚本、发布/订阅、过期策略。</li>
+</ol>
+<hr>
+<h1 id="-二redis-核心特点与使用场景">
+<a class="header-anchor" href="#-%e4%ba%8credis-%e6%a0%b8%e5%bf%83%e7%89%b9%e7%82%b9%e4%b8%8e%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af"></a>
+📌 二、Redis 核心特点与使用场景
+</h1><table>
+  <thead>
+      <tr>
+          <th>特性</th>
+          <th>使用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>高速 KV 存储</td>
+          <td>缓存热点数据，例如商品信息、用户会话</td>
+      </tr>
+      <tr>
+          <td>数据结构丰富</td>
+          <td>排行榜（Sorted Set）、计数器（String/INCR）、标签集合（Set）</td>
+      </tr>
+      <tr>
+          <td>过期策略</td>
+          <td>会话、验证码、临时缓存</td>
+      </tr>
+      <tr>
+          <td>持久化</td>
+          <td>日志系统、临时队列恢复</td>
+      </tr>
+      <tr>
+          <td>发布/订阅</td>
+          <td>消息通知、事件广播</td>
+      </tr>
+      <tr>
+          <td>Lua 脚本事务</td>
+          <td>原子操作，例如扣减库存、限流</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="21-redis的各种数据类型以及使用场景">
+<a class="header-anchor" href="#21-redis%e7%9a%84%e5%90%84%e7%a7%8d%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b%e4%bb%a5%e5%8f%8a%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af"></a>
+2.1 Redis的各种数据类型以及使用场景
+</h2><h3 id="211-string字符串">
+<a class="header-anchor" href="#211-string%e5%ad%97%e7%ac%a6%e4%b8%b2"></a>
+2.1.1 String（字符串）
+</h3><p><strong>特点</strong>：</p>
+<ul>
+<li>最简单的数据类型，存储字符串、数字等。</li>
+<li>最大 512MB。</li>
+</ul>
+<p><strong>常用操作</strong>：</p>
+<ul>
+<li><code>SET key value [EX seconds]</code> 设置值和过期时间</li>
+<li><code>GET key</code> 获取值</li>
+<li><code>INCR key</code> 自增</li>
+<li><code>DECR key</code> 自减</li>
+</ul>
+<p><strong>使用场景</strong>：</p>
+<ol>
+<li><strong>缓存单个对象</strong>：商品详情、用户信息</li>
+<li><strong>计数器</strong>：访问量 PV/UV、点赞数</li>
+<li><strong>分布式锁</strong>：<code>SETNX + EX</code></li>
+</ol>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>redisTemplate.<span style="color:#a6e22e">opsForValue</span>().<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#34;user:1:name&#34;</span>, <span style="color:#e6db74">&#34;Alice&#34;</span>, 1, TimeUnit.<span style="color:#a6e22e">HOURS</span>);
+</span></span><span style="display:flex;"><span>redisTemplate.<span style="color:#a6e22e">opsForValue</span>().<span style="color:#a6e22e">increment</span>(<span style="color:#e6db74">&#34;page:view:123&#34;</span>); <span style="color:#75715e">// PV++</span>
+</span></span></code></pre></div><hr>
+<h3 id="212-hash哈希表">
+<a class="header-anchor" href="#212-hash%e5%93%88%e5%b8%8c%e8%a1%a8"></a>
+2.1.2 Hash（哈希表）
+</h3><p><strong>特点</strong>：</p>
+<ul>
+<li>类似 Map，字段（field）和值（value）对存储在一个 key 下。</li>
+<li>适合存储对象结构。</li>
+</ul>
+<p><strong>常用操作</strong>：</p>
+<ul>
+<li><code>HSET key field value</code></li>
+<li><code>HGET key field</code></li>
+<li><code>HGETALL key</code></li>
+</ul>
+<p><strong>使用场景</strong>：</p>
+<ol>
+<li><strong>存储对象</strong>：用户信息、商品信息</li>
+<li><strong>部分更新</strong>：只更新对象的某个字段，不影响其他字段</li>
+<li><strong>内存优化</strong>：比多个 String key 更节省空间</li>
+</ol>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>HashOperations<span style="color:#f92672">&lt;</span>String, Object, Object<span style="color:#f92672">&gt;</span> hashOps <span style="color:#f92672">=</span> redisTemplate.<span style="color:#a6e22e">opsForHash</span>();
+</span></span><span style="display:flex;"><span>hashOps.<span style="color:#a6e22e">put</span>(<span style="color:#e6db74">&#34;user:1&#34;</span>, <span style="color:#e6db74">&#34;name&#34;</span>, <span style="color:#e6db74">&#34;Alice&#34;</span>);
+</span></span><span style="display:flex;"><span>hashOps.<span style="color:#a6e22e">put</span>(<span style="color:#e6db74">&#34;user:1&#34;</span>, <span style="color:#e6db74">&#34;age&#34;</span>, 25);
+</span></span><span style="display:flex;"><span>Object age <span style="color:#f92672">=</span> hashOps.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;user:1&#34;</span>, <span style="color:#e6db74">&#34;age&#34;</span>);
+</span></span></code></pre></div><hr>
+<h3 id="213-list列表">
+<a class="header-anchor" href="#213-list%e5%88%97%e8%a1%a8"></a>
+2.1.3 List（列表）
+</h3><p><strong>特点</strong>：</p>
+<ul>
+<li>有序列表，可左/右 push/pop。</li>
+<li>支持按索引访问、范围查询。</li>
+</ul>
+<p><strong>常用操作</strong>：</p>
+<ul>
+<li><code>LPUSH key value</code> 左插入</li>
+<li><code>RPUSH key value</code> 右插入</li>
+<li><code>LPOP key</code> / <code>RPOP key</code> 弹出</li>
+<li><code>LRANGE key start stop</code> 范围获取</li>
+</ul>
+<p><strong>使用场景</strong>：</p>
+<ol>
+<li><strong>消息队列</strong>：简单队列（阻塞或非阻塞）</li>
+<li><strong>任务列表</strong>：待处理订单、任务调度</li>
+<li><strong>日志列表</strong>：最近 N 条日志</li>
+</ol>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>redisTemplate.<span style="color:#a6e22e">opsForList</span>().<span style="color:#a6e22e">rightPush</span>(<span style="color:#e6db74">&#34;task:queue&#34;</span>, <span style="color:#e6db74">&#34;task1&#34;</span>);
+</span></span><span style="display:flex;"><span>String task <span style="color:#f92672">=</span> redisTemplate.<span style="color:#a6e22e">opsForList</span>().<span style="color:#a6e22e">leftPop</span>(<span style="color:#e6db74">&#34;task:queue&#34;</span>);
+</span></span></code></pre></div><hr>
+<h3 id="214-set集合">
+<a class="header-anchor" href="#214-set%e9%9b%86%e5%90%88"></a>
+2.1.4 Set（集合）
+</h3><p><strong>特点</strong>：</p>
+<ul>
+<li>无序集合，元素唯一。</li>
+<li>支持交集、并集、差集操作。</li>
+</ul>
+<p><strong>常用操作</strong>：</p>
+<ul>
+<li><code>SADD key value</code> 添加</li>
+<li><code>SREM key value</code> 移除</li>
+<li><code>SISMEMBER key value</code> 是否存在</li>
+<li><code>SMEMBERS key</code> 获取所有元素</li>
+</ul>
+<p><strong>使用场景</strong>：</p>
+<ol>
+<li><strong>标签系统</strong>：用户兴趣标签、商品分类标签</li>
+<li><strong>去重</strong>：独立访问用户集合</li>
+<li><strong>好友关系</strong>：社交应用关注/粉丝列表</li>
+<li><strong>集合运算</strong>：交集/并集/差集</li>
+</ol>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>redisTemplate.<span style="color:#a6e22e">opsForSet</span>().<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;user:1:tags&#34;</span>, <span style="color:#e6db74">&#34;java&#34;</span>, <span style="color:#e6db74">&#34;redis&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">boolean</span> hasTag <span style="color:#f92672">=</span> redisTemplate.<span style="color:#a6e22e">opsForSet</span>().<span style="color:#a6e22e">isMember</span>(<span style="color:#e6db74">&#34;user:1:tags&#34;</span>, <span style="color:#e6db74">&#34;java&#34;</span>);
+</span></span></code></pre></div><hr>
+<h3 id="215-sorted-set有序集合">
+<a class="header-anchor" href="#215-sorted-set%e6%9c%89%e5%ba%8f%e9%9b%86%e5%90%88"></a>
+2.1.5 Sorted Set（有序集合）
+</h3><p><strong>特点</strong>：</p>
+<ul>
+<li>每个元素有一个 score（分数），自动按 score 排序。</li>
+<li>支持范围查询、排名。</li>
+</ul>
+<p><strong>常用操作</strong>：</p>
+<ul>
+<li><code>ZADD key score value</code> 添加</li>
+<li><code>ZRANGE key start stop [WITHSCORES]</code> 按排名获取</li>
+<li><code>ZRANK key value</code> 获取元素排名</li>
+</ul>
+<p><strong>使用场景</strong>：</p>
+<ol>
+<li><strong>排行榜</strong>：游戏分数榜、销售排行榜</li>
+<li><strong>延时队列</strong>：score 存储时间戳，按时间处理</li>
+<li><strong>带权重集合</strong>：热门文章、热门商品</li>
+</ol>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>redisTemplate.<span style="color:#a6e22e">opsForZSet</span>().<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;game:rank&#34;</span>, <span style="color:#e6db74">&#34;player1&#34;</span>, 100);
+</span></span><span style="display:flex;"><span>Set<span style="color:#f92672">&lt;</span>Object<span style="color:#f92672">&gt;</span> top10 <span style="color:#f92672">=</span> redisTemplate.<span style="color:#a6e22e">opsForZSet</span>().<span style="color:#a6e22e">range</span>(<span style="color:#e6db74">&#34;game:rank&#34;</span>, 0, 9);
+</span></span></code></pre></div><hr>
+<h3 id="216-bitmap位图">
+<a class="header-anchor" href="#216-bitmap%e4%bd%8d%e5%9b%be"></a>
+2.1.6 Bitmap（位图）
+</h3><p><strong>特点</strong>：</p>
+<ul>
+<li>按位存储 0/1，占用少量内存。</li>
+<li>可用于高效统计。</li>
+</ul>
+<p><strong>常用操作</strong>：</p>
+<ul>
+<li><code>SETBIT key offset value</code></li>
+<li><code>GETBIT key offset</code></li>
+<li><code>BITCOUNT key</code></li>
+</ul>
+<p><strong>使用场景</strong>：</p>
+<ol>
+<li><strong>签到统计</strong>：用户每日签到记录</li>
+<li><strong>去重统计</strong>：大规模 UV 统计</li>
+<li><strong>权限开关</strong>：单个位表示某种状态</li>
+</ol>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>redisTemplate.<span style="color:#a6e22e">opsForValue</span>().<span style="color:#a6e22e">setBit</span>(<span style="color:#e6db74">&#34;sign:2025-08-25&#34;</span>, 1234, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">boolean</span> signed <span style="color:#f92672">=</span> redisTemplate.<span style="color:#a6e22e">opsForValue</span>().<span style="color:#a6e22e">getBit</span>(<span style="color:#e6db74">&#34;sign:2025-08-25&#34;</span>, 1234);
+</span></span></code></pre></div><hr>
+<h3 id="217-hyperloglog">
+<a class="header-anchor" href="#217-hyperloglog"></a>
+2.1.7 HyperLogLog
+</h3><p><strong>特点</strong>：</p>
+<ul>
+<li>用于统计基数（不重复元素数量），占用内存小，误差 0.81%。</li>
+</ul>
+<p><strong>常用操作</strong>：</p>
+<ul>
+<li><code>PFADD key element</code></li>
+<li><code>PFCOUNT key</code></li>
+</ul>
+<p><strong>使用场景</strong>：</p>
+<ol>
+<li><strong>独立用户统计</strong>（UV）</li>
+<li><strong>日志去重统计</strong></li>
+<li><strong>大规模访问量统计</strong></li>
+</ol>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>redisTemplate.<span style="color:#a6e22e">opsForHyperLogLog</span>().<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;uv:2025-08-25&#34;</span>, <span style="color:#e6db74">&#34;user123&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">long</span> uv <span style="color:#f92672">=</span> redisTemplate.<span style="color:#a6e22e">opsForHyperLogLog</span>().<span style="color:#a6e22e">size</span>(<span style="color:#e6db74">&#34;uv:2025-08-25&#34;</span>);
+</span></span></code></pre></div><hr>
+<h3 id="218-stream消息流">
+<a class="header-anchor" href="#218-stream%e6%b6%88%e6%81%af%e6%b5%81"></a>
+2.1.8 Stream（消息流）
+</h3><p><strong>特点</strong>：</p>
+<ul>
+<li>类似 Kafka 的日志流，按 ID 有序存储。</li>
+<li>支持消费组、阻塞消费。</li>
+</ul>
+<p><strong>常用操作</strong>：</p>
+<ul>
+<li><code>XADD key * field value</code> 添加</li>
+<li><code>XREAD COUNT 10 STREAMS key lastId</code> 读取</li>
+<li><code>XGROUP CREATE key groupName $</code> 创建消费组</li>
+</ul>
+<p><strong>使用场景</strong>：</p>
+<ol>
+<li><strong>消息队列</strong>：延时任务、事件流处理</li>
+<li><strong>日志收集</strong>：服务日志、交易流水</li>
+<li><strong>微服务事件总线</strong></li>
+</ol>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>redisTemplate.<span style="color:#a6e22e">opsForStream</span>().<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;order_stream&#34;</span>, Map.<span style="color:#a6e22e">of</span>(<span style="color:#e6db74">&#34;orderId&#34;</span>, <span style="color:#e6db74">&#34;12345&#34;</span>));
+</span></span></code></pre></div><hr>
+<h3 id="-总结">
+<a class="header-anchor" href="#-%e6%80%bb%e7%bb%93"></a>
+🔹 总结
+</h3><table>
+  <thead>
+      <tr>
+          <th>数据类型</th>
+          <th>特点</th>
+          <th>使用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>String</td>
+          <td>简单 KV</td>
+          <td>缓存对象、计数器、分布式锁</td>
+      </tr>
+      <tr>
+          <td>Hash</td>
+          <td>类 Map，多字段存储</td>
+          <td>用户/商品对象、部分更新</td>
+      </tr>
+      <tr>
+          <td>List</td>
+          <td>有序列表</td>
+          <td>队列、任务列表、日志列表</td>
+      </tr>
+      <tr>
+          <td>Set</td>
+          <td>无序、唯一</td>
+          <td>标签、去重、好友关系</td>
+      </tr>
+      <tr>
+          <td>Sorted Set</td>
+          <td>有序集合 + score</td>
+          <td>排行榜、延时队列、带权重集合</td>
+      </tr>
+      <tr>
+          <td>Bitmap</td>
+          <td>按位存储</td>
+          <td>签到、UV 去重、权限开关</td>
+      </tr>
+      <tr>
+          <td>HyperLogLog</td>
+          <td>基数统计，低内存</td>
+          <td>UV 统计、大规模去重</td>
+      </tr>
+      <tr>
+          <td>Stream</td>
+          <td>消息流、有序队列</td>
+          <td>消息队列、事件流、日志流</td>
+      </tr>
+  </tbody>
+</table>
+<h1 id="-三使用-redis-可能遇到的问题及解决方案">
+<a class="header-anchor" href="#-%e4%b8%89%e4%bd%bf%e7%94%a8-redis-%e5%8f%af%e8%83%bd%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98%e5%8f%8a%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88"></a>
+📌 三、使用 Redis 可能遇到的问题及解决方案
+</h1><h2 id="1-缓存穿透cache-penetration">
+<a class="header-anchor" href="#1-%e7%bc%93%e5%ad%98%e7%a9%bf%e9%80%8fcache-penetration"></a>
+1️⃣ 缓存穿透（Cache Penetration）
+</h2><p><strong>问题</strong>：</p>
+<ul>
+<li>查询一个一定不存在的数据，缓存中没有，会直接请求数据库，频繁请求会打爆 DB。</li>
+</ul>
+<p><strong>解决方案</strong>：</p>
+<ol>
+<li><strong>空值缓存</strong>：如果查询结果为空，仍缓存（如 <code>null</code> 或特殊标识），设置短期过期。</li>
+<li><strong>布隆过滤器</strong>：在访问 DB 前，先判断 key 是否可能存在，快速过滤掉不存在的请求。</li>
+</ol>
+<p><strong>示例</strong>（Java + Spring Redis）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>String key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;user:&#34;</span> <span style="color:#f92672">+</span> userId;
+</span></span><span style="display:flex;"><span>Object user <span style="color:#f92672">=</span> redisTemplate.<span style="color:#a6e22e">opsForValue</span>().<span style="color:#a6e22e">get</span>(key);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (user <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>bloomFilter.<span style="color:#a6e22e">mightContain</span>(userId)) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>; <span style="color:#75715e">// 直接返回</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    user <span style="color:#f92672">=</span> dbService.<span style="color:#a6e22e">getUserById</span>(userId);
+</span></span><span style="display:flex;"><span>    redisTemplate.<span style="color:#a6e22e">opsForValue</span>().<span style="color:#a6e22e">set</span>(key, user, 10, TimeUnit.<span style="color:#a6e22e">MINUTES</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h2 id="2-缓存击穿cache-breakdown">
+<a class="header-anchor" href="#2-%e7%bc%93%e5%ad%98%e5%87%bb%e7%a9%bfcache-breakdown"></a>
+2️⃣ 缓存击穿（Cache Breakdown）
+</h2><p><strong>问题</strong>：</p>
+<ul>
+<li>热点数据（如商品详情）过期时，大量并发请求直接打到 DB。</li>
+</ul>
+<p><strong>解决方案</strong>：</p>
+<ol>
+<li><strong>互斥锁（Mutex Key）</strong>：只有第一个线程去 DB 查询并重建缓存，其他线程等待。</li>
+<li><strong>永不过期 + 定时更新</strong>：热点数据不过期，定期刷新缓存。</li>
+<li><strong>异步更新</strong>：用后台线程异步更新缓存，前端请求直接返回旧数据。</li>
+</ol>
+<p><strong>示例（互斥锁）</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (redisTemplate.<span style="color:#a6e22e">opsForValue</span>().<span style="color:#a6e22e">setIfAbsent</span>(<span style="color:#e6db74">&#34;lock:product:&#34;</span> <span style="color:#f92672">+</span> id, <span style="color:#e6db74">&#34;1&#34;</span>, 10, TimeUnit.<span style="color:#a6e22e">SECONDS</span>)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        Object data <span style="color:#f92672">=</span> dbService.<span style="color:#a6e22e">getProductById</span>(id);
+</span></span><span style="display:flex;"><span>        redisTemplate.<span style="color:#a6e22e">opsForValue</span>().<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#34;product:&#34;</span> <span style="color:#f92672">+</span> id, data, 1, TimeUnit.<span style="color:#a6e22e">HOURS</span>);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">finally</span> {
+</span></span><span style="display:flex;"><span>        redisTemplate.<span style="color:#a6e22e">delete</span>(<span style="color:#e6db74">&#34;lock:product:&#34;</span> <span style="color:#f92672">+</span> id);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    Thread.<span style="color:#a6e22e">sleep</span>(50); <span style="color:#75715e">// 等待锁释放</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> redisTemplate.<span style="color:#a6e22e">opsForValue</span>().<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;product:&#34;</span> <span style="color:#f92672">+</span> id);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h2 id="3-缓存雪崩cache-avalanche">
+<a class="header-anchor" href="#3-%e7%bc%93%e5%ad%98%e9%9b%aa%e5%b4%a9cache-avalanche"></a>
+3️⃣ 缓存雪崩（Cache Avalanche）
+</h2><p><strong>问题</strong>：</p>
+<ul>
+<li>缓存大量 key 同时过期，导致瞬间请求打到 DB，DB 承受不住。</li>
+</ul>
+<p><strong>解决方案</strong>：</p>
+<ol>
+<li><strong>加随机过期时间</strong>：避免同一时间大量缓存过期。</li>
+<li><strong>分散缓存刷新</strong>：后台异步刷新热点数据。</li>
+<li><strong>双层缓存</strong>：本地 + Redis，降低瞬时压力。</li>
+</ol>
+<p><strong>示例（随机过期时间）</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> ttl <span style="color:#f92672">=</span> 3600 <span style="color:#f92672">+</span> <span style="color:#66d9ef">new</span> Random().<span style="color:#a6e22e">nextInt</span>(300); <span style="color:#75715e">// 1小时到1小时5分钟</span>
+</span></span><span style="display:flex;"><span>redisTemplate.<span style="color:#a6e22e">opsForValue</span>().<span style="color:#a6e22e">set</span>(key, value, ttl, TimeUnit.<span style="color:#a6e22e">SECONDS</span>);
+</span></span></code></pre></div><hr>
+<h2 id="4-缓存更新问题一致性问题">
+<a class="header-anchor" href="#4-%e7%bc%93%e5%ad%98%e6%9b%b4%e6%96%b0%e9%97%ae%e9%a2%98%e4%b8%80%e8%87%b4%e6%80%a7%e9%97%ae%e9%a2%98"></a>
+4️⃣ 缓存更新问题（一致性问题）
+</h2><p><strong>问题</strong>：</p>
+<ul>
+<li>DB 更新后，缓存未及时更新，可能读到旧数据。</li>
+</ul>
+<p><strong>解决方案</strong>：</p>
+<ol>
+<li><strong>Cache Aside 模式</strong>（应用主动维护缓存）：
+<ul>
+<li>先更新 DB → 删除缓存（下一次读自动刷新缓存）。</li>
+</ul>
+</li>
+<li><strong>读写穿透 + 消息队列异步更新</strong>：
+<ul>
+<li>DB 更新 → 发送 MQ 消息 → 消费端更新缓存。</li>
+</ul>
+</li>
+<li><strong>Redis 事务 / Lua 脚本</strong>：原子更新，避免并发问题。</li>
+</ol>
+<p><strong>示例（Cache Aside）</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>dbService.<span style="color:#a6e22e">updateUser</span>(user);
+</span></span><span style="display:flex;"><span>redisTemplate.<span style="color:#a6e22e">delete</span>(<span style="color:#e6db74">&#34;user:&#34;</span> <span style="color:#f92672">+</span> user.<span style="color:#a6e22e">getId</span>());
+</span></span></code></pre></div><hr>
+<h2 id="5-redis-内存问题大-key内存泄漏">
+<a class="header-anchor" href="#5-redis-%e5%86%85%e5%ad%98%e9%97%ae%e9%a2%98%e5%a4%a7-key%e5%86%85%e5%ad%98%e6%b3%84%e6%bc%8f"></a>
+5️⃣ Redis 内存问题（大 key、内存泄漏）
+</h2><p><strong>问题</strong>：</p>
+<ul>
+<li>单个 key 数据量太大或大量过期未清理，占用大量内存。</li>
+</ul>
+<p><strong>解决方案</strong>：</p>
+<ol>
+<li><strong>限制 key 大小和 value 大小</strong>。</li>
+<li><strong>合理设置过期策略</strong>（TTL、LRU）。</li>
+<li><strong>分库/分表缓存</strong>，避免单 key 超大。</li>
+<li><strong>监控内存</strong>：<code>INFO MEMORY</code>、<code>used_memory</code>，及时扩容或清理。</li>
+</ol>
+<hr>
+<h1 id="-总结-1">
+<a class="header-anchor" href="#-%e6%80%bb%e7%bb%93-1"></a>
+🔹 总结
+</h1><table>
+  <thead>
+      <tr>
+          <th>问题</th>
+          <th>原因</th>
+          <th>解决方案</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>缓存穿透</td>
+          <td>查询不存在的 key</td>
+          <td>空值缓存、布隆过滤器</td>
+      </tr>
+      <tr>
+          <td>缓存击穿</td>
+          <td>热点 key 过期</td>
+          <td>互斥锁、永不过期 + 定时刷新</td>
+      </tr>
+      <tr>
+          <td>缓存雪崩</td>
+          <td>大量缓存同时过期</td>
+          <td>随机 TTL、分散刷新、双层缓存</td>
+      </tr>
+      <tr>
+          <td>缓存不一致</td>
+          <td>DB 更新未同步缓存</td>
+          <td>Cache Aside、MQ 异步刷新、Lua 脚本</td>
+      </tr>
+      <tr>
+          <td>内存压力</td>
+          <td>大 key、大量数据或泄漏</td>
+          <td>限制 key 大小、TTL、LRU、监控内存</td>
+      </tr>
+  </tbody>
+</table>
+</div>
+    <footer class="article-footer"><blockquote class="article-copyright"><p><strong><span class="icon-user icon"></span>本文作者：</strong>5say @ 5say</p><p>
+      <strong><span class="icon-link icon"></span>本文链接：</strong><a href="http://localhost:1313/post/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/">http://localhost:1313/post/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</a>
+    </p><p>
+      
+      <strong><span class="icon-copyright icon"></span>本文版权：</strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener external nofollow noreferrer" target="_blank"><span class="icon-creative-commons"></span>BY-NC-SA</a> 许可协议。转载请注明出处！
+    </p>
+    <span class="icon-creative-commons article-copyright-bg"></span></blockquote>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e4%b8%ad%e9%97%b4%e4%bb%b6"
+        rel="tag"
+        >中间件</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e9%9d%a2%e8%af%95"
+        rel="tag"
+        >面试</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap article-nav-link-left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="了解Sentinel"
+              class="lazyload"
+            /><a href="/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">了解Sentinel</h3>
+      </div><div class="article-nav-link-wrap article-nav-link-right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="Nacos的使用"
+              class="lazyload"
+            /><a href="/post/20250825001-nacos%E7%9A%84%E4%BD%BF%E7%94%A8/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">Nacos的使用</h3>
+      </div></nav></article><section id="comments" data-aos="fade-up">
+<div class="comment-header"><h2 class="comment-title">说些什么吧！</h2>
+  <div class="comment-selector">
+    <div class="comment-selector-wrap"><div class="selector-item" data-selector="giscus">
+          <span>giscus</span>
+        </div></div>
+  </div>
+</div>
+
+<div class="comment-content"><div class="comment giscus-comment" data-aos="fade-up"
+     >
+    </div></div>
+</section></section>
+        </div><footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2020-2025<span class="footer-info-sep rotate"></span>
+      5say
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;35.8k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;01:23</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#21-redis的各种数据类型以及使用场景">2.1 Redis的各种数据类型以及使用场景</a>
+      <ul>
+        <li><a href="#211-string字符串">2.1.1 String（字符串）</a></li>
+        <li><a href="#212-hash哈希表">2.1.2 Hash（哈希表）</a></li>
+        <li><a href="#213-list列表">2.1.3 List（列表）</a></li>
+        <li><a href="#214-set集合">2.1.4 Set（集合）</a></li>
+        <li><a href="#215-sorted-set有序集合">2.1.5 Sorted Set（有序集合）</a></li>
+        <li><a href="#216-bitmap位图">2.1.6 Bitmap（位图）</a></li>
+        <li><a href="#217-hyperloglog">2.1.7 HyperLogLog</a></li>
+        <li><a href="#218-stream消息流">2.1.8 Stream（消息流）</a></li>
+        <li><a href="#-总结">🔹 总结</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#1-缓存穿透cache-penetration">1️⃣ 缓存穿透（Cache Penetration）</a></li>
+    <li><a href="#2-缓存击穿cache-breakdown">2️⃣ 缓存击穿（Cache Breakdown）</a></li>
+    <li><a href="#3-缓存雪崩cache-avalanche">3️⃣ 缓存雪崩（Cache Avalanche）</a></li>
+    <li><a href="#4-缓存更新问题一致性问题">4️⃣ 缓存更新问题（一致性问题）</a></li>
+    <li><a href="#5-redis-内存问题大-key内存泄漏">5️⃣ Redis 内存问题（大 key、内存泄漏）</a></li>
+  </ul>
+</nav>
+  </div>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.jpg"
+    data-sizes="auto"
+    alt="5say"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">5say</div>
+  <div class="sidebar-description">我的博客</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">20</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">14</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/tags"
+        aria-label="标签"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">标签</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/links"
+        aria-label="传送门"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">传送门</div>
+    </div></div>
+</div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div class="reimu-search-input" id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png" />
+        </div>
+      </div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" ></script><script src="/js/aos.js" ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" data-pjax></script><script>
+    var ALGOLIA_CONFIG = {
+      logo: '\/images\/algolia_logo.svg',
+      algolia: {
+        applicationID: "8HX06YAPFB",
+        apiKey: "f021335f33afc81efe70ac9a4e292f8b",
+        indexName: "blog",
+        hits: {
+          "per_page": parseInt("10")
+        },
+        labels: {
+          "input_placeholder": '搜索.....',
+          "hits_empty": '未发现与 「${query}」相关内容',
+          "hits_stats": '找到${hits}条结果（用时 ${time} ms）'
+        }
+      }
+    };
+  </script><script
+    src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js"
+    deferintegrity="sha384-xvLS0jfKuoREs7pqkRI/OI8GcqohO5S&#43;jQz7ZBtQXnsXmD&#43;9jDOOY4cL6dCPzlrk" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/@reimujs/instantsearch.js@4.57.0-beta.1/dist/instantsearch.production.min.js"
+    deferintegrity="sha384-aagKMe8nkqaP2DYQc8kkYOL5l&#43;M5Q2WH/Uhr4teOh0Ybp0RZj0kUSDm45qPikMjK" crossorigin="anonymous"></script><script src="/js/algolia_search.js" ></script><script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "5say",
+          title: "Redis的入门手册",
+          url: "http:\/\/localhost:1313\/post\/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C\/",
+          description: " 📌 一、Redis 是什么 Redis（REmote DIctionary Server）是一个开源的 高性能内存键值数据库，支持多种数据结构（String、Hash、List、Set、Sorted Set、Bitmap、HyperLogLog、Stream 等）。\n",
+          cover: "http:\/\/localhost:1313\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script><script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+  var commentConfigKeys = ['valine', 'waline', 'twikoo', 'gitalk', 'giscus'];
+  var commentConfig = {
+    valine: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.valine-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/valine@1.5.1\/dist\/Valine.min.js',
+          !'webcache|valine@1.5.1\/dist\/Valine.min.js'.startsWith('local') ? 'sha384-3ma91AExDeMAZ1rjTjaP8V2A2obQE\u002bs5ltKRwYlwdpArz9xVbp0tF3b0VV2ACNPn' : undefined
+        );
+        script.onload = () => {
+          const GUEST_INFO = ['nick', 'mail', 'link'];
+          const guest_info = 'nick,mail,link'.split(',').filter((item) => {
+            return GUEST_INFO.indexOf(item) > -1
+          });
+          const recordIP = JSON.parse('true');
+          const highlight = JSON.parse('true');
+          const visitor = JSON.parse('false');
+          const serverURLs = undefined;
+
+          new Valine({
+            el: '.valine-comment',
+            appId: "",
+            appKey: "",
+            placeholder: "Just go go",
+            pageSize: '10',
+            avatar: 'mp',
+            lang: document.documentElement.lang || 'en',
+            recordIP: recordIP,
+            highlight: highlight,
+            visitor: visitor,
+            requiredFields: guest_info,
+            path: window.location.pathname,
+            serverURLs,
+          });
+        };
+        document.head.appendChild(script);
+      }
+    },
+    waline: {
+      enable: false,
+      load: async () => {
+        const container = document.querySelector('.waline-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        let walineInit;
+        const walineCdn = 'https:\/\/npm.webcache.cn\/@waline\/client@2.15.8\/dist\/waline.mjs';
+        
+        if ('webcache|@waline\/client@2.15.8\/dist\/waline.mjs'.startsWith('local')) {
+          
+          const module = await safeImport(walineCdn);
+          walineInit = module.init;
+        } else {
+          
+          const module = await safeImport(
+            walineCdn, 
+            'sha384-9sbqJjrfGjbkI6\/PI4nU\/MvBfEmkkPC4YK9I4zBeMIf1CVCZdCMH\/KinBEAZII\/5'
+          );
+          walineInit = module.init;
+        }
+        
+        window.walineInstance = walineInit({
+          el: '.waline-comment',
+          serverURL: '',
+          lang: document.documentElement.lang || 'en',
+          locale: JSON.parse("{}"),
+          emoji: JSON.parse("[\"https://unpkg.com/@waline/emojis@1.2.0/weibo\",\"https://unpkg.com/@waline/emojis@1.2.0/alus\",\"https://unpkg.com/@waline/emojis@1.2.0/bilibili\",\"https://unpkg.com/@waline/emojis@1.2.0/qq\",\"https://unpkg.com/@waline/emojis@1.2.0/tieba\",\"https://unpkg.com/@waline/emojis@1.2.0/tw-emoji\"]"),
+          meta: JSON.parse("[\"nick\",\"mail\",\"link\"]"),
+          requiredMeta: JSON.parse("[\"nick\",\"mail\"]"),
+          wordLimit:  0 ,
+          comment: true,
+          pageSize:  10 ,
+          dark: 'html[data-theme="dark"]',
+          pageview:  true ,
+        });
+      }
+    },
+    twikoo: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.twikoo-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/twikoo@1.6.44\/dist\/twikoo.all.min.js',
+          !'webcache|twikoo@1.6.44\/dist\/twikoo.all.min.js'.startsWith('local') ? 'sha384-kwWLC0HjeZZnVPqCJ1AncI8tsk\u002bkQqF9TbAmCclcc9Z0hGkfgHRzeQZxmdmZhE0K' : undefined
+        );
+        script.onload = () => {
+          twikoo.init({
+            envId: '',
+            el: '.twikoo-comment',
+            region: '',
+            lang: document.documentElement.lang || 'en',
+          });
+          twikoo.getCommentsCount({
+            envId: '',
+            region: '',
+            urls: [
+              'http\/\/localhost1313\/post\/20250825006-redis%e7%9a%84%e5%85%a5%e9%97%a8%e6%89%8b%e5%86%8c\/'
+            ],
+            includeReply: false
+          }).then((res) => {
+            document.querySelector('.twikoo-comment-count').innerText = res[0].count;
+          }).catch((err) => {
+            console.error(err);
+          });
+        };
+        document.head.appendChild(script);
+      }
+    },
+    gitalk: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.gitalk-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/gitalk@1.8.0\/dist\/gitalk.min.js',
+          !'webcache|gitalk@1.8.0\/dist\/gitalk.min.js'.startsWith('local') ? 'sha384-kspnZUWBoSWwoJHa0hBCXYbHGbhvU\/lcEH5O8eVbSDhbPwsiVUTp\/aGX\/z\/5EuMA' : undefined
+        );
+        script.onload = () => {
+          if ( false ) {
+            
+            const md5Script = loadScript(
+              'https:\/\/npm.webcache.cn\/blueimp-md5@2.19.0\/js\/md5.min.js',
+              !'webcache|blueimp-md5@2.19.0\/js\/md5.min.js'.startsWith('local') ? 'sha384-JmVtRz6RWiXnA14QbIOJzPuU3MidULOpBP66deeLLyyoF4Tr\/gZlbkHkL6vTthxH' : undefined
+            );
+            md5Script.onload = initGitalk;
+            document.head.appendChild(md5Script);
+          } else {
+            
+            initGitalk();
+          }
+        };
+        document.head.appendChild(script);
+
+        function initGitalk() {
+          let gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: '',
+            owner: '',
+            admin: JSON.parse("null"),
+            id: location.pathname,
+            distractionFreeMode: false,
+            language: document.documentElement.lang || 'en',
+          });
+          gitalk.render('gitalk-comment');
+        }
+      }
+    },
+    giscus: {
+      enable: true,
+      load: () => {
+        const container = document.querySelector('.giscus-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        
+        const existingScript = container.querySelector('script[src*="giscus.app/client.js"]');
+        if (existingScript) existingScript.remove();
+        const existingFrame = document.querySelector('iframe.giscus-frame');
+        if (existingFrame) existingFrame.remove();
+
+        
+        const giscusScript = document.createElement('script');
+        const domMode = document.documentElement.getAttribute("data-theme");
+
+        const docLang = document.documentElement.lang || 'en';
+        const langBase = docLang.split('-')[0];
+        const supportedLangs = ['ar', 'be', 'bg', 'ca', 'cs', 'da', 'de', 'en', 
+        'eo', 'es', 'eu', 'fa', 'fr', 'gr', 'hbs', 'he', 'hu', 'id', 'it', 'ja', 
+        'kh', 'ko', 'nl', 'pl', 'pt', 'ro', 'ru', 'th', 'tr', 'uk', 'uz', 'vi', 'zh-CN', 'zh-HK', 'zh-TW'];
+        const giscusLang = supportedLangs.includes(docLang) ? docLang : supportedLangs.includes(langBase) ? langBase : 'en';
+
+        giscusScript.src = 'https://giscus.app/client.js';
+        giscusScript.setAttribute('data-repo', '5say\/5say');
+        giscusScript.setAttribute('data-repo-id', 'R_kgDOPUICig');
+        giscusScript.setAttribute('data-category', 'Announcements');
+        giscusScript.setAttribute('data-category-id', 'DIC_kwDOPUICis4CtgLS');
+        giscusScript.setAttribute('data-mapping', '0');
+        giscusScript.setAttribute('data-strict', '0');
+        giscusScript.setAttribute('data-reactions-enabled', '1');
+        giscusScript.setAttribute('data-emit-metadata', '0');
+        giscusScript.setAttribute('data-input-position', 'bottom');
+        giscusScript.setAttribute('data-theme', domMode === 'dark' ? 'dark' : 'light');
+        giscusScript.setAttribute('data-lang', giscusLang);
+        giscusScript.setAttribute('crossorigin', 'anonymous');
+        giscusScript.async = true;
+        container.appendChild(giscusScript);
+        document.body.addEventListener('light-theme-set', () => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: 'light' } } }, 'https://giscus.app');
+        });
+        document.body.addEventListener('dark-theme-set', () => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: 'dark' } } }, 'https://giscus.app');
+        });
+      }
+    }
+  };
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig[key].enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    
+    var savedCommentType = localStorage.getItem('commentType');
+    
+    
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+    
+    
+    if (!defaultComment) {
+      var configDefault = 'giscus';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+    
+    
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig[sys].enable) || '';
+    }
+  }
+
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false
+    };
+
+    
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      
+      const commentType = item.getAttribute('data-selector');
+
+      
+      hideAllComments();
+
+      
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          
+          changeActiveCommentItems(item);
+        });
+      }
+
+      
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script></div>
+</div><script data-pjax>
+    var updateTime = _$('#post-update-time')?.innerHTML;
+
+    if (updateTime) {
+      const update = new Date(updateTime);
+      const now = new Date();
+      const diff = now - update;
+      const days = diff / 86400000;
+      const { daysago: daysAgo, message: template } = window.siteConfig.outdate;
+      if (days >= daysAgo) {
+        let message = `This article was last updated on ${updateTime}. Please note that the content may no longer be applicable.`;
+        if (typeof template === 'string') {
+          message = template.replace(/{time}/, updateTime);
+        } else if (typeof template === 'object') {
+          const lang = document.documentElement.lang;
+          const messageKey = Object.keys(template).find(key => key.toLowerCase() === lang.toLowerCase());
+          if (messageKey && template[messageKey]) {
+            message = template[messageKey].replace(/{time}/, updateTime);
+          }
+        }
+        const blockquote = _$('#outdate-blockquote');
+        if (blockquote) {
+          blockquote.querySelector('p').innerText = message;
+          blockquote.style.display = 'block';
+        }
+      }
+    }
+  </script><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    asyncintegrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script><script
+    src="https://npm.webcache.cn/pangu@4.0.7/dist/browser/pangu.min.js"
+    integrity="sha384-HeUHqi0nVsPUm/E0ss7OfnIV/yD96JWB8ehZvUuoVax9DpNHL17jj9pdfXHzqDxm" crossorigin="anonymous"></script><script data-pjax>
+    if (document.readyState === "loading") {
+      document.addEventListener('DOMContentLoaded', () => {
+        pangu?.spacingPage();
+      });
+    } else {
+      pangu?.spacingPage();
+    }
+  </script></body>
+</html>

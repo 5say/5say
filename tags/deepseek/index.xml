@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DeepSeek on 5say</title>
+    <link>http://localhost:1313/tags/deepseek/</link>
+    <description>Recent content from 5say</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    
+    <managingEditor>xxx@example.com (5say)</managingEditor>
+    <webMaster>xxx@example.com (5say)</webMaster>
+    
+    <copyright>本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！</copyright>
+    
+    <lastBuildDate>Fri, 08 Aug 2025 20:36:00 +0800</lastBuildDate>
+    
+    
+    <atom:link href="http://localhost:1313/tags/deepseek/index.xml" rel="self" type="application/rss&#43;xml" />
+    
+
+    
+    
+
+    <item>
+      <title>Spring中AI的相关配置</title>
+      <link>http://localhost:1313/post/20250805001-spring%E4%B8%AD%E7%9A%84ai%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Fri, 08 Aug 2025 20:36:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250805001-spring%E4%B8%AD%E7%9A%84ai%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/</guid>
+      <description>
+        <![CDATA[<h1>Spring中AI的相关配置</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p>Spring AI 的配置项是围绕着你选择的 <strong>大模型提供商（Provider）</strong> 来定义的，比如：</p>
+<ul>
+<li><code>spring.ai.openai</code> → 用于连接 OpenAI / 兼容 OpenAI API 的服务（如 Ollama、LM Studio、FastChat）</li>
+<li><code>spring.ai.azure.openai</code> → 连接 Azure OpenAI 服务</li>
+<li><code>spring.ai.ollama</code> → 专门为 Ollama 准备（0.8.1 版本后）</li>
+<li><code>spring.ai.bedrock</code> → 连接 AWS Bedrock（Claude、Titan 等）</li>
+<li><code>spring.ai.transformers</code> → 使用本地 Java 模型（正在开发中）</li>
+</ul>
+<h2 id="一核心配置结构以-openai-为例">
+<a class="header-anchor" href="#%e4%b8%80%e6%a0%b8%e5%bf%83%e9%85%8d%e7%bd%ae%e7%bb%93%e6%9e%84%e4%bb%a5-openai-%e4%b8%ba%e4%be%8b"></a>
+一、核心配置结构（以 openai 为例）
+</h2><h2 id="1-基础结构">
+<a class="header-anchor" href="#1-%e5%9f%ba%e7%a1%80%e7%bb%93%e6%9e%84"></a>
+1. 基础结构
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">spring</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ai</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">openai</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">base-url</span>: <span style="color:#ae81ff">http://localhost:11434/v1    </span> <span style="color:#75715e"># 模型服务 API 地址（Ollama）</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">api-key</span>: <span style="color:#ae81ff">ollama-local                   </span> <span style="color:#75715e"># 随便写，不会校验</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">chat</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">model</span>: <span style="color:#ae81ff">deepseek-r1:8b                 </span> <span style="color:#75715e"># 你要用的模型名（大小写敏感）</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">temperature</span>: <span style="color:#ae81ff">0.7</span>                       <span style="color:#75715e"># 随机程度</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">top-p</span>: <span style="color:#ae81ff">0.9</span>                             <span style="color:#75715e"># 采样多样性</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">max-tokens</span>: <span style="color:#ae81ff">1024</span>                       <span style="color:#75715e"># 最大生成字数</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">stop</span>: [<span style="color:#e6db74">&#34;&lt;|end|&gt;&#34;</span>]                      <span style="color:#75715e"># 停止标记符（可选）</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">embedding</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">model</span>: <span style="color:#ae81ff">text-embedding-ada-002         </span> <span style="color:#75715e"># 嵌入模型名称（如果你要用向量搜索）</span>
+</span></span></code></pre></div><hr>
+<h2 id="2-配置项说明">
+<a class="header-anchor" href="#2-%e9%85%8d%e7%bd%ae%e9%a1%b9%e8%af%b4%e6%98%8e"></a>
+2. 配置项说明
+</h2><table>
+  <thead>
+      <tr>
+          <th>配置项</th>
+          <th>类型</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>base-url</code></td>
+          <td>String</td>
+          <td>OpenAI 兼容 API 的基础地址（如 Ollama 是 <code>http://localhost:11434/v1</code>）</td>
+      </tr>
+      <tr>
+          <td><code>api-key</code></td>
+          <td>String</td>
+          <td>API 密钥，Ollama 不验证，可随便写</td>
+      </tr>
+      <tr>
+          <td><code>chat.model</code></td>
+          <td>String</td>
+          <td>聊天模型名称，如 <code>mistral</code>, <code>llama3</code>, <code>deepseek-r1:8b</code></td>
+      </tr>
+      <tr>
+          <td><code>chat.temperature</code></td>
+          <td>Float</td>
+          <td>控制输出随机性（0 = 更稳定，1 = 更有创意）</td>
+      </tr>
+      <tr>
+          <td><code>chat.top-p</code></td>
+          <td>Float</td>
+          <td>控制生成的多样性（0~1）</td>
+      </tr>
+      <tr>
+          <td><code>chat.max-tokens</code></td>
+          <td>Integer</td>
+          <td>最大生成 token 数量</td>
+      </tr>
+      <tr>
+          <td><code>chat.stop</code></td>
+          <td>List<!-- raw HTML omitted --></td>
+          <td>指定遇到这些字符串就停止生成</td>
+      </tr>
+      <tr>
+          <td><code>embedding.model</code></td>
+          <td>String</td>
+          <td>嵌入模型名称（如果使用向量搜索时需要）</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="二在spring-中动态地调用不同模型代码中控制">
+<a class="header-anchor" href="#%e4%ba%8c%e5%9c%a8spring-%e4%b8%ad%e5%8a%a8%e6%80%81%e5%9c%b0%e8%b0%83%e7%94%a8%e4%b8%8d%e5%90%8c%e6%a8%a1%e5%9e%8b%e4%bb%a3%e7%a0%81%e4%b8%ad%e6%8e%a7%e5%88%b6"></a>
+二、在Spring 中动态地调用不同模型（代码中控制）
+</h2><p>你可以不在配置文件中固定写死 <code>model</code>，而是在 Java 代码中动态指定：</p>
+        
+        <hr><p>本文2025-08-08首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-08</p>]]>
+      </description>
+      
+        <category>人工智能</category><category>编程</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Spring AI的创建和使用</title>
+      <link>http://localhost:1313/post/20250804003-spring-ai%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 04 Aug 2025 17:49:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250804003-spring-ai%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
+      <description>
+        <![CDATA[<h1>Spring AI的创建和使用</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p>以下是如何使用 Spring AI 构建生成式 AI 应用的完整指南，涵盖环境准备、两种主流实现方案（云端 API 和本地模型），以及进阶功能开发：</p>
+<hr>
+<h3 id="-一环境准备">
+<a class="header-anchor" href="#-%e4%b8%80%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87"></a>
+⚙️ 一、环境准备
+</h3><ol>
+<li>
+<p><strong>开发环境要求</strong></p>
+        
+        <hr><p>本文2025-08-04首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-04</p>]]>
+      </description>
+      
+        <category>人工智能</category><category>编程</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>DeepSeek大模型本地部署指南</title>
+      <link>http://localhost:1313/post/20250804001-deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/</link>
+      <pubDate>Mon, 04 Aug 2025 17:49:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250804001-deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/</guid>
+      <description>
+        <![CDATA[<h1>DeepSeek大模型本地部署指南</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <h1 id="-一部署前的准备">
+<a class="header-anchor" href="#-%e4%b8%80%e9%83%a8%e7%bd%b2%e5%89%8d%e7%9a%84%e5%87%86%e5%a4%87"></a>
+🔧 一、部署前的准备
+</h1><h2 id="11-硬件要求">
+<a class="header-anchor" href="#11-%e7%a1%ac%e4%bb%b6%e8%a6%81%e6%b1%82"></a>
+1.1 <strong>硬件要求</strong>
+</h2><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">模型版本</th>
+          <th style="text-align: left">显存需求（GPU）</th>
+          <th style="text-align: left">内存需求（RAM）</th>
+          <th style="text-align: left">硬盘空间</th>
+          <th style="text-align: left">推荐显卡型号</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">1.5B</td>
+          <td style="text-align: left">≥1 GB</td>
+          <td style="text-align: left">≥8 GB</td>
+          <td style="text-align: left">4 GB</td>
+          <td style="text-align: left">RTX 3050</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">7B/8B</td>
+          <td style="text-align: left">≥4–8 GB</td>
+          <td style="text-align: left">≥16 GB</td>
+          <td style="text-align: left">12–20 GB</td>
+          <td style="text-align: left">RTX 4060 / AMD RX 6600</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">14B</td>
+          <td style="text-align: left">≥8 GB</td>
+          <td style="text-align: left">≥32 GB</td>
+          <td style="text-align: left">40 GB</td>
+          <td style="text-align: left">RTX 4080 SUPER</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">32B/70B</td>
+          <td style="text-align: left">≥16–24 GB</td>
+          <td style="text-align: left">≥64 GB</td>
+          <td style="text-align: left">65+ GB</td>
+          <td style="text-align: left">RTX 4090 / RTX 5090 D</td>
+      </tr>
+  </tbody>
+</table>
+<blockquote>
+<p>💡 <strong>说明</strong>：</p>
+        
+        <hr><p>本文2025-08-04首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-04</p>]]>
+      </description>
+      
+        <category>人工智能</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>如何训练一个专业大模型</title>
+      <link>http://localhost:1313/post/20250804002-%E5%A6%82%E4%BD%95%E8%AE%AD%E7%BB%83deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Mon, 04 Aug 2025 17:49:00 &#43;1032</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>http://localhost:1313/post/20250804002-%E5%A6%82%E4%BD%95%E8%AE%AD%E7%BB%83deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B/</guid>
+      <description>
+        <![CDATA[<h1>如何训练一个专业大模型</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p>训练专业领域的模型（如基于 DeepSeek R1）需要系统化的方法。以下是完整的训练流程指南，包含关键步骤和实用代码示例：</p>
+<hr>
+<h1 id="一训练准备阶段">
+<a class="header-anchor" href="#%e4%b8%80%e8%ae%ad%e7%bb%83%e5%87%86%e5%a4%87%e9%98%b6%e6%ae%b5"></a>
+一、训练准备阶段
+</h1><h2 id="11-环境配置">
+<a class="header-anchor" href="#11-%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae"></a>
+1.1 环境配置
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 安装核心库</span>
+</span></span><span style="display:flex;"><span>pip install torch transformers datasets peft accelerate bitsandbytes
+</span></span></code></pre></div><p>下面详细解释这些库的作用及其在大模型训练中的关键角色，它们共同构成了现代大语言模型（LLM）训练的技术栈：</p>
+        
+        <hr><p>本文2025-08-04首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-04</p>]]>
+      </description>
+      
+        <category>人工智能</category><category>Python</category>
+      
+    </item>
+    
+  </channel>
+</rss>

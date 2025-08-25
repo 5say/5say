@@ -1,0 +1,1232 @@
+<!doctype html>
+<html
+  lang="zh-cn" 
+  data-theme-mode="auto"
+  >
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/><title>
+  算法-树是怎么变成红黑树的？ | 5say
+</title>
+<meta
+  name="description"
+  content="我的博客"
+/><script>
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":true,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"
+  media="print"
+  onload="this.media='all'"
+/>
+<link
+    rel="preload"
+    href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  /><link rel="stylesheet" href="/css/loader.css" />
+<meta property="og:type" content="website" />
+  <meta property="og:title" content="算法-树是怎么变成红黑树的？ | 5say" />
+  <meta
+    property="og:description"
+    content="我的博客"
+  />
+  <meta property="og:url" content="http://localhost:1313/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/" />
+  <meta
+    property="og:site_name"
+    content="5say"
+  />
+  <meta
+    property="og:image"
+    content="/"
+  />
+  <meta property="article:author" content="5say" />
+  <meta property="article:published_time" content="2025-07-29T17:49:00&#43;08:00" />
+  <meta property="article:modified_time" content="2025-07-29T17:49:00&#43;08:00" /><meta property="article:tag" content="Java算法" /><meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="/" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" />
+<link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css"
+    integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei&#43;Zx/1oA/0l8ysE" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><link
+    rel="preload"
+    as="style"
+    href="https://npm.webcache.cn/katex@0.16.22/dist/katex.min.css"
+    integrity="sha384-5TcZemv2l/9On385z///&#43;d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous"onload="this.onload=null;this.rel='stylesheet'"
+  /><script
+    src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"
+    integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script><link
+    rel="stylesheet"
+    href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css"
+    integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous"/></head>
+  <body><div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate"><svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+          M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg></div><div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script><div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+<div id="lang-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+本文章没有找到对应的语言版本
+</div>
+<div id="heatmap-tooltip"></div><div id="container">
+      <div id="wrap"><div id="header-nav">
+  <nav id="main-nav"><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/tags">标签</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span><span class="main-nav-link-wrap">
+        <div class='main-nav-icon icon rotate'>&#xe62b;</div>
+        <a class="main-nav-link" href="/links">传送门</a>
+      </span><a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav"><a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a></nav></div>
+<header id="header"><picture></picture><img  fetchpriority="high" src="/images/banner.webp" alt="算法-树是怎么变成红黑树的？"><div id="header-outer">
+    <div id="header-title"><a href="/" id="logo">
+            <h1 data-aos="slide-up">算法-树是怎么变成红黑树的？</h1>
+          </a><h2 id="subtitle-wrap" data-aos="slide-down"></h2></div>
+  </div>
+</header><div id="content"
+          
+          class="sidebar-right"  ><aside id="sidebar"><div class="sidebar-wrapper wrap-sticky">
+    <div
+      class="sidebar-wrap"
+      data-aos="fade-up"
+    ><div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-树的定义与相关概念">1.1 树的定义与相关概念</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#12-怎么使用java代码定义一个树">1.2 怎么使用Java代码定义一个树</a></li>
+    <li><a href="#13-树的初始化">1.3 树的初始化</a>
+      <ul>
+        <li><a href="#131-手动初始化">1.3.1 手动初始化</a></li>
+        <li><a href="#132-通过数组初始化完全二叉树">1.3.2 通过数组初始化（完全二叉树）</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-二叉树的定义">2.1 二叉树的定义</a></li>
+    <li><a href="#22-二叉树遍历节点">2.2 二叉树遍历节点</a>
+      <ul>
+        <li><a href="#221-前序遍历">2.2.1 前序遍历</a></li>
+        <li><a href="#222-中序遍历">2.2.2 中序遍历</a></li>
+        <li><a href="#223-后序遍历">2.2.3 后序遍历</a></li>
+        <li><a href="#224-层序遍历使用队列bfs">2.2.4 层序遍历（使用队列，BFS）</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#31-什么是-bst二叉查找树">3.1 什么是 BST（二叉查找树）？</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#41-什么是-avl-树">4.1 什么是 AVL 树？</a></li>
+    <li><a href="#42-avl树的4种旋转操作">4.2 AVL树的4种旋转操作</a>
+      <ul>
+        <li><a href="#421-ll右旋-插入到左子树的左侧">4.2.1 LL（右旋）—— 插入到左子树的左侧</a></li>
+        <li><a href="#422-rr左旋-插入到右子树的右侧">4.2.2 RR（左旋）—— 插入到右子树的右侧</a></li>
+        <li><a href="#423-lr先左旋后右旋-插入到左子树的右侧">4.2.3 LR（先左旋后右旋）—— 插入到左子树的右侧</a></li>
+        <li><a href="#424-rl先右旋后左旋-插入到右子树的左侧">4.2.4 RL（先右旋后左旋）—— 插入到右子树的左侧</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#51-红黑树的-5-条性质核心">5.1 红黑树的 5 条性质（核心）</a></li>
+  </ul>
+</nav>
+  </div>
+</div></div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.jpg"
+    data-sizes="auto"
+    alt="5say"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">5say</div>
+  <div class="sidebar-description">我的博客</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">20</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">14</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/tags"
+        aria-label="标签"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">标签</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/links"
+        aria-label="传送门"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">传送门</div>
+    </div></div>
+</div><div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div></div>
+  </div>
+
+  <div class="sidebar-widget"></div></aside>
+<section id="main"><article
+  class="h-entry article"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div
+    class="article-inner"
+    data-aos="fade-up"
+  >
+    <div class="article-meta"><div class="article-date">
+  <span
+    class="article-date-link"
+    data-aos="zoom-in"
+  >
+    <time datetime="2025-07-29 17:49:00 &#43;0800 CST" itemprop="datePublished"
+      >2025-07-29</time
+    >
+    <time style="display: none;" id="post-update-time"
+      >2025-07-29</time
+    >
+  </span>
+</div>
+<div class="article-category"><a
+      class="article-category-link"
+      href="/categories/%e7%bc%96%e7%a8%8b"
+      data-aos="zoom-in"
+      >编程</a
+    ></div>
+</div>
+    <div class="hr-line"></div><div class="e-content article-entry" itemprop="articleBody"><blockquote id="outdate-blockquote" style="display: none;">
+          <p></p>
+        </blockquote><h1 id="一什么是树">
+<a class="header-anchor" href="#%e4%b8%80%e4%bb%80%e4%b9%88%e6%98%af%e6%a0%91"></a>
+一、什么是树
+</h1><h2 id="11-树的定义与相关概念">
+<a class="header-anchor" href="#11-%e6%a0%91%e7%9a%84%e5%ae%9a%e4%b9%89%e4%b8%8e%e7%9b%b8%e5%85%b3%e6%a6%82%e5%bf%b5"></a>
+1.1 树的定义与相关概念
+</h2><blockquote>
+<p>🌱 <strong>树（Tree）</strong> 是一种<strong>非线性数据结构</strong>，是一种“分层”的结构，最常见的是“二叉树”。</p></blockquote>
+<h4 id="-树的基本术语">
+<a class="header-anchor" href="#-%e6%a0%91%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%9c%af%e8%af%ad"></a>
+📌 树的基本术语：
+</h4><ul>
+<li><strong>根节点（root）</strong>：树的起点</li>
+<li><strong>子节点（children）</strong>：根的下一级</li>
+<li><strong>叶子节点（leaf）</strong>：没有子节点的节点</li>
+<li><strong>高度（height）</strong>：从节点到叶子的最长路径</li>
+<li><strong>深度（depth）</strong>：从根到该节点的路径长度</li>
+<li><strong>二叉树</strong>：每个节点最多有两个子节点（左/右）</li>
+<li><strong>前序遍历</strong>：根 -&gt; 左 -&gt; 右</li>
+<li><strong>中序遍历</strong>：左 -&gt; 根 -&gt; 右</li>
+<li><strong>后序遍历</strong>：左 -&gt; 右 -&gt; 根</li>
+<li><strong>层序遍历</strong>：一层一层从上往下</li>
+</ul>
+<h4 id="-画个图文字版">
+<a class="header-anchor" href="#-%e7%94%bb%e4%b8%aa%e5%9b%be%e6%96%87%e5%ad%97%e7%89%88"></a>
+✅ 画个图（文字版）：
+</h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mathematica" data-lang="mathematica"><span style="display:flex;"><span>        A
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">/</span> <span style="color:#960050;background-color:#1e0010">\</span>
+</span></span><span style="display:flex;"><span>      B   C
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">/</span> <span style="color:#960050;background-color:#1e0010">\</span>   <span style="color:#960050;background-color:#1e0010">\</span>
+</span></span><span style="display:flex;"><span>    D   E   F
+</span></span></code></pre></div><ul>
+<li>根：A</li>
+<li>A 的子节点：B, C</li>
+<li>叶子节点：D, E, F</li>
+<li>A 高度 = 3（从 A→D 路径有3层）</li>
+</ul>
+<h2 id="12-怎么使用java代码定义一个树">
+<a class="header-anchor" href="#12-%e6%80%8e%e4%b9%88%e4%bd%bf%e7%94%a8java%e4%bb%a3%e7%a0%81%e5%ae%9a%e4%b9%89%e4%b8%80%e4%b8%aa%e6%a0%91"></a>
+1.2 怎么使用Java代码定义一个树
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TreeNode</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> val;
+</span></span><span style="display:flex;"><span>    TreeNode left,right;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="13-树的初始化">
+<a class="header-anchor" href="#13-%e6%a0%91%e7%9a%84%e5%88%9d%e5%a7%8b%e5%8c%96"></a>
+1.3 树的初始化
+</h2><h3 id="131-手动初始化">
+<a class="header-anchor" href="#131-%e6%89%8b%e5%8a%a8%e5%88%9d%e5%a7%8b%e5%8c%96"></a>
+1.3.1 手动初始化
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testInit</span>(){
+</span></span><span style="display:flex;"><span>    TreeNode root <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(1);
+</span></span><span style="display:flex;"><span>    root.<span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(2);
+</span></span><span style="display:flex;"><span>    root.<span style="color:#a6e22e">right</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(3);
+</span></span><span style="display:flex;"><span>    root.<span style="color:#a6e22e">left</span>.<span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(4);
+</span></span><span style="display:flex;"><span>    root.<span style="color:#a6e22e">left</span>.<span style="color:#a6e22e">right</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(5);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="132-通过数组初始化完全二叉树">
+<a class="header-anchor" href="#132-%e9%80%9a%e8%bf%87%e6%95%b0%e7%bb%84%e5%88%9d%e5%a7%8b%e5%8c%96%e5%ae%8c%e5%85%a8%e4%ba%8c%e5%8f%89%e6%a0%91"></a>
+1.3.2 通过数组初始化（完全二叉树）
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testBuildTree</span>(){
+</span></span><span style="display:flex;"><span>    Integer<span style="color:#f92672">[]</span> values <span style="color:#f92672">=</span> {1, 2, 3, 4, 5};
+</span></span><span style="display:flex;"><span>    TreeNode root <span style="color:#f92672">=</span> buildTree(values, 0);
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;层序遍历:&#34;</span>);
+</span></span><span style="display:flex;"><span>    levelOrder(root);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> TreeNode  <span style="color:#a6e22e">buildTree</span>(Integer<span style="color:#f92672">[]</span> arr,<span style="color:#66d9ef">int</span> index){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (index <span style="color:#f92672">&gt;=</span> arr.<span style="color:#a6e22e">length</span> <span style="color:#f92672">||</span> arr<span style="color:#f92672">[</span>index<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    TreeNode node <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(arr<span style="color:#f92672">[</span>index<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>    node.<span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> buildTree(arr, 2 <span style="color:#f92672">*</span> index <span style="color:#f92672">+</span> 1);
+</span></span><span style="display:flex;"><span>    node.<span style="color:#a6e22e">right</span> <span style="color:#f92672">=</span> buildTree(arr, 2 <span style="color:#f92672">*</span> index <span style="color:#f92672">+</span> 2);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> node;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="二二叉树">
+<a class="header-anchor" href="#%e4%ba%8c%e4%ba%8c%e5%8f%89%e6%a0%91"></a>
+二、二叉树
+</h1><p>二叉树是最常见的树状结构，通过二叉树我们可以找到许多树状结构的特点</p>
+<h2 id="21-二叉树的定义">
+<a class="header-anchor" href="#21-%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e5%ae%9a%e4%b9%89"></a>
+2.1 二叉树的定义
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TreeNode</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> val;
+</span></span><span style="display:flex;"><span>    TreeNode left,right;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="22-二叉树遍历节点">
+<a class="header-anchor" href="#22-%e4%ba%8c%e5%8f%89%e6%a0%91%e9%81%8d%e5%8e%86%e8%8a%82%e7%82%b9"></a>
+2.2 二叉树遍历节点
+</h2><h3 id="221-前序遍历">
+<a class="header-anchor" href="#221-%e5%89%8d%e5%ba%8f%e9%81%8d%e5%8e%86"></a>
+2.2.1 前序遍历
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">preOrder</span>(TreeNode root) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (root <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(root.<span style="color:#a6e22e">val</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; &#34;</span>);
+</span></span><span style="display:flex;"><span>    preOrder(root.<span style="color:#a6e22e">left</span>);
+</span></span><span style="display:flex;"><span>    preOrder(root.<span style="color:#a6e22e">right</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="222-中序遍历">
+<a class="header-anchor" href="#222-%e4%b8%ad%e5%ba%8f%e9%81%8d%e5%8e%86"></a>
+2.2.2 中序遍历
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">inOrder</span>(TreeNode root) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (root <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    inOrder(root.<span style="color:#a6e22e">left</span>);
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(root.<span style="color:#a6e22e">val</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; &#34;</span>);
+</span></span><span style="display:flex;"><span>    inOrder(root.<span style="color:#a6e22e">right</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="223-后序遍历">
+<a class="header-anchor" href="#223-%e5%90%8e%e5%ba%8f%e9%81%8d%e5%8e%86"></a>
+2.2.3 后序遍历
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">postOrder</span>(TreeNode root) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (root <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    postOrder(root.<span style="color:#a6e22e">left</span>);
+</span></span><span style="display:flex;"><span>    postOrder(root.<span style="color:#a6e22e">right</span>);
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(root.<span style="color:#a6e22e">val</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; &#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="224-层序遍历使用队列bfs">
+<a class="header-anchor" href="#224-%e5%b1%82%e5%ba%8f%e9%81%8d%e5%8e%86%e4%bd%bf%e7%94%a8%e9%98%9f%e5%88%97bfs"></a>
+2.2.4 层序遍历（使用队列，BFS）
+</h3><pre tabindex="0"><code>public static void levelOrder(TreeNode root){
+    if (root == null) return;
+    Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
+    queue.offer(root);
+
+    while (!queue.isEmpty()) {
+        TreeNode node = queue.poll();
+        System.out.print(node.val + &#34; &#34;);
+
+        if (node.left != null) queue.offer(node.left);
+        if (node.right != null) queue.offer(node.right);
+    }
+}
+</code></pre><h1 id="三二叉查找树bst">
+<a class="header-anchor" href="#%e4%b8%89%e4%ba%8c%e5%8f%89%e6%9f%a5%e6%89%be%e6%a0%91bst"></a>
+三、二叉查找树（BST）
+</h1><h2 id="31-什么是-bst二叉查找树">
+<a class="header-anchor" href="#31-%e4%bb%80%e4%b9%88%e6%98%af-bst%e4%ba%8c%e5%8f%89%e6%9f%a5%e6%89%be%e6%a0%91"></a>
+3.1 什么是 BST（二叉查找树）？
+</h2><p><strong>定义：</strong>
+二叉查找树（Binary Search Tree）是一种特殊的二叉树，它满足以下性质：</p>
+<ul>
+<li>对于任意一个节点 <code>node</code>：
+<ul>
+<li>所有左子树节点的值 <code>&lt; node.val</code></li>
+<li>所有右子树节点的值 <code>&gt; node.val</code></li>
+</ul>
+</li>
+</ul>
+<p>👉 这保证了 <strong>中序遍历结果是一个升序数组</strong>！</p>
+<h1 id="四avl树adelson-velsky-and-landis-tree">
+<a class="header-anchor" href="#%e5%9b%9bavl%e6%a0%91adelson-velsky-and-landis-tree"></a>
+四、AVL树（Adelson-Velsky and Landis Tree）
+</h1><h2 id="41-什么是-avl-树">
+<a class="header-anchor" href="#41-%e4%bb%80%e4%b9%88%e6%98%af-avl-%e6%a0%91"></a>
+4.1 什么是 AVL 树？
+</h2><p><strong>AVL树（Adelson-Velsky and Landis Tree）</strong> 是最早的<strong>自平衡二叉查找树</strong>，由苏联科学家 Adelson-Velsky 和 Landis 在1962年提出。</p>
+<p><strong>核心目标：保持 BST 的高度平衡，防止退化成链表。</strong></p>
+<p>AVL树的平衡规则：</p>
+<p>每个节点维护一个属性：<strong>平衡因子（Balance Factor）</strong></p>
+<pre tabindex="0"><code>平衡因子 = 左子树高度 - 右子树高度
+</code></pre><ul>
+<li>平衡因子 ∈ {-1, 0, +1} ：说明节点是“平衡”的</li>
+<li>超过这个范围（如 +2 或 -2）→ <strong>失衡</strong> → 需要旋转来恢复平衡</li>
+</ul>
+<h2 id="42-avl树的4种旋转操作">
+<a class="header-anchor" href="#42-avl%e6%a0%91%e7%9a%844%e7%a7%8d%e6%97%8b%e8%bd%ac%e6%93%8d%e4%bd%9c"></a>
+4.2 AVL树的4种旋转操作
+</h2><p>AVL 树使用旋转（rotation）来重新调整结构，保持平衡。</p>
+<h3 id="421-ll右旋-插入到左子树的左侧">
+<a class="header-anchor" href="#421-ll%e5%8f%b3%e6%97%8b-%e6%8f%92%e5%85%a5%e5%88%b0%e5%b7%a6%e5%ad%90%e6%a0%91%e7%9a%84%e5%b7%a6%e4%be%a7"></a>
+4.2.1 LL（右旋）—— 插入到左子树的左侧
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>      <span style="color:#f92672">A</span>               <span style="color:#f92672">B</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">/</span>               <span style="color:#f92672">/</span> <span style="color:#960050;background-color:#1e0010">\</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">B</span>      <span style="color:#960050;background-color:#1e0010">→</span>        <span style="color:#f92672">C</span>   <span style="color:#f92672">A</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">/</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">C</span>
+</span></span></code></pre></div><h3 id="422-rr左旋-插入到右子树的右侧">
+<a class="header-anchor" href="#422-rr%e5%b7%a6%e6%97%8b-%e6%8f%92%e5%85%a5%e5%88%b0%e5%8f%b3%e5%ad%90%e6%a0%91%e7%9a%84%e5%8f%b3%e4%be%a7"></a>
+4.2.2 RR（左旋）—— 插入到右子树的右侧
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>    <span style="color:#f92672">A</span>                  <span style="color:#f92672">B</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#960050;background-color:#1e0010">\</span>                <span style="color:#f92672">/</span> <span style="color:#960050;background-color:#1e0010">\</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">B</span>     <span style="color:#960050;background-color:#1e0010">→</span>        <span style="color:#f92672">A</span>   <span style="color:#f92672">C</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#960050;background-color:#1e0010">\</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">C</span>
+</span></span></code></pre></div><h3 id="423-lr先左旋后右旋-插入到左子树的右侧">
+<a class="header-anchor" href="#423-lr%e5%85%88%e5%b7%a6%e6%97%8b%e5%90%8e%e5%8f%b3%e6%97%8b-%e6%8f%92%e5%85%a5%e5%88%b0%e5%b7%a6%e5%ad%90%e6%a0%91%e7%9a%84%e5%8f%b3%e4%be%a7"></a>
+4.2.3 LR（先左旋后右旋）—— 插入到左子树的右侧
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>      <span style="color:#f92672">A</span>              <span style="color:#f92672">A</span>               <span style="color:#f92672">C</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">/</span>              <span style="color:#f92672">/</span>               <span style="color:#f92672">/</span> <span style="color:#960050;background-color:#1e0010">\</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">B</span>     <span style="color:#960050;background-color:#1e0010">→</span>        <span style="color:#f92672">C</span>      <span style="color:#960050;background-color:#1e0010">→</span>        <span style="color:#f92672">B</span>   <span style="color:#f92672">A</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#960050;background-color:#1e0010">\</span>            <span style="color:#f92672">/</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">C</span>          <span style="color:#f92672">B</span>
+</span></span></code></pre></div><h3 id="424-rl先右旋后左旋-插入到右子树的左侧">
+<a class="header-anchor" href="#424-rl%e5%85%88%e5%8f%b3%e6%97%8b%e5%90%8e%e5%b7%a6%e6%97%8b-%e6%8f%92%e5%85%a5%e5%88%b0%e5%8f%b3%e5%ad%90%e6%a0%91%e7%9a%84%e5%b7%a6%e4%be%a7"></a>
+4.2.4 RL（先右旋后左旋）—— 插入到右子树的左侧
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>    <span style="color:#f92672">A</span>                <span style="color:#f92672">A</span>                  <span style="color:#f92672">C</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#960050;background-color:#1e0010">\</span>                <span style="color:#960050;background-color:#1e0010">\</span>                <span style="color:#f92672">/</span> <span style="color:#960050;background-color:#1e0010">\</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">B</span>     <span style="color:#960050;background-color:#1e0010">→</span>          <span style="color:#f92672">C</span>     <span style="color:#960050;background-color:#1e0010">→</span>        <span style="color:#f92672">A</span>   <span style="color:#f92672">B</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">/</span>                  <span style="color:#960050;background-color:#1e0010">\</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">C</span>                    <span style="color:#f92672">B</span>
+</span></span></code></pre></div><h1 id="五红黑树">
+<a class="header-anchor" href="#%e4%ba%94%e7%ba%a2%e9%bb%91%e6%a0%91"></a>
+五、红黑树
+</h1><p>红黑树是一种带有<strong>颜色属性（红或黑）的自平衡二叉查找树（BST）</strong>，通过一组规则来控制树的平衡，确保<strong>最坏情况下操作的时间复杂度是 O(log n)</strong>。</p>
+<blockquote>
+<p>Java 的 TreeMap / TreeSet，C++ STL 的 map/set，底层都是红黑树。</p></blockquote>
+<h2 id="51-红黑树的-5-条性质核心">
+<a class="header-anchor" href="#51-%e7%ba%a2%e9%bb%91%e6%a0%91%e7%9a%84-5-%e6%9d%a1%e6%80%a7%e8%b4%a8%e6%a0%b8%e5%bf%83"></a>
+5.1 红黑树的 5 条性质（核心）
+</h2><p>红黑树在节点上增加了“红/黑”颜色标记，并遵循下面 5 个性质：</p>
+<ol>
+<li>每个节点是红色或黑色</li>
+<li>根节点是黑色</li>
+<li>所有叶子节点（NIL）是黑色（可以省略，但概念中存在）</li>
+<li>如果一个节点是红色，则它的子节点必须是黑色（即 <strong>不能连续两个红节点</strong>）</li>
+<li>从任意节点出发，到其所有叶子节点的路径上，<strong>黑色节点数量相等</strong>（称为“黑高”一致）</li>
+</ol>
+<p>这些规则共同确保红黑树的<strong>最长路径 ≤ 2×最短路径</strong>，从而避免极端不平衡。</p>
+</div>
+    <footer class="article-footer"><blockquote class="article-copyright"><p><strong><span class="icon-user icon"></span>本文作者：</strong>5say @ 5say</p><p>
+      <strong><span class="icon-link icon"></span>本文链接：</strong><a href="http://localhost:1313/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/">http://localhost:1313/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</a>
+    </p><p>
+      
+      <strong><span class="icon-copyright icon"></span>本文版权：</strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener external nofollow noreferrer" target="_blank"><span class="icon-creative-commons"></span>BY-NC-SA</a> 许可协议。转载请注明出处！
+    </p>
+    <span class="icon-creative-commons article-copyright-bg"></span></blockquote>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/java"
+        rel="tag"
+        >JAVA</a
+      >
+    </li><li class="article-tag-list-item" data-aos="zoom-in">
+      <a
+        class="article-tag-list-link"
+        href="/tags/%e7%ae%97%e6%b3%95"
+        rel="tag"
+        >算法</a
+      >
+    </li></ul>
+</footer>
+  </div><nav
+    id="article-nav"
+    data-aos="fade-up"
+  ><div class="article-nav-link-wrap article-nav-link-left"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="Java集合"
+              class="lazyload"
+            /><a href="/post/20250729004-java%E9%9B%86%E5%90%88/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">Java集合</h3>
+      </div><div class="article-nav-link-wrap article-nav-link-right"><img
+              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-sizes="auto"
+              alt="如何训练一个专业大模型"
+              class="lazyload"
+            /><a href="/post/20250804002-%E5%A6%82%E4%BD%95%E8%AE%AD%E7%BB%83deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B/"></a>
+        <div class="article-nav-caption">后一篇</div>
+        <h3 class="article-nav-title">如何训练一个专业大模型</h3>
+      </div></nav></article><section id="comments" data-aos="fade-up">
+<div class="comment-header"><h2 class="comment-title">说些什么吧！</h2>
+  <div class="comment-selector">
+    <div class="comment-selector-wrap"><div class="selector-item" data-selector="giscus">
+          <span>giscus</span>
+        </div></div>
+  </div>
+</div>
+
+<div class="comment-content"><div class="comment giscus-comment" data-aos="fade-up"
+     >
+    </div></div>
+</section></section>
+        </div><footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info"><div>
+      <span class="icon-copyright"></span>2020-2025<span class="footer-info-sep rotate"></span>
+      5say
+    </div><div>
+        基于&nbsp;<a
+          href="https://gohugo.io/"
+          target="_blank"
+          >Hugo</a
+        >&nbsp; Theme.<a
+          href="https://github.com/D-Sketon/hugo-theme-reimu"
+          target="_blank"
+          >Reimu</a
+        >
+      </div><div>
+        <span class="icon-brush"
+          >&nbsp;35.8k</span
+        >
+        &nbsp;|&nbsp;
+        <span class="icon-coffee">&nbsp;01:23</span>
+      </div><div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv"
+          >总访问量&nbsp;<span
+            id="busuanzi_value_site_pv"
+          ></span
+        ></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv"
+          >总访客量&nbsp;<span
+            id="busuanzi_value_site_uv"
+          ></span
+        ></span>
+      </div></div>
+</footer>
+<div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div><div id="mask" class="hide"></div>
+      </div><nav id="mobile-nav">
+  <div class="sidebar-wrap"><div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-树的定义与相关概念">1.1 树的定义与相关概念</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#12-怎么使用java代码定义一个树">1.2 怎么使用Java代码定义一个树</a></li>
+    <li><a href="#13-树的初始化">1.3 树的初始化</a>
+      <ul>
+        <li><a href="#131-手动初始化">1.3.1 手动初始化</a></li>
+        <li><a href="#132-通过数组初始化完全二叉树">1.3.2 通过数组初始化（完全二叉树）</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#21-二叉树的定义">2.1 二叉树的定义</a></li>
+    <li><a href="#22-二叉树遍历节点">2.2 二叉树遍历节点</a>
+      <ul>
+        <li><a href="#221-前序遍历">2.2.1 前序遍历</a></li>
+        <li><a href="#222-中序遍历">2.2.2 中序遍历</a></li>
+        <li><a href="#223-后序遍历">2.2.3 后序遍历</a></li>
+        <li><a href="#224-层序遍历使用队列bfs">2.2.4 层序遍历（使用队列，BFS）</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#31-什么是-bst二叉查找树">3.1 什么是 BST（二叉查找树）？</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#41-什么是-avl-树">4.1 什么是 AVL 树？</a></li>
+    <li><a href="#42-avl树的4种旋转操作">4.2 AVL树的4种旋转操作</a>
+      <ul>
+        <li><a href="#421-ll右旋-插入到左子树的左侧">4.2.1 LL（右旋）—— 插入到左子树的左侧</a></li>
+        <li><a href="#422-rr左旋-插入到右子树的右侧">4.2.2 RR（左旋）—— 插入到右子树的右侧</a></li>
+        <li><a href="#423-lr先左旋后右旋-插入到左子树的右侧">4.2.3 LR（先左旋后右旋）—— 插入到左子树的右侧</a></li>
+        <li><a href="#424-rl先右旋后左旋-插入到右子树的左侧">4.2.4 RL（先右旋后左旋）—— 插入到右子树的左侧</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#51-红黑树的-5-条性质核心">5.1 红黑树的 5 条性质（核心）</a></li>
+  </ul>
+</nav>
+  </div>
+</div></div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img
+    data-src="/avatar/avatar.jpg"
+    data-sizes="auto"
+    alt="5say"
+    class="lazyload"
+  />
+  <div class="sidebar-author-name">5say</div>
+  <div class="sidebar-description">我的博客</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div><div class="sidebar-state-number">20</div>
+  </div>
+  <a class="sidebar-state-category" href="/categories/" aria-label="sidebar-state-category-link">
+    <div>分类</div>
+    <div class="sidebar-state-number">
+      6
+    </div>
+  </a>
+  <a class="sidebar-state-tag" href="/tags/" aria-label="sidebar-state-tag-link">
+    <div>标签</div>
+    <div class="sidebar-state-number">14</div>
+  </a>
+</div>
+<div class="sidebar-social"></div>
+<div class="sidebar-menu"><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/"
+        aria-label="首页"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">首页</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/archives"
+        aria-label="归档"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">归档</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/tags"
+        aria-label="标签"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">标签</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/about"
+        aria-label="关于"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">关于</div>
+    </div><div class="sidebar-menu-link-wrap">
+      <a
+        class="sidebar-menu-link-dummy"
+        href="/links"
+        aria-label="传送门"
+      ></a>
+      <div class='sidebar-menu-icon icon rotate'>&#xe62b;</div>
+      <div class="sidebar-menu-link">传送门</div>
+    </div></div>
+</div></div><div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div></nav>
+</div><div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div class="reimu-search-input" id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png" />
+        </div>
+      </div><script
+    src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
+    integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" ></script><script src="/js/aos.js" ></script><script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", aosInit);
+    } else {
+      aosInit();
+    }
+  </script><script src="/js/pjax_main.js" data-pjax></script><script>
+    var ALGOLIA_CONFIG = {
+      logo: '\/images\/algolia_logo.svg',
+      algolia: {
+        applicationID: "8HX06YAPFB",
+        apiKey: "f021335f33afc81efe70ac9a4e292f8b",
+        indexName: "blog",
+        hits: {
+          "per_page": parseInt("10")
+        },
+        labels: {
+          "input_placeholder": '搜索.....',
+          "hits_empty": '未发现与 「${query}」相关内容',
+          "hits_stats": '找到${hits}条结果（用时 ${time} ms）'
+        }
+      }
+    };
+  </script><script
+    src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js"
+    deferintegrity="sha384-xvLS0jfKuoREs7pqkRI/OI8GcqohO5S&#43;jQz7ZBtQXnsXmD&#43;9jDOOY4cL6dCPzlrk" crossorigin="anonymous"></script><script
+    src="https://npm.webcache.cn/@reimujs/instantsearch.js@4.57.0-beta.1/dist/instantsearch.production.min.js"
+    deferintegrity="sha384-aagKMe8nkqaP2DYQc8kkYOL5l&#43;M5Q2WH/Uhr4teOh0Ybp0RZj0kUSDm45qPikMjK" crossorigin="anonymous"></script><script src="/js/algolia_search.js" ></script><script
+    src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
+    integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
+  if (window.firework) {
+    const options = JSON.parse("{\"excludeelements\":[\"a\",\"button\"],\"particles\":[{\"colors\":[\"var(--red-1)\",\"var(--red-2)\",\"var(--red-3)\",\"var(--red-4)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"emit\"],\"number\":20,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.3,0.5],\"radius\":[16,32]}},{\"colors\":[\"var(--red-0)\"],\"duration\":[1200,1800],\"easing\":\"easeOutExpo\",\"move\":[\"diffuse\"],\"number\":1,\"shape\":\"circle\",\"shapeOptions\":{\"alpha\":[0.2,0.5],\"lineWidth\":6,\"radius\":20}}]}");
+    options.excludeElements = options.excludeelements;
+    delete options.excludeelements;
+    window.firework(options);
+  }
+</script>
+
+<div id="lazy-script">
+  <div><script data-pjax>
+        window.REIMU_POST = {
+          author: "5say",
+          title: "算法-树是怎么变成红黑树的？",
+          url: "http:\/\/localhost:1313\/post\/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91\/",
+          description: " 一、什么是树 1.1 树的定义与相关概念 🌱 树（Tree） 是一种非线性数据结构，是一种“分层”的结构，最常见的是“二叉树”。\n📌 树的基本术语： 根节点（root）：树的起点 子节点（children）：根的下一级 叶子节点（leaf）：没有子节点的节点 高度（height）：从节点到叶子的最长路径 深度（depth）：从根到该节点的路径长度 二叉树：每个节点最多有两个子节点（左\/右） 前序遍历：根 -\u0026gt; 左 -\u0026gt; 右 中序遍历：左 -\u0026gt; 根 -\u0026gt; 右 后序遍历：左 -\u0026gt; 右 -\u0026gt; 根 层序遍历：一层一层从上往下 ✅ 画个图（文字版）： A \/ \\ B …",
+          cover: "http:\/\/localhost:1313\/images\/banner.webp",
+        };
+      </script><script src="/js/insert_highlight.js" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',pswpModule: () => safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script><script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+  var commentConfigKeys = ['valine', 'waline', 'twikoo', 'gitalk', 'giscus'];
+  var commentConfig = {
+    valine: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.valine-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/valine@1.5.1\/dist\/Valine.min.js',
+          !'webcache|valine@1.5.1\/dist\/Valine.min.js'.startsWith('local') ? 'sha384-3ma91AExDeMAZ1rjTjaP8V2A2obQE\u002bs5ltKRwYlwdpArz9xVbp0tF3b0VV2ACNPn' : undefined
+        );
+        script.onload = () => {
+          const GUEST_INFO = ['nick', 'mail', 'link'];
+          const guest_info = 'nick,mail,link'.split(',').filter((item) => {
+            return GUEST_INFO.indexOf(item) > -1
+          });
+          const recordIP = JSON.parse('true');
+          const highlight = JSON.parse('true');
+          const visitor = JSON.parse('false');
+          const serverURLs = undefined;
+
+          new Valine({
+            el: '.valine-comment',
+            appId: "",
+            appKey: "",
+            placeholder: "Just go go",
+            pageSize: '10',
+            avatar: 'mp',
+            lang: document.documentElement.lang || 'en',
+            recordIP: recordIP,
+            highlight: highlight,
+            visitor: visitor,
+            requiredFields: guest_info,
+            path: window.location.pathname,
+            serverURLs,
+          });
+        };
+        document.head.appendChild(script);
+      }
+    },
+    waline: {
+      enable: false,
+      load: async () => {
+        const container = document.querySelector('.waline-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        let walineInit;
+        const walineCdn = 'https:\/\/npm.webcache.cn\/@waline\/client@2.15.8\/dist\/waline.mjs';
+        
+        if ('webcache|@waline\/client@2.15.8\/dist\/waline.mjs'.startsWith('local')) {
+          
+          const module = await safeImport(walineCdn);
+          walineInit = module.init;
+        } else {
+          
+          const module = await safeImport(
+            walineCdn, 
+            'sha384-9sbqJjrfGjbkI6\/PI4nU\/MvBfEmkkPC4YK9I4zBeMIf1CVCZdCMH\/KinBEAZII\/5'
+          );
+          walineInit = module.init;
+        }
+        
+        window.walineInstance = walineInit({
+          el: '.waline-comment',
+          serverURL: '',
+          lang: document.documentElement.lang || 'en',
+          locale: JSON.parse("{}"),
+          emoji: JSON.parse("[\"https://unpkg.com/@waline/emojis@1.2.0/weibo\",\"https://unpkg.com/@waline/emojis@1.2.0/alus\",\"https://unpkg.com/@waline/emojis@1.2.0/bilibili\",\"https://unpkg.com/@waline/emojis@1.2.0/qq\",\"https://unpkg.com/@waline/emojis@1.2.0/tieba\",\"https://unpkg.com/@waline/emojis@1.2.0/tw-emoji\"]"),
+          meta: JSON.parse("[\"nick\",\"mail\",\"link\"]"),
+          requiredMeta: JSON.parse("[\"nick\",\"mail\"]"),
+          wordLimit:  0 ,
+          comment: true,
+          pageSize:  10 ,
+          dark: 'html[data-theme="dark"]',
+          pageview:  true ,
+        });
+      }
+    },
+    twikoo: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.twikoo-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/twikoo@1.6.44\/dist\/twikoo.all.min.js',
+          !'webcache|twikoo@1.6.44\/dist\/twikoo.all.min.js'.startsWith('local') ? 'sha384-kwWLC0HjeZZnVPqCJ1AncI8tsk\u002bkQqF9TbAmCclcc9Z0hGkfgHRzeQZxmdmZhE0K' : undefined
+        );
+        script.onload = () => {
+          twikoo.init({
+            envId: '',
+            el: '.twikoo-comment',
+            region: '',
+            lang: document.documentElement.lang || 'en',
+          });
+          twikoo.getCommentsCount({
+            envId: '',
+            region: '',
+            urls: [
+              'http\/\/localhost1313\/post\/20250729005-%e7%ae%97%e6%b3%95-%e6%a0%91\/'
+            ],
+            includeReply: false
+          }).then((res) => {
+            document.querySelector('.twikoo-comment-count').innerText = res[0].count;
+          }).catch((err) => {
+            console.error(err);
+          });
+        };
+        document.head.appendChild(script);
+      }
+    },
+    gitalk: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.gitalk-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https:\/\/npm.webcache.cn\/gitalk@1.8.0\/dist\/gitalk.min.js',
+          !'webcache|gitalk@1.8.0\/dist\/gitalk.min.js'.startsWith('local') ? 'sha384-kspnZUWBoSWwoJHa0hBCXYbHGbhvU\/lcEH5O8eVbSDhbPwsiVUTp\/aGX\/z\/5EuMA' : undefined
+        );
+        script.onload = () => {
+          if ( false ) {
+            
+            const md5Script = loadScript(
+              'https:\/\/npm.webcache.cn\/blueimp-md5@2.19.0\/js\/md5.min.js',
+              !'webcache|blueimp-md5@2.19.0\/js\/md5.min.js'.startsWith('local') ? 'sha384-JmVtRz6RWiXnA14QbIOJzPuU3MidULOpBP66deeLLyyoF4Tr\/gZlbkHkL6vTthxH' : undefined
+            );
+            md5Script.onload = initGitalk;
+            document.head.appendChild(md5Script);
+          } else {
+            
+            initGitalk();
+          }
+        };
+        document.head.appendChild(script);
+
+        function initGitalk() {
+          let gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: '',
+            owner: '',
+            admin: JSON.parse("null"),
+            id: location.pathname,
+            distractionFreeMode: false,
+            language: document.documentElement.lang || 'en',
+          });
+          gitalk.render('gitalk-comment');
+        }
+      }
+    },
+    giscus: {
+      enable: true,
+      load: () => {
+        const container = document.querySelector('.giscus-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        
+        const existingScript = container.querySelector('script[src*="giscus.app/client.js"]');
+        if (existingScript) existingScript.remove();
+        const existingFrame = document.querySelector('iframe.giscus-frame');
+        if (existingFrame) existingFrame.remove();
+
+        
+        const giscusScript = document.createElement('script');
+        const domMode = document.documentElement.getAttribute("data-theme");
+
+        const docLang = document.documentElement.lang || 'en';
+        const langBase = docLang.split('-')[0];
+        const supportedLangs = ['ar', 'be', 'bg', 'ca', 'cs', 'da', 'de', 'en', 
+        'eo', 'es', 'eu', 'fa', 'fr', 'gr', 'hbs', 'he', 'hu', 'id', 'it', 'ja', 
+        'kh', 'ko', 'nl', 'pl', 'pt', 'ro', 'ru', 'th', 'tr', 'uk', 'uz', 'vi', 'zh-CN', 'zh-HK', 'zh-TW'];
+        const giscusLang = supportedLangs.includes(docLang) ? docLang : supportedLangs.includes(langBase) ? langBase : 'en';
+
+        giscusScript.src = 'https://giscus.app/client.js';
+        giscusScript.setAttribute('data-repo', '5say\/5say');
+        giscusScript.setAttribute('data-repo-id', 'R_kgDOPUICig');
+        giscusScript.setAttribute('data-category', 'Announcements');
+        giscusScript.setAttribute('data-category-id', 'DIC_kwDOPUICis4CtgLS');
+        giscusScript.setAttribute('data-mapping', '0');
+        giscusScript.setAttribute('data-strict', '0');
+        giscusScript.setAttribute('data-reactions-enabled', '1');
+        giscusScript.setAttribute('data-emit-metadata', '0');
+        giscusScript.setAttribute('data-input-position', 'bottom');
+        giscusScript.setAttribute('data-theme', domMode === 'dark' ? 'dark' : 'light');
+        giscusScript.setAttribute('data-lang', giscusLang);
+        giscusScript.setAttribute('crossorigin', 'anonymous');
+        giscusScript.async = true;
+        container.appendChild(giscusScript);
+        document.body.addEventListener('light-theme-set', () => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: 'light' } } }, 'https://giscus.app');
+        });
+        document.body.addEventListener('dark-theme-set', () => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: 'dark' } } }, 'https://giscus.app');
+        });
+      }
+    }
+  };
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig[key].enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    
+    var savedCommentType = localStorage.getItem('commentType');
+    
+    
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+    
+    
+    if (!defaultComment) {
+      var configDefault = 'giscus';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+    
+    
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig[sys].enable) || '';
+    }
+  }
+
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false
+    };
+
+    
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      
+      const commentType = item.getAttribute('data-selector');
+
+      
+      hideAllComments();
+
+      
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          
+          changeActiveCommentItems(item);
+        });
+      }
+
+      
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script></div>
+</div><script data-pjax>
+    var updateTime = _$('#post-update-time')?.innerHTML;
+
+    if (updateTime) {
+      const update = new Date(updateTime);
+      const now = new Date();
+      const diff = now - update;
+      const days = diff / 86400000;
+      const { daysago: daysAgo, message: template } = window.siteConfig.outdate;
+      if (days >= daysAgo) {
+        let message = `This article was last updated on ${updateTime}. Please note that the content may no longer be applicable.`;
+        if (typeof template === 'string') {
+          message = template.replace(/{time}/, updateTime);
+        } else if (typeof template === 'object') {
+          const lang = document.documentElement.lang;
+          const messageKey = Object.keys(template).find(key => key.toLowerCase() === lang.toLowerCase());
+          if (messageKey && template[messageKey]) {
+            message = template[messageKey].replace(/{time}/, updateTime);
+          }
+        }
+        const blockquote = _$('#outdate-blockquote');
+        if (blockquote) {
+          blockquote.querySelector('p').innerText = message;
+          blockquote.style.display = 'block';
+        }
+      }
+    }
+  </script><script
+    src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js"
+    asyncintegrity="sha384-0M75wtSkhjIInv4coYlaJU83&#43;OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id&#43;S" crossorigin="anonymous"></script><script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script><script>
+  const reimuCopyright = String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;
+  console.log(String.raw`%c ${reimuCopyright}`, "color: #ff5252;");
+  console.log(
+    "%c Theme.Reimu" + " %c https://github.com/D-Sketon/hugo-theme-reimu ",
+    "color: white; background: #ff5252; padding:5px 0;",
+    "padding:4px;border:1px solid #ff5252;",
+  );
+</script><script
+    src="https://npm.webcache.cn/pangu@4.0.7/dist/browser/pangu.min.js"
+    integrity="sha384-HeUHqi0nVsPUm/E0ss7OfnIV/yD96JWB8ehZvUuoVax9DpNHL17jj9pdfXHzqDxm" crossorigin="anonymous"></script><script data-pjax>
+    if (document.readyState === "loading") {
+      document.addEventListener('DOMContentLoaded', () => {
+        pangu?.spacingPage();
+      });
+    } else {
+      pangu?.spacingPage();
+    }
+  </script></body>
+</html>
