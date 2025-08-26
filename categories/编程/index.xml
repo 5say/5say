@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>编程 on 5say</title>
-    <link>http://localhost:1313/categories/%E7%BC%96%E7%A8%8B/</link>
+    <link>https://yourdomain.com/categories/%E7%BC%96%E7%A8%8B/</link>
     <description>Recent content from 5say</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Mon, 25 Aug 2025 13:28:00 +0800</lastBuildDate>
     
     
-    <atom:link href="http://localhost:1313/categories/%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="https://yourdomain.com/categories/%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>Kafka的入门手册</title>
-      <link>http://localhost:1313/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</link>
+      <link>https://yourdomain.com/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</link>
       <pubDate>Mon, 25 Aug 2025 13:28:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</guid>
+      <guid>https://yourdomain.com/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</guid>
       <description>
         <![CDATA[<h1>Kafka的入门手册</h1><p>作者：5say（xxx@example.com）</p>
         
           <p><strong>Kafka</strong>是微服务、高并发系统中常用的消息中间件，很多人一开始只知道它“能发消息、能解耦”，但实际上 Kafka 的设计思想、架构原理和使用场景很有深度。</p>
         
-        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+        <hr><p>本文2025-08-25首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-25</p>]]>
       </description>
       
         <category>编程</category><category>中间件</category><category>面试</category>
@@ -43,10 +43,10 @@
 
     <item>
       <title>了解Spring Cloud Gateway的使用</title>
-      <link>http://localhost:1313/post/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <link>https://yourdomain.com/post/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <guid>https://yourdomain.com/post/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
       <description>
         <![CDATA[<h1>了解Spring Cloud Gateway的使用</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -65,7 +65,7 @@
 <p>一句话：
 <strong>Spring Cloud Gateway = 高性能的 API 网关，负责请求转发和统一治理</strong>。</p>
         
-        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+        <hr><p>本文2025-08-25首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-25</p>]]>
       </description>
       
         <category>编程</category><category>中间件</category><category>面试</category>
@@ -76,16 +76,16 @@
 
     <item>
       <title>了解Sentinel</title>
-      <link>http://localhost:1313/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/</link>
+      <link>https://yourdomain.com/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/</link>
       <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/</guid>
+      <guid>https://yourdomain.com/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/</guid>
       <description>
         <![CDATA[<h1>了解Sentinel</h1><p>作者：5say（xxx@example.com）</p>
         
           <p>Sentinel 是 <strong>阿里巴巴开源的流量防卫兵</strong>，在 <strong>Spring Cloud Alibaba</strong> 体系里非常常用，主要解决 <strong>流量控制、熔断降级、系统保护</strong> 等问题。可以理解成 <strong>服务稳定性的核心工具</strong>。我给你从几个角度讲清楚：</p>
         
-        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+        <hr><p>本文2025-08-25首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-25</p>]]>
       </description>
       
         <category>编程</category><category>中间件</category><category>面试</category>
@@ -96,10 +96,10 @@
 
     <item>
       <title>Redis的入门手册</title>
-      <link>http://localhost:1313/post/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</link>
+      <link>https://yourdomain.com/post/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</link>
       <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</guid>
+      <guid>https://yourdomain.com/post/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</guid>
       <description>
         <![CDATA[<h1>Redis的入门手册</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -108,7 +108,7 @@
 📌 一、Redis 是什么
 </h1><p><strong>Redis</strong>（REmote DIctionary Server）是一个开源的 <strong>高性能内存键值数据库</strong>，支持多种数据结构（String、Hash、List、Set、Sorted Set、Bitmap、HyperLogLog、Stream 等）。</p>
         
-        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+        <hr><p>本文2025-08-25首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-25</p>]]>
       </description>
       
         <category>编程</category><category>中间件</category><category>面试</category>
@@ -119,10 +119,10 @@
 
     <item>
       <title>Nacos的使用</title>
-      <link>http://localhost:1313/post/20250825001-nacos%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <link>https://yourdomain.com/post/20250825001-nacos%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250825001-nacos%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <guid>https://yourdomain.com/post/20250825001-nacos%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
       <description>
         <![CDATA[<h1>Nacos的使用</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -133,7 +133,7 @@
 🔹 一、Nacos 是干嘛的
 </h1><p>Nacos 全称是 <strong>Dynamic Naming and Configuration Service</strong>，是阿里开源的一体化服务平台，主要提供两个核心能力：</p>
         
-        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+        <hr><p>本文2025-08-25首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-25</p>]]>
       </description>
       
         <category>编程</category><category>中间件</category><category>面试</category>
@@ -144,10 +144,10 @@
 
     <item>
       <title>Feign的使用</title>
-      <link>http://localhost:1313/post/20250825002-feign%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <link>https://yourdomain.com/post/20250825002-feign%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250825002-feign%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <guid>https://yourdomain.com/post/20250825002-feign%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
       <description>
         <![CDATA[<h1>Feign的使用</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -159,7 +159,7 @@
 🔹 一、Feign 是什么
 </h1><p><strong>Feign</strong> 是一个 <strong>声明式 HTTP 客户端</strong>，最早由 Netflix 开源，后来被 Spring Cloud 集成（现在常用的是 <strong>Spring Cloud OpenFeign</strong>）。</p>
         
-        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+        <hr><p>本文2025-08-25首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-25</p>]]>
       </description>
       
         <category>编程</category><category>中间件</category><category>面试</category>
@@ -170,10 +170,10 @@
 
     <item>
       <title>Java并发编程</title>
-      <link>http://localhost:1313/post/20250824004-java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</link>
+      <link>https://yourdomain.com/post/20250824004-java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</link>
       <pubDate>Sun, 24 Aug 2025 17:28:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250824004-java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</guid>
+      <guid>https://yourdomain.com/post/20250824004-java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</guid>
       <description>
         <![CDATA[<h1>Java并发编程</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -229,7 +229,7 @@
 <li>
 <p><strong>继承 Thread 类</strong></p>
         
-        <hr><p>本文2025-08-24首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-24</p>]]>
+        <hr><p>本文2025-08-24首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-24</p>]]>
       </description>
       
         <category>编程</category><category>面试</category>
@@ -240,10 +240,10 @@
 
     <item>
       <title>数据库中索引的创建和查询过程</title>
-      <link>http://localhost:1313/post/20250824003-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/</link>
+      <link>https://yourdomain.com/post/20250824003-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/</link>
       <pubDate>Sun, 24 Aug 2025 16:36:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250824003-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/</guid>
+      <guid>https://yourdomain.com/post/20250824003-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E6%9F%A5%E8%AF%A2%E8%BF%87%E7%A8%8B/</guid>
       <description>
         <![CDATA[<h1>数据库中索引的创建和查询过程</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -277,7 +277,7 @@
 <blockquote>
 <p>🔑 特点：</p>
         
-        <hr><p>本文2025-08-24首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-24</p>]]>
+        <hr><p>本文2025-08-24首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-24</p>]]>
       </description>
       
         <category>数据库</category><category>编程</category><category>面试</category>
@@ -288,10 +288,10 @@
 
     <item>
       <title>数据库优化的思路</title>
-      <link>http://localhost:1313/post/20250824001-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E7%9A%84%E6%80%9D%E8%B7%AF/</link>
+      <link>https://yourdomain.com/post/20250824001-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E7%9A%84%E6%80%9D%E8%B7%AF/</link>
       <pubDate>Sun, 24 Aug 2025 16:36:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250824001-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E7%9A%84%E6%80%9D%E8%B7%AF/</guid>
+      <guid>https://yourdomain.com/post/20250824001-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E7%9A%84%E6%80%9D%E8%B7%AF/</guid>
       <description>
         <![CDATA[<h1>数据库优化的思路</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -306,7 +306,7 @@
 </ol>
 <p>优化通常分 4 个层次：</p>
         
-        <hr><p>本文2025-08-24首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-24</p>]]>
+        <hr><p>本文2025-08-24首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-24</p>]]>
       </description>
       
         <category>数据库</category><category>编程</category><category>面试</category>
@@ -317,10 +317,10 @@
 
     <item>
       <title>数据库索引失效的几种情况</title>
-      <link>http://localhost:1313/post/20250824002-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/</link>
+      <link>https://yourdomain.com/post/20250824002-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/</link>
       <pubDate>Sun, 24 Aug 2025 16:36:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250824002-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/</guid>
+      <guid>https://yourdomain.com/post/20250824002-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E7%9A%84%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5/</guid>
       <description>
         <![CDATA[<h1>数据库索引失效的几种情况</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -384,10 +384,290 @@
 <li>
 <p>原因：MySQL 对 OR 的优化有限，如果条件跨列且没有覆盖索引，可能走全表</p>
         
-        <hr><p>本文2025-08-24首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-24</p>]]>
+        <hr><p>本文2025-08-24首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-24</p>]]>
       </description>
       
         <category>数据库</category><category>编程</category><category>面试</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Spring中AI的相关配置</title>
+      <link>https://yourdomain.com/post/20250805001-spring%E4%B8%AD%E7%9A%84ai%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Fri, 08 Aug 2025 20:36:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>https://yourdomain.com/post/20250805001-spring%E4%B8%AD%E7%9A%84ai%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/</guid>
+      <description>
+        <![CDATA[<h1>Spring中AI的相关配置</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p>Spring AI 的配置项是围绕着你选择的 <strong>大模型提供商（Provider）</strong> 来定义的，比如：</p>
+<ul>
+<li><code>spring.ai.openai</code> → 用于连接 OpenAI / 兼容 OpenAI API 的服务（如 Ollama、LM Studio、FastChat）</li>
+<li><code>spring.ai.azure.openai</code> → 连接 Azure OpenAI 服务</li>
+<li><code>spring.ai.ollama</code> → 专门为 Ollama 准备（0.8.1 版本后）</li>
+<li><code>spring.ai.bedrock</code> → 连接 AWS Bedrock（Claude、Titan 等）</li>
+<li><code>spring.ai.transformers</code> → 使用本地 Java 模型（正在开发中）</li>
+</ul>
+<h2 id="一核心配置结构以-openai-为例">
+<a class="header-anchor" href="#%e4%b8%80%e6%a0%b8%e5%bf%83%e9%85%8d%e7%bd%ae%e7%bb%93%e6%9e%84%e4%bb%a5-openai-%e4%b8%ba%e4%be%8b"></a>
+一、核心配置结构（以 openai 为例）
+</h2><h2 id="1-基础结构">
+<a class="header-anchor" href="#1-%e5%9f%ba%e7%a1%80%e7%bb%93%e6%9e%84"></a>
+1. 基础结构
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">spring</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ai</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">openai</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">base-url</span>: <span style="color:#ae81ff">http://localhost:11434/v1    </span> <span style="color:#75715e"># 模型服务 API 地址（Ollama）</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">api-key</span>: <span style="color:#ae81ff">ollama-local                   </span> <span style="color:#75715e"># 随便写，不会校验</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">chat</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">model</span>: <span style="color:#ae81ff">deepseek-r1:8b                 </span> <span style="color:#75715e"># 你要用的模型名（大小写敏感）</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">temperature</span>: <span style="color:#ae81ff">0.7</span>                       <span style="color:#75715e"># 随机程度</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">top-p</span>: <span style="color:#ae81ff">0.9</span>                             <span style="color:#75715e"># 采样多样性</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">max-tokens</span>: <span style="color:#ae81ff">1024</span>                       <span style="color:#75715e"># 最大生成字数</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">stop</span>: [<span style="color:#e6db74">&#34;&lt;|end|&gt;&#34;</span>]                      <span style="color:#75715e"># 停止标记符（可选）</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">embedding</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">model</span>: <span style="color:#ae81ff">text-embedding-ada-002         </span> <span style="color:#75715e"># 嵌入模型名称（如果你要用向量搜索）</span>
+</span></span></code></pre></div><hr>
+<h2 id="2-配置项说明">
+<a class="header-anchor" href="#2-%e9%85%8d%e7%bd%ae%e9%a1%b9%e8%af%b4%e6%98%8e"></a>
+2. 配置项说明
+</h2><table>
+  <thead>
+      <tr>
+          <th>配置项</th>
+          <th>类型</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>base-url</code></td>
+          <td>String</td>
+          <td>OpenAI 兼容 API 的基础地址（如 Ollama 是 <code>http://localhost:11434/v1</code>）</td>
+      </tr>
+      <tr>
+          <td><code>api-key</code></td>
+          <td>String</td>
+          <td>API 密钥，Ollama 不验证，可随便写</td>
+      </tr>
+      <tr>
+          <td><code>chat.model</code></td>
+          <td>String</td>
+          <td>聊天模型名称，如 <code>mistral</code>, <code>llama3</code>, <code>deepseek-r1:8b</code></td>
+      </tr>
+      <tr>
+          <td><code>chat.temperature</code></td>
+          <td>Float</td>
+          <td>控制输出随机性（0 = 更稳定，1 = 更有创意）</td>
+      </tr>
+      <tr>
+          <td><code>chat.top-p</code></td>
+          <td>Float</td>
+          <td>控制生成的多样性（0~1）</td>
+      </tr>
+      <tr>
+          <td><code>chat.max-tokens</code></td>
+          <td>Integer</td>
+          <td>最大生成 token 数量</td>
+      </tr>
+      <tr>
+          <td><code>chat.stop</code></td>
+          <td>List<!-- raw HTML omitted --></td>
+          <td>指定遇到这些字符串就停止生成</td>
+      </tr>
+      <tr>
+          <td><code>embedding.model</code></td>
+          <td>String</td>
+          <td>嵌入模型名称（如果使用向量搜索时需要）</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="二在spring-中动态地调用不同模型代码中控制">
+<a class="header-anchor" href="#%e4%ba%8c%e5%9c%a8spring-%e4%b8%ad%e5%8a%a8%e6%80%81%e5%9c%b0%e8%b0%83%e7%94%a8%e4%b8%8d%e5%90%8c%e6%a8%a1%e5%9e%8b%e4%bb%a3%e7%a0%81%e4%b8%ad%e6%8e%a7%e5%88%b6"></a>
+二、在Spring 中动态地调用不同模型（代码中控制）
+</h2><p>你可以不在配置文件中固定写死 <code>model</code>，而是在 Java 代码中动态指定：</p>
+        
+        <hr><p>本文2025-08-08首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-08</p>]]>
+      </description>
+      
+        <category>人工智能</category><category>编程</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Spring AI的创建和使用</title>
+      <link>https://yourdomain.com/post/20250804003-spring-ai%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 04 Aug 2025 17:49:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>https://yourdomain.com/post/20250804003-spring-ai%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
+      <description>
+        <![CDATA[<h1>Spring AI的创建和使用</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p>以下是如何使用 Spring AI 构建生成式 AI 应用的完整指南，涵盖环境准备、两种主流实现方案（云端 API 和本地模型），以及进阶功能开发：</p>
+<hr>
+<h3 id="-一环境准备">
+<a class="header-anchor" href="#-%e4%b8%80%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87"></a>
+⚙️ 一、环境准备
+</h3><ol>
+<li>
+<p><strong>开发环境要求</strong></p>
+        
+        <hr><p>本文2025-08-04首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-04</p>]]>
+      </description>
+      
+        <category>人工智能</category><category>编程</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>算法-树是怎么变成红黑树的？</title>
+      <link>https://yourdomain.com/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</link>
+      <pubDate>Tue, 29 Jul 2025 17:49:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>https://yourdomain.com/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</guid>
+      <description>
+        <![CDATA[<h1>算法-树是怎么变成红黑树的？</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <h1 id="一什么是树">
+<a class="header-anchor" href="#%e4%b8%80%e4%bb%80%e4%b9%88%e6%98%af%e6%a0%91"></a>
+一、什么是树
+</h1><h2 id="11-树的定义与相关概念">
+<a class="header-anchor" href="#11-%e6%a0%91%e7%9a%84%e5%ae%9a%e4%b9%89%e4%b8%8e%e7%9b%b8%e5%85%b3%e6%a6%82%e5%bf%b5"></a>
+1.1 树的定义与相关概念
+</h2><blockquote>
+<p>🌱 <strong>树（Tree）</strong> 是一种<strong>非线性数据结构</strong>，是一种“分层”的结构，最常见的是“二叉树”。</p></blockquote>
+<h4 id="-树的基本术语">
+<a class="header-anchor" href="#-%e6%a0%91%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%9c%af%e8%af%ad"></a>
+📌 树的基本术语：
+</h4><ul>
+<li><strong>根节点（root）</strong>：树的起点</li>
+<li><strong>子节点（children）</strong>：根的下一级</li>
+<li><strong>叶子节点（leaf）</strong>：没有子节点的节点</li>
+<li><strong>高度（height）</strong>：从节点到叶子的最长路径</li>
+<li><strong>深度（depth）</strong>：从根到该节点的路径长度</li>
+<li><strong>二叉树</strong>：每个节点最多有两个子节点（左/右）</li>
+<li><strong>前序遍历</strong>：根 -&gt; 左 -&gt; 右</li>
+<li><strong>中序遍历</strong>：左 -&gt; 根 -&gt; 右</li>
+<li><strong>后序遍历</strong>：左 -&gt; 右 -&gt; 根</li>
+<li><strong>层序遍历</strong>：一层一层从上往下</li>
+</ul>
+<h4 id="-画个图文字版">
+<a class="header-anchor" href="#-%e7%94%bb%e4%b8%aa%e5%9b%be%e6%96%87%e5%ad%97%e7%89%88"></a>
+✅ 画个图（文字版）：
+</h4><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mathematica" data-lang="mathematica"><span style="display:flex;"><span>        A
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">/</span> <span style="color:#960050;background-color:#1e0010">\</span>
+</span></span><span style="display:flex;"><span>      B   C
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">/</span> <span style="color:#960050;background-color:#1e0010">\</span>   <span style="color:#960050;background-color:#1e0010">\</span>
+</span></span><span style="display:flex;"><span>    D   E   F
+</span></span></code></pre></div><ul>
+<li>根：A</li>
+<li>A 的子节点：B, C</li>
+<li>叶子节点：D, E, F</li>
+<li>A 高度 = 3（从 A→D 路径有3层）</li>
+</ul>
+<h2 id="12-怎么使用java代码定义一个树">
+<a class="header-anchor" href="#12-%e6%80%8e%e4%b9%88%e4%bd%bf%e7%94%a8java%e4%bb%a3%e7%a0%81%e5%ae%9a%e4%b9%89%e4%b8%80%e4%b8%aa%e6%a0%91"></a>
+1.2 怎么使用Java代码定义一个树
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TreeNode</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> val;
+</span></span><span style="display:flex;"><span>    TreeNode left,right;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="13-树的初始化">
+<a class="header-anchor" href="#13-%e6%a0%91%e7%9a%84%e5%88%9d%e5%a7%8b%e5%8c%96"></a>
+1.3 树的初始化
+</h2><h3 id="131-手动初始化">
+<a class="header-anchor" href="#131-%e6%89%8b%e5%8a%a8%e5%88%9d%e5%a7%8b%e5%8c%96"></a>
+1.3.1 手动初始化
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testInit</span>(){
+</span></span><span style="display:flex;"><span>    TreeNode root <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(1);
+</span></span><span style="display:flex;"><span>    root.<span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(2);
+</span></span><span style="display:flex;"><span>    root.<span style="color:#a6e22e">right</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(3);
+</span></span><span style="display:flex;"><span>    root.<span style="color:#a6e22e">left</span>.<span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(4);
+</span></span><span style="display:flex;"><span>    root.<span style="color:#a6e22e">left</span>.<span style="color:#a6e22e">right</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(5);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="132-通过数组初始化完全二叉树">
+<a class="header-anchor" href="#132-%e9%80%9a%e8%bf%87%e6%95%b0%e7%bb%84%e5%88%9d%e5%a7%8b%e5%8c%96%e5%ae%8c%e5%85%a8%e4%ba%8c%e5%8f%89%e6%a0%91"></a>
+1.3.2 通过数组初始化（完全二叉树）
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">testBuildTree</span>(){
+</span></span><span style="display:flex;"><span>    Integer<span style="color:#f92672">[]</span> values <span style="color:#f92672">=</span> {1, 2, 3, 4, 5};
+</span></span><span style="display:flex;"><span>    TreeNode root <span style="color:#f92672">=</span> buildTree(values, 0);
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;层序遍历:&#34;</span>);
+</span></span><span style="display:flex;"><span>    levelOrder(root);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> TreeNode  <span style="color:#a6e22e">buildTree</span>(Integer<span style="color:#f92672">[]</span> arr,<span style="color:#66d9ef">int</span> index){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (index <span style="color:#f92672">&gt;=</span> arr.<span style="color:#a6e22e">length</span> <span style="color:#f92672">||</span> arr<span style="color:#f92672">[</span>index<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    TreeNode node <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode(arr<span style="color:#f92672">[</span>index<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>    node.<span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> buildTree(arr, 2 <span style="color:#f92672">*</span> index <span style="color:#f92672">+</span> 1);
+</span></span><span style="display:flex;"><span>    node.<span style="color:#a6e22e">right</span> <span style="color:#f92672">=</span> buildTree(arr, 2 <span style="color:#f92672">*</span> index <span style="color:#f92672">+</span> 2);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> node;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="二二叉树">
+<a class="header-anchor" href="#%e4%ba%8c%e4%ba%8c%e5%8f%89%e6%a0%91"></a>
+二、二叉树
+</h1><p>二叉树是最常见的树状结构，通过二叉树我们可以找到许多树状结构的特点</p>
+        
+        <hr><p>本文2025-07-29首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-07-29</p>]]>
+      </description>
+      
+        <category>编程</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Java集合</title>
+      <link>https://yourdomain.com/post/20250729004-java%E9%9B%86%E5%90%88/</link>
+      <pubDate>Tue, 29 Jul 2025 17:39:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>https://yourdomain.com/post/20250729004-java%E9%9B%86%E5%90%88/</guid>
+      <description>
+        <![CDATA[<h1>Java集合</h1><p>作者：5say（xxx@example.com）</p>
+        
+          
+        
+        <hr><p>本文2025-07-29首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-07-29</p>]]>
+      </description>
+      
+        <category>编程</category>
+      
+    </item>
+    
+    
+
+    <item>
+      <title>Java内部类的探究</title>
+      <link>https://yourdomain.com/post/20250729003-java%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/</link>
+      <pubDate>Tue, 29 Jul 2025 17:15:00 &#43;0800</pubDate>
+      <author>xxx@example.com (5say)</author>
+      <guid>https://yourdomain.com/post/20250729003-java%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/</guid>
+      <description>
+        <![CDATA[<h1>Java内部类的探究</h1><p>作者：5say（xxx@example.com）</p>
+        
+          <p>内部类就是<strong>定义在另一个类内部的类</strong>，它和外部类有很强的关联性。它可以访问外部类的私有成员，通常用于实现逻辑上的组合关系或更紧密的封装。</p>
+<h1 id="一java-内部类的分类">
+<a class="header-anchor" href="#%e4%b8%80java-%e5%86%85%e9%83%a8%e7%b1%bb%e7%9a%84%e5%88%86%e7%b1%bb"></a>
+一、Java 内部类的分类
+</h1><h2 id="11-成员内部类member-inner-class">
+<a class="header-anchor" href="#11-%e6%88%90%e5%91%98%e5%86%85%e9%83%a8%e7%b1%bbmember-inner-class"></a>
+1.1 成员内部类（Member Inner Class）
+</h2><p>定义在类中，但不在任何方法中。</p>
+        
+        <hr><p>本文2025-07-29首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-07-29</p>]]>
+      </description>
+      
+        <category>编程</category>
       
     </item>
     

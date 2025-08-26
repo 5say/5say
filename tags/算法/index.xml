@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>算法 on 5say</title>
-    <link>http://localhost:1313/tags/%E7%AE%97%E6%B3%95/</link>
+    <link>https://yourdomain.com/tags/%E7%AE%97%E6%B3%95/</link>
     <description>Recent content from 5say</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Tue, 29 Jul 2025 17:49:00 +0800</lastBuildDate>
     
     
-    <atom:link href="http://localhost:1313/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="https://yourdomain.com/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,10 +23,10 @@
 
     <item>
       <title>算法-树是怎么变成红黑树的？</title>
-      <link>http://localhost:1313/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</link>
+      <link>https://yourdomain.com/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</link>
       <pubDate>Tue, 29 Jul 2025 17:49:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</guid>
+      <guid>https://yourdomain.com/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</guid>
       <description>
         <![CDATA[<h1>算法-树是怎么变成红黑树的？</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -112,7 +112,7 @@
 二、二叉树
 </h1><p>二叉树是最常见的树状结构，通过二叉树我们可以找到许多树状结构的特点</p>
         
-        <hr><p>本文2025-07-29首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-07-29</p>]]>
+        <hr><p>本文2025-07-29首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-07-29</p>]]>
       </description>
       
         <category>编程</category>

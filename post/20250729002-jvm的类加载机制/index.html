@@ -3,7 +3,7 @@
   lang="zh-cn" 
   data-theme-mode="auto"
   >
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8" />
+  <head><meta charset="utf-8" />
 <meta
   name="viewport"
   content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -14,7 +14,7 @@
   name="description"
   content="我的博客"
 /><script>
-  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":true,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"https://yourdomain.com/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":true,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
   
 </script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,14 +35,14 @@
     as="font"
     type="font/woff2"
     crossorigin="anonymous"
-  /><link rel="stylesheet" href="/css/loader.css" />
+  /><link rel="stylesheet" href="/css/loader.min.ac746e154f756f8220326eeb52a719f142ab038be5a8ddf30ea5ef15ef2356ea.css" />
 <meta property="og:type" content="website" />
   <meta property="og:title" content="JVM的类加载机制 | 5say" />
   <meta
     property="og:description"
     content="我的博客"
   />
-  <meta property="og:url" content="http://localhost:1313/post/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" />
+  <meta property="og:url" content="https://yourdomain.com/post/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" />
   <meta
     property="og:site_name"
     content="5say"
@@ -55,7 +55,7 @@
   <meta property="article:published_time" content="2025-07-29T16:58:00&#43;08:00" />
   <meta property="article:modified_time" content="2025-07-29T16:58:00&#43;08:00" /><meta property="article:tag" content="JavaJVM" /><meta name="twitter:card" content="summary" />
   <meta name="twitter:image" content="/" />
-<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.ea02d6050ee9f03562b4beaef6793cf7bac33001e4b8eb562b69af06b92b23d7.css" />
 <link
     rel="preload"
     as="style"
@@ -148,33 +148,41 @@
   <div class="sidebar-toc-wrapper toc-div-class">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#11-加载loading">1.1 加载（Loading）</a></li>
-    <li><a href="#12-验证verification">1.2 验证（Verification）</a></li>
-    <li><a href="#13-准备preparation">1.3 准备（Preparation）</a></li>
-    <li><a href="#14-解析resolution">1.4 解析（Resolution）</a></li>
-    <li><a href="#15-初始化initialization">1.5 初始化（Initialization）</a></li>
-  </ul>
-
-  <ul>
-    <li>
+    <li><a href="#一jvm-加载一个类的完整过程五个阶段">一、JVM 加载一个类的完整过程（五个阶段）</a>
       <ul>
-        <li><a href="#-被动使用不会触发类加载">❌ 被动使用（不会触发类加载）：</a></li>
+        <li><a href="#11-加载loading">1.1 加载（Loading）</a></li>
+        <li><a href="#12-验证verification">1.2 验证（Verification）</a></li>
+        <li><a href="#13-准备preparation">1.3 准备（Preparation）</a></li>
+        <li><a href="#14-解析resolution">1.4 解析（Resolution）</a></li>
+        <li><a href="#15-初始化initialization">1.5 初始化（Initialization）</a></li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li>
+    <li><a href="#二jvm-类加载时机什么时候触发">二、JVM 类加载时机（什么时候触发？）</a>
       <ul>
-        <li><a href="#31-双亲委派模型parent-delegation-model">3.1 双亲委派模型（Parent Delegation Model）</a></li>
-        <li><a href="#32-热加载与卸载">3.2 热加载与卸载</a></li>
+        <li>
+          <ul>
+            <li><a href="#-被动使用不会触发类加载">❌ 被动使用（不会触发类加载）：</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#51-jvm内置类加载器">5.1 JVM内置类加载器</a></li>
-    <li><a href="#52-用户自定义类加载器">5.2 用户自定义类加载器</a></li>
+    <li><a href="#三类加载机制的高级特性">三、类加载机制的高级特性</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#31-双亲委派模型parent-delegation-model">3.1 双亲委派模型（Parent Delegation Model）</a></li>
+            <li><a href="#32-热加载与卸载">3.2 热加载与卸载</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#四完整的一个类的生命周期">四、完整的一个类的生命周期</a></li>
+    <li><a href="#五类加载器的分类与职责">五、类加载器的分类与职责</a>
+      <ul>
+        <li><a href="#51-jvm内置类加载器">5.1 JVM内置类加载器</a></li>
+        <li><a href="#52-用户自定义类加载器">5.2 用户自定义类加载器</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -498,7 +506,7 @@ Bootstrap ClassLoader
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></div>
     <footer class="article-footer"><blockquote class="article-copyright"><p><strong><span class="icon-user icon"></span>本文作者：</strong>5say @ 5say</p><p>
-      <strong><span class="icon-link icon"></span>本文链接：</strong><a href="http://localhost:1313/post/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">http://localhost:1313/post/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</a>
+      <strong><span class="icon-link icon"></span>本文链接：</strong><a href="https://yourdomain.com/post/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">https://yourdomain.com/post/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</a>
     </p><p>
       
       <strong><span class="icon-copyright icon"></span>本文版权：</strong>
@@ -525,7 +533,7 @@ Bootstrap ClassLoader
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-src="https://raw.githubusercontent.com/5say/pictures/main/blog/202508251423117.jpg"
               data-sizes="auto"
               alt="面向对象中的多态是什么？"
               class="lazyload"
@@ -602,33 +610,41 @@ Bootstrap ClassLoader
   <div class="sidebar-toc-wrapper toc-div-class">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#11-加载loading">1.1 加载（Loading）</a></li>
-    <li><a href="#12-验证verification">1.2 验证（Verification）</a></li>
-    <li><a href="#13-准备preparation">1.3 准备（Preparation）</a></li>
-    <li><a href="#14-解析resolution">1.4 解析（Resolution）</a></li>
-    <li><a href="#15-初始化initialization">1.5 初始化（Initialization）</a></li>
-  </ul>
-
-  <ul>
-    <li>
+    <li><a href="#一jvm-加载一个类的完整过程五个阶段">一、JVM 加载一个类的完整过程（五个阶段）</a>
       <ul>
-        <li><a href="#-被动使用不会触发类加载">❌ 被动使用（不会触发类加载）：</a></li>
+        <li><a href="#11-加载loading">1.1 加载（Loading）</a></li>
+        <li><a href="#12-验证verification">1.2 验证（Verification）</a></li>
+        <li><a href="#13-准备preparation">1.3 准备（Preparation）</a></li>
+        <li><a href="#14-解析resolution">1.4 解析（Resolution）</a></li>
+        <li><a href="#15-初始化initialization">1.5 初始化（Initialization）</a></li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li>
+    <li><a href="#二jvm-类加载时机什么时候触发">二、JVM 类加载时机（什么时候触发？）</a>
       <ul>
-        <li><a href="#31-双亲委派模型parent-delegation-model">3.1 双亲委派模型（Parent Delegation Model）</a></li>
-        <li><a href="#32-热加载与卸载">3.2 热加载与卸载</a></li>
+        <li>
+          <ul>
+            <li><a href="#-被动使用不会触发类加载">❌ 被动使用（不会触发类加载）：</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#51-jvm内置类加载器">5.1 JVM内置类加载器</a></li>
-    <li><a href="#52-用户自定义类加载器">5.2 用户自定义类加载器</a></li>
+    <li><a href="#三类加载机制的高级特性">三、类加载机制的高级特性</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#31-双亲委派模型parent-delegation-model">3.1 双亲委派模型（Parent Delegation Model）</a></li>
+            <li><a href="#32-热加载与卸载">3.2 热加载与卸载</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#四完整的一个类的生命周期">四、完整的一个类的生命周期</a></li>
+    <li><a href="#五类加载器的分类与职责">五、类加载器的分类与职责</a>
+      <ul>
+        <li><a href="#51-jvm内置类加载器">5.1 JVM内置类加载器</a></li>
+        <li><a href="#52-用户自定义类加载器">5.2 用户自定义类加载器</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -722,7 +738,7 @@ Bootstrap ClassLoader
     src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
     integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
     src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
-    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" ></script><script src="/js/aos.js" ></script><script>
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" integrity="" crossorigin="anonymous" ></script><script src="/js/aos.js" integrity="" crossorigin="anonymous" ></script><script>
     var aosInit = () => {
       AOS.init({
         duration: 1000,
@@ -736,7 +752,7 @@ Bootstrap ClassLoader
     } else {
       aosInit();
     }
-  </script><script src="/js/pjax_main.js" data-pjax></script><script>
+  </script><script src="/js/pjax_main.js" integrity="" crossorigin="anonymous" data-pjax></script><script>
     var ALGOLIA_CONFIG = {
       logo: '\/images\/algolia_logo.svg',
       algolia: {
@@ -757,7 +773,7 @@ Bootstrap ClassLoader
     src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js"
     deferintegrity="sha384-xvLS0jfKuoREs7pqkRI/OI8GcqohO5S&#43;jQz7ZBtQXnsXmD&#43;9jDOOY4cL6dCPzlrk" crossorigin="anonymous"></script><script
     src="https://npm.webcache.cn/@reimujs/instantsearch.js@4.57.0-beta.1/dist/instantsearch.production.min.js"
-    deferintegrity="sha384-aagKMe8nkqaP2DYQc8kkYOL5l&#43;M5Q2WH/Uhr4teOh0Ybp0RZj0kUSDm45qPikMjK" crossorigin="anonymous"></script><script src="/js/algolia_search.js" ></script><script
+    deferintegrity="sha384-aagKMe8nkqaP2DYQc8kkYOL5l&#43;M5Q2WH/Uhr4teOh0Ybp0RZj0kUSDm45qPikMjK" crossorigin="anonymous"></script><script src="/js/algolia_search.js" integrity="" crossorigin="anonymous" ></script><script
     src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
     integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
   if (window.firework) {
@@ -773,11 +789,11 @@ Bootstrap ClassLoader
         window.REIMU_POST = {
           author: "5say",
           title: "JVM的类加载机制",
-          url: "http:\/\/localhost:1313\/post\/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6\/",
+          url: "https:\/\/yourdomain.com\/post\/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6\/",
           description: "JVM 加载一个类的过程，也叫做类加载机制，是 Java 程序运行的基础。它将 .class 字节码文件加载到 JVM 内存，并完成验证、解析和初始化等过程，最终让类可以被使用。\n一、JVM 加载一个类的完整过程（五个阶段） 1.1 加载（Loading） ⏱ JVM 使用类加载器（ClassLoader）将 .class 文件读入内存，生成 Class 对象。\n",
-          cover: "http:\/\/localhost:1313\/images\/banner.webp",
+          cover: "https:\/\/yourdomain.com\/images\/banner.webp",
         };
-      </script><script src="/js/insert_highlight.js" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+      </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
           if (_$$('.article-entry a.article-gallery-item').length > 0) {
             new PhotoSwipeLightbox({
               gallery: '.article-entry',
@@ -908,7 +924,7 @@ Bootstrap ClassLoader
             envId: '',
             region: '',
             urls: [
-              'http\/\/localhost1313\/post\/20250729002-jvm%e7%9a%84%e7%b1%bb%e5%8a%a0%e8%bd%bd%e6%9c%ba%e5%88%b6\/'
+              'https\/\/yourdomain.com\/post\/20250729002-jvm%e7%9a%84%e7%b1%bb%e5%8a%a0%e8%bd%bd%e6%9c%ba%e5%88%b6\/'
             ],
             includeReply: false
           }).then((res) => {

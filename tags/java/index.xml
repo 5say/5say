@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java on 5say</title>
-    <link>http://localhost:1313/tags/java/</link>
+    <link>https://yourdomain.com/tags/java/</link>
     <description>Recent content from 5say</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Sun, 24 Aug 2025 17:28:00 +0800</lastBuildDate>
     
     
-    <atom:link href="http://localhost:1313/tags/java/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="https://yourdomain.com/tags/java/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,10 +23,10 @@
 
     <item>
       <title>Java并发编程</title>
-      <link>http://localhost:1313/post/20250824004-java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</link>
+      <link>https://yourdomain.com/post/20250824004-java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</link>
       <pubDate>Sun, 24 Aug 2025 17:28:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250824004-java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</guid>
+      <guid>https://yourdomain.com/post/20250824004-java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</guid>
       <description>
         <![CDATA[<h1>Java并发编程</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -82,7 +82,7 @@
 <li>
 <p><strong>继承 Thread 类</strong></p>
         
-        <hr><p>本文2025-08-24首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-24</p>]]>
+        <hr><p>本文2025-08-24首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-24</p>]]>
       </description>
       
         <category>编程</category><category>面试</category>
@@ -93,10 +93,10 @@
 
     <item>
       <title>算法-树是怎么变成红黑树的？</title>
-      <link>http://localhost:1313/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</link>
+      <link>https://yourdomain.com/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</link>
       <pubDate>Tue, 29 Jul 2025 17:49:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</guid>
+      <guid>https://yourdomain.com/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</guid>
       <description>
         <![CDATA[<h1>算法-树是怎么变成红黑树的？</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -182,7 +182,7 @@
 二、二叉树
 </h1><p>二叉树是最常见的树状结构，通过二叉树我们可以找到许多树状结构的特点</p>
         
-        <hr><p>本文2025-07-29首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-07-29</p>]]>
+        <hr><p>本文2025-07-29首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-07-29</p>]]>
       </description>
       
         <category>编程</category>
@@ -193,16 +193,16 @@
 
     <item>
       <title>Java集合</title>
-      <link>http://localhost:1313/post/20250729004-java%E9%9B%86%E5%90%88/</link>
+      <link>https://yourdomain.com/post/20250729004-java%E9%9B%86%E5%90%88/</link>
       <pubDate>Tue, 29 Jul 2025 17:39:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250729004-java%E9%9B%86%E5%90%88/</guid>
+      <guid>https://yourdomain.com/post/20250729004-java%E9%9B%86%E5%90%88/</guid>
       <description>
         <![CDATA[<h1>Java集合</h1><p>作者：5say（xxx@example.com）</p>
         
           
         
-        <hr><p>本文2025-07-29首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-07-29</p>]]>
+        <hr><p>本文2025-07-29首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-07-29</p>]]>
       </description>
       
         <category>编程</category>
@@ -213,10 +213,10 @@
 
     <item>
       <title>Java内部类的探究</title>
-      <link>http://localhost:1313/post/20250729003-java%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/</link>
+      <link>https://yourdomain.com/post/20250729003-java%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/</link>
       <pubDate>Tue, 29 Jul 2025 17:15:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250729003-java%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/</guid>
+      <guid>https://yourdomain.com/post/20250729003-java%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/</guid>
       <description>
         <![CDATA[<h1>Java内部类的探究</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -229,7 +229,7 @@
 1.1 成员内部类（Member Inner Class）
 </h2><p>定义在类中，但不在任何方法中。</p>
         
-        <hr><p>本文2025-07-29首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-07-29</p>]]>
+        <hr><p>本文2025-07-29首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-07-29</p>]]>
       </description>
       
         <category>编程</category>
@@ -240,10 +240,10 @@
 
     <item>
       <title>JVM的类加载机制</title>
-      <link>http://localhost:1313/post/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</link>
+      <link>https://yourdomain.com/post/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</link>
       <pubDate>Tue, 29 Jul 2025 16:58:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</guid>
+      <guid>https://yourdomain.com/post/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</guid>
       <description>
         <![CDATA[<h1>JVM的类加载机制</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -257,7 +257,7 @@
 </h2><blockquote>
 <p>⏱ JVM 使用类加载器（ClassLoader）将 <code>.class</code> 文件读入内存，生成 <code>Class</code> 对象。</p>
         
-        <hr><p>本文2025-07-29首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-07-29</p>]]>
+        <hr><p>本文2025-07-29首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-07-29</p>]]>
       </description>
       
         <category>编程</category>
@@ -268,16 +268,16 @@
 
     <item>
       <title>面向对象中的多态是什么？</title>
-      <link>http://localhost:1313/post/20250729001-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%A4%9A%E6%80%81%E6%98%AF%E4%BB%80%E4%B9%88/</link>
+      <link>https://yourdomain.com/post/20250729001-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%A4%9A%E6%80%81%E6%98%AF%E4%BB%80%E4%B9%88/</link>
       <pubDate>Tue, 29 Jul 2025 14:30:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250729001-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%A4%9A%E6%80%81%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
+      <guid>https://yourdomain.com/post/20250729001-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%A4%9A%E6%80%81%E6%98%AF%E4%BB%80%E4%B9%88/</guid>
       <description>
         <![CDATA[<h1>面向对象中的多态是什么？</h1><p>作者：5say（xxx@example.com）</p>
         
           <p>在刚接触面向对象的时候，总能遇到一个概念，<strong>多态</strong>，那时候还懵懵懂懂，只记得它是面向对象的三大特性之一，干嘛用的？不知道！什么意思？不清楚！怎么用？重写，重载！</p>
         
-        <hr><p>本文2025-07-29首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-07-29</p>]]>
+        <hr><p>本文2025-07-29首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-07-29</p>]]>
       </description>
       
         <category>编程</category>

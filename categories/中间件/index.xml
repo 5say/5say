@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>中间件 on 5say</title>
-    <link>http://localhost:1313/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/</link>
+    <link>https://yourdomain.com/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/</link>
     <description>Recent content from 5say</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Mon, 25 Aug 2025 13:28:00 +0800</lastBuildDate>
     
     
-    <atom:link href="http://localhost:1313/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="https://yourdomain.com/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,16 +23,16 @@
 
     <item>
       <title>Kafka的入门手册</title>
-      <link>http://localhost:1313/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</link>
+      <link>https://yourdomain.com/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</link>
       <pubDate>Mon, 25 Aug 2025 13:28:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</guid>
+      <guid>https://yourdomain.com/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</guid>
       <description>
         <![CDATA[<h1>Kafka的入门手册</h1><p>作者：5say（xxx@example.com）</p>
         
           <p><strong>Kafka</strong>是微服务、高并发系统中常用的消息中间件，很多人一开始只知道它“能发消息、能解耦”，但实际上 Kafka 的设计思想、架构原理和使用场景很有深度。</p>
         
-        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+        <hr><p>本文2025-08-25首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-25</p>]]>
       </description>
       
         <category>编程</category><category>中间件</category><category>面试</category>
@@ -43,10 +43,10 @@
 
     <item>
       <title>了解Spring Cloud Gateway的使用</title>
-      <link>http://localhost:1313/post/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <link>https://yourdomain.com/post/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <guid>https://yourdomain.com/post/20250825003-%E4%BA%86%E8%A7%A3spring-cloud-gateway%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
       <description>
         <![CDATA[<h1>了解Spring Cloud Gateway的使用</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -65,7 +65,7 @@
 <p>一句话：
 <strong>Spring Cloud Gateway = 高性能的 API 网关，负责请求转发和统一治理</strong>。</p>
         
-        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+        <hr><p>本文2025-08-25首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-25</p>]]>
       </description>
       
         <category>编程</category><category>中间件</category><category>面试</category>
@@ -76,16 +76,16 @@
 
     <item>
       <title>了解Sentinel</title>
-      <link>http://localhost:1313/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/</link>
+      <link>https://yourdomain.com/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/</link>
       <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/</guid>
+      <guid>https://yourdomain.com/post/20250825004-%E4%BA%86%E8%A7%A3sentinel/</guid>
       <description>
         <![CDATA[<h1>了解Sentinel</h1><p>作者：5say（xxx@example.com）</p>
         
           <p>Sentinel 是 <strong>阿里巴巴开源的流量防卫兵</strong>，在 <strong>Spring Cloud Alibaba</strong> 体系里非常常用，主要解决 <strong>流量控制、熔断降级、系统保护</strong> 等问题。可以理解成 <strong>服务稳定性的核心工具</strong>。我给你从几个角度讲清楚：</p>
         
-        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+        <hr><p>本文2025-08-25首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-25</p>]]>
       </description>
       
         <category>编程</category><category>中间件</category><category>面试</category>
@@ -96,10 +96,10 @@
 
     <item>
       <title>Redis的入门手册</title>
-      <link>http://localhost:1313/post/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</link>
+      <link>https://yourdomain.com/post/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</link>
       <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</guid>
+      <guid>https://yourdomain.com/post/20250825006-redis%E7%9A%84%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</guid>
       <description>
         <![CDATA[<h1>Redis的入门手册</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -108,7 +108,7 @@
 📌 一、Redis 是什么
 </h1><p><strong>Redis</strong>（REmote DIctionary Server）是一个开源的 <strong>高性能内存键值数据库</strong>，支持多种数据结构（String、Hash、List、Set、Sorted Set、Bitmap、HyperLogLog、Stream 等）。</p>
         
-        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+        <hr><p>本文2025-08-25首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-25</p>]]>
       </description>
       
         <category>编程</category><category>中间件</category><category>面试</category>
@@ -119,10 +119,10 @@
 
     <item>
       <title>Nacos的使用</title>
-      <link>http://localhost:1313/post/20250825001-nacos%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <link>https://yourdomain.com/post/20250825001-nacos%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250825001-nacos%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <guid>https://yourdomain.com/post/20250825001-nacos%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
       <description>
         <![CDATA[<h1>Nacos的使用</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -133,7 +133,7 @@
 🔹 一、Nacos 是干嘛的
 </h1><p>Nacos 全称是 <strong>Dynamic Naming and Configuration Service</strong>，是阿里开源的一体化服务平台，主要提供两个核心能力：</p>
         
-        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+        <hr><p>本文2025-08-25首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-25</p>]]>
       </description>
       
         <category>编程</category><category>中间件</category><category>面试</category>
@@ -144,10 +144,10 @@
 
     <item>
       <title>Feign的使用</title>
-      <link>http://localhost:1313/post/20250825002-feign%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <link>https://yourdomain.com/post/20250825002-feign%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Mon, 25 Aug 2025 12:28:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250825002-feign%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <guid>https://yourdomain.com/post/20250825002-feign%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
       <description>
         <![CDATA[<h1>Feign的使用</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -159,7 +159,7 @@
 🔹 一、Feign 是什么
 </h1><p><strong>Feign</strong> 是一个 <strong>声明式 HTTP 客户端</strong>，最早由 Netflix 开源，后来被 Spring Cloud 集成（现在常用的是 <strong>Spring Cloud OpenFeign</strong>）。</p>
         
-        <hr><p>本文2025-08-25首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-25</p>]]>
+        <hr><p>本文2025-08-25首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-25</p>]]>
       </description>
       
         <category>编程</category><category>中间件</category><category>面试</category>

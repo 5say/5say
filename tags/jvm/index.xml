@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>JVM on 5say</title>
-    <link>http://localhost:1313/tags/jvm/</link>
+    <link>https://yourdomain.com/tags/jvm/</link>
     <description>Recent content from 5say</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Tue, 29 Jul 2025 17:15:00 +0800</lastBuildDate>
     
     
-    <atom:link href="http://localhost:1313/tags/jvm/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="https://yourdomain.com/tags/jvm/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,10 +23,10 @@
 
     <item>
       <title>Java内部类的探究</title>
-      <link>http://localhost:1313/post/20250729003-java%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/</link>
+      <link>https://yourdomain.com/post/20250729003-java%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/</link>
       <pubDate>Tue, 29 Jul 2025 17:15:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250729003-java%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/</guid>
+      <guid>https://yourdomain.com/post/20250729003-java%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/</guid>
       <description>
         <![CDATA[<h1>Java内部类的探究</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -39,7 +39,7 @@
 1.1 成员内部类（Member Inner Class）
 </h2><p>定义在类中，但不在任何方法中。</p>
         
-        <hr><p>本文2025-07-29首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-07-29</p>]]>
+        <hr><p>本文2025-07-29首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-07-29</p>]]>
       </description>
       
         <category>编程</category>
@@ -50,10 +50,10 @@
 
     <item>
       <title>JVM的类加载机制</title>
-      <link>http://localhost:1313/post/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</link>
+      <link>https://yourdomain.com/post/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</link>
       <pubDate>Tue, 29 Jul 2025 16:58:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</guid>
+      <guid>https://yourdomain.com/post/20250729002-jvm%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</guid>
       <description>
         <![CDATA[<h1>JVM的类加载机制</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -67,7 +67,7 @@
 </h2><blockquote>
 <p>⏱ JVM 使用类加载器（ClassLoader）将 <code>.class</code> 文件读入内存，生成 <code>Class</code> 对象。</p>
         
-        <hr><p>本文2025-07-29首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-07-29</p>]]>
+        <hr><p>本文2025-07-29首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-07-29</p>]]>
       </description>
       
         <category>编程</category>

@@ -3,7 +3,7 @@
   lang="zh-cn" 
   data-theme-mode="auto"
   >
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8" />
+  <head><meta charset="utf-8" />
 <meta
   name="viewport"
   content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -14,7 +14,7 @@
   name="description"
   content="我的博客"
 /><script>
-  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":true,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"https://yourdomain.com/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":true,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
   
 </script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,14 +35,14 @@
     as="font"
     type="font/woff2"
     crossorigin="anonymous"
-  /><link rel="stylesheet" href="/css/loader.css" />
+  /><link rel="stylesheet" href="/css/loader.min.ac746e154f756f8220326eeb52a719f142ab038be5a8ddf30ea5ef15ef2356ea.css" />
 <meta property="og:type" content="website" />
   <meta property="og:title" content="算法-树是怎么变成红黑树的？ | 5say" />
   <meta
     property="og:description"
     content="我的博客"
   />
-  <meta property="og:url" content="http://localhost:1313/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/" />
+  <meta property="og:url" content="https://yourdomain.com/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/" />
   <meta
     property="og:site_name"
     content="5say"
@@ -55,7 +55,7 @@
   <meta property="article:published_time" content="2025-07-29T17:49:00&#43;08:00" />
   <meta property="article:modified_time" content="2025-07-29T17:49:00&#43;08:00" /><meta property="article:tag" content="Java算法" /><meta name="twitter:card" content="summary" />
   <meta name="twitter:image" content="/" />
-<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.ea02d6050ee9f03562b4beaef6793cf7bac33001e4b8eb562b69af06b92b23d7.css" />
 <link
     rel="preload"
     as="style"
@@ -148,50 +148,63 @@
   <div class="sidebar-toc-wrapper toc-div-class">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#11-树的定义与相关概念">1.1 树的定义与相关概念</a>
+    <li><a href="#一什么是树">一、什么是树</a>
       <ul>
-        <li></li>
+        <li><a href="#11-树的定义与相关概念">1.1 树的定义与相关概念</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#-树的基本术语">📌 树的基本术语：</a></li>
+                <li><a href="#-画个图文字版">✅ 画个图（文字版）：</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#12-怎么使用java代码定义一个树">1.2 怎么使用Java代码定义一个树</a></li>
+        <li><a href="#13-树的初始化">1.3 树的初始化</a>
+          <ul>
+            <li><a href="#131-手动初始化">1.3.1 手动初始化</a></li>
+            <li><a href="#132-通过数组初始化完全二叉树">1.3.2 通过数组初始化（完全二叉树）</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-    <li><a href="#12-怎么使用java代码定义一个树">1.2 怎么使用Java代码定义一个树</a></li>
-    <li><a href="#13-树的初始化">1.3 树的初始化</a>
+    <li><a href="#二二叉树">二、二叉树</a>
       <ul>
-        <li><a href="#131-手动初始化">1.3.1 手动初始化</a></li>
-        <li><a href="#132-通过数组初始化完全二叉树">1.3.2 通过数组初始化（完全二叉树）</a></li>
+        <li><a href="#21-二叉树的定义">2.1 二叉树的定义</a></li>
+        <li><a href="#22-二叉树遍历节点">2.2 二叉树遍历节点</a>
+          <ul>
+            <li><a href="#221-前序遍历">2.2.1 前序遍历</a></li>
+            <li><a href="#222-中序遍历">2.2.2 中序遍历</a></li>
+            <li><a href="#223-后序遍历">2.2.3 后序遍历</a></li>
+            <li><a href="#224-层序遍历使用队列bfs">2.2.4 层序遍历（使用队列，BFS）</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#21-二叉树的定义">2.1 二叉树的定义</a></li>
-    <li><a href="#22-二叉树遍历节点">2.2 二叉树遍历节点</a>
+    <li><a href="#三二叉查找树bst">三、二叉查找树（BST）</a>
       <ul>
-        <li><a href="#221-前序遍历">2.2.1 前序遍历</a></li>
-        <li><a href="#222-中序遍历">2.2.2 中序遍历</a></li>
-        <li><a href="#223-后序遍历">2.2.3 后序遍历</a></li>
-        <li><a href="#224-层序遍历使用队列bfs">2.2.4 层序遍历（使用队列，BFS）</a></li>
+        <li><a href="#31-什么是-bst二叉查找树">3.1 什么是 BST（二叉查找树）？</a></li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#31-什么是-bst二叉查找树">3.1 什么是 BST（二叉查找树）？</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#41-什么是-avl-树">4.1 什么是 AVL 树？</a></li>
-    <li><a href="#42-avl树的4种旋转操作">4.2 AVL树的4种旋转操作</a>
+    <li><a href="#四avl树adelson-velsky-and-landis-tree">四、AVL树（Adelson-Velsky and Landis Tree）</a>
       <ul>
-        <li><a href="#421-ll右旋-插入到左子树的左侧">4.2.1 LL（右旋）—— 插入到左子树的左侧</a></li>
-        <li><a href="#422-rr左旋-插入到右子树的右侧">4.2.2 RR（左旋）—— 插入到右子树的右侧</a></li>
-        <li><a href="#423-lr先左旋后右旋-插入到左子树的右侧">4.2.3 LR（先左旋后右旋）—— 插入到左子树的右侧</a></li>
-        <li><a href="#424-rl先右旋后左旋-插入到右子树的左侧">4.2.4 RL（先右旋后左旋）—— 插入到右子树的左侧</a></li>
+        <li><a href="#41-什么是-avl-树">4.1 什么是 AVL 树？</a></li>
+        <li><a href="#42-avl树的4种旋转操作">4.2 AVL树的4种旋转操作</a>
+          <ul>
+            <li><a href="#421-ll右旋-插入到左子树的左侧">4.2.1 LL（右旋）—— 插入到左子树的左侧</a></li>
+            <li><a href="#422-rr左旋-插入到右子树的右侧">4.2.2 RR（左旋）—— 插入到右子树的右侧</a></li>
+            <li><a href="#423-lr先左旋后右旋-插入到左子树的右侧">4.2.3 LR（先左旋后右旋）—— 插入到左子树的右侧</a></li>
+            <li><a href="#424-rl先右旋后左旋-插入到右子树的左侧">4.2.4 RL（先右旋后左旋）—— 插入到右子树的左侧</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#51-红黑树的-5-条性质核心">5.1 红黑树的 5 条性质（核心）</a></li>
+    <li><a href="#五红黑树">五、红黑树</a>
+      <ul>
+        <li><a href="#51-红黑树的-5-条性质核心">5.1 红黑树的 5 条性质（核心）</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -524,7 +537,7 @@
 <p>这些规则共同确保红黑树的<strong>最长路径 ≤ 2×最短路径</strong>，从而避免极端不平衡。</p>
 </div>
     <footer class="article-footer"><blockquote class="article-copyright"><p><strong><span class="icon-user icon"></span>本文作者：</strong>5say @ 5say</p><p>
-      <strong><span class="icon-link icon"></span>本文链接：</strong><a href="http://localhost:1313/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/">http://localhost:1313/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</a>
+      <strong><span class="icon-link icon"></span>本文链接：</strong><a href="https://yourdomain.com/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/">https://yourdomain.com/post/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91/</a>
     </p><p>
       
       <strong><span class="icon-copyright icon"></span>本文版权：</strong>
@@ -551,7 +564,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-src="https://raw.githubusercontent.com/5say/pictures/main/blog/202508251413842.png"
               data-sizes="auto"
               alt="Java集合"
               class="lazyload"
@@ -559,7 +572,7 @@
         <div class="article-nav-caption">前一篇</div>
         <h3 class="article-nav-title">Java集合</h3>
       </div><div class="article-nav-link-wrap article-nav-link-right"><img
-              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-src="https://raw.githubusercontent.com/5say/pictures/main/blog/202508251423117.jpg"
               data-sizes="auto"
               alt="如何训练一个专业大模型"
               class="lazyload"
@@ -628,50 +641,63 @@
   <div class="sidebar-toc-wrapper toc-div-class">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#11-树的定义与相关概念">1.1 树的定义与相关概念</a>
+    <li><a href="#一什么是树">一、什么是树</a>
       <ul>
-        <li></li>
+        <li><a href="#11-树的定义与相关概念">1.1 树的定义与相关概念</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#-树的基本术语">📌 树的基本术语：</a></li>
+                <li><a href="#-画个图文字版">✅ 画个图（文字版）：</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#12-怎么使用java代码定义一个树">1.2 怎么使用Java代码定义一个树</a></li>
+        <li><a href="#13-树的初始化">1.3 树的初始化</a>
+          <ul>
+            <li><a href="#131-手动初始化">1.3.1 手动初始化</a></li>
+            <li><a href="#132-通过数组初始化完全二叉树">1.3.2 通过数组初始化（完全二叉树）</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-    <li><a href="#12-怎么使用java代码定义一个树">1.2 怎么使用Java代码定义一个树</a></li>
-    <li><a href="#13-树的初始化">1.3 树的初始化</a>
+    <li><a href="#二二叉树">二、二叉树</a>
       <ul>
-        <li><a href="#131-手动初始化">1.3.1 手动初始化</a></li>
-        <li><a href="#132-通过数组初始化完全二叉树">1.3.2 通过数组初始化（完全二叉树）</a></li>
+        <li><a href="#21-二叉树的定义">2.1 二叉树的定义</a></li>
+        <li><a href="#22-二叉树遍历节点">2.2 二叉树遍历节点</a>
+          <ul>
+            <li><a href="#221-前序遍历">2.2.1 前序遍历</a></li>
+            <li><a href="#222-中序遍历">2.2.2 中序遍历</a></li>
+            <li><a href="#223-后序遍历">2.2.3 后序遍历</a></li>
+            <li><a href="#224-层序遍历使用队列bfs">2.2.4 层序遍历（使用队列，BFS）</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#21-二叉树的定义">2.1 二叉树的定义</a></li>
-    <li><a href="#22-二叉树遍历节点">2.2 二叉树遍历节点</a>
+    <li><a href="#三二叉查找树bst">三、二叉查找树（BST）</a>
       <ul>
-        <li><a href="#221-前序遍历">2.2.1 前序遍历</a></li>
-        <li><a href="#222-中序遍历">2.2.2 中序遍历</a></li>
-        <li><a href="#223-后序遍历">2.2.3 后序遍历</a></li>
-        <li><a href="#224-层序遍历使用队列bfs">2.2.4 层序遍历（使用队列，BFS）</a></li>
+        <li><a href="#31-什么是-bst二叉查找树">3.1 什么是 BST（二叉查找树）？</a></li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#31-什么是-bst二叉查找树">3.1 什么是 BST（二叉查找树）？</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#41-什么是-avl-树">4.1 什么是 AVL 树？</a></li>
-    <li><a href="#42-avl树的4种旋转操作">4.2 AVL树的4种旋转操作</a>
+    <li><a href="#四avl树adelson-velsky-and-landis-tree">四、AVL树（Adelson-Velsky and Landis Tree）</a>
       <ul>
-        <li><a href="#421-ll右旋-插入到左子树的左侧">4.2.1 LL（右旋）—— 插入到左子树的左侧</a></li>
-        <li><a href="#422-rr左旋-插入到右子树的右侧">4.2.2 RR（左旋）—— 插入到右子树的右侧</a></li>
-        <li><a href="#423-lr先左旋后右旋-插入到左子树的右侧">4.2.3 LR（先左旋后右旋）—— 插入到左子树的右侧</a></li>
-        <li><a href="#424-rl先右旋后左旋-插入到右子树的左侧">4.2.4 RL（先右旋后左旋）—— 插入到右子树的左侧</a></li>
+        <li><a href="#41-什么是-avl-树">4.1 什么是 AVL 树？</a></li>
+        <li><a href="#42-avl树的4种旋转操作">4.2 AVL树的4种旋转操作</a>
+          <ul>
+            <li><a href="#421-ll右旋-插入到左子树的左侧">4.2.1 LL（右旋）—— 插入到左子树的左侧</a></li>
+            <li><a href="#422-rr左旋-插入到右子树的右侧">4.2.2 RR（左旋）—— 插入到右子树的右侧</a></li>
+            <li><a href="#423-lr先左旋后右旋-插入到左子树的右侧">4.2.3 LR（先左旋后右旋）—— 插入到左子树的右侧</a></li>
+            <li><a href="#424-rl先右旋后左旋-插入到右子树的左侧">4.2.4 RL（先右旋后左旋）—— 插入到右子树的左侧</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-  </ul>
-
-  <ul>
-    <li><a href="#51-红黑树的-5-条性质核心">5.1 红黑树的 5 条性质（核心）</a></li>
+    <li><a href="#五红黑树">五、红黑树</a>
+      <ul>
+        <li><a href="#51-红黑树的-5-条性质核心">5.1 红黑树的 5 条性质（核心）</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -765,7 +791,7 @@
     src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
     integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
     src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
-    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" ></script><script src="/js/aos.js" ></script><script>
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" integrity="" crossorigin="anonymous" ></script><script src="/js/aos.js" integrity="" crossorigin="anonymous" ></script><script>
     var aosInit = () => {
       AOS.init({
         duration: 1000,
@@ -779,7 +805,7 @@
     } else {
       aosInit();
     }
-  </script><script src="/js/pjax_main.js" data-pjax></script><script>
+  </script><script src="/js/pjax_main.js" integrity="" crossorigin="anonymous" data-pjax></script><script>
     var ALGOLIA_CONFIG = {
       logo: '\/images\/algolia_logo.svg',
       algolia: {
@@ -800,7 +826,7 @@
     src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js"
     deferintegrity="sha384-xvLS0jfKuoREs7pqkRI/OI8GcqohO5S&#43;jQz7ZBtQXnsXmD&#43;9jDOOY4cL6dCPzlrk" crossorigin="anonymous"></script><script
     src="https://npm.webcache.cn/@reimujs/instantsearch.js@4.57.0-beta.1/dist/instantsearch.production.min.js"
-    deferintegrity="sha384-aagKMe8nkqaP2DYQc8kkYOL5l&#43;M5Q2WH/Uhr4teOh0Ybp0RZj0kUSDm45qPikMjK" crossorigin="anonymous"></script><script src="/js/algolia_search.js" ></script><script
+    deferintegrity="sha384-aagKMe8nkqaP2DYQc8kkYOL5l&#43;M5Q2WH/Uhr4teOh0Ybp0RZj0kUSDm45qPikMjK" crossorigin="anonymous"></script><script src="/js/algolia_search.js" integrity="" crossorigin="anonymous" ></script><script
     src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
     integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
   if (window.firework) {
@@ -816,11 +842,11 @@
         window.REIMU_POST = {
           author: "5say",
           title: "算法-树是怎么变成红黑树的？",
-          url: "http:\/\/localhost:1313\/post\/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91\/",
+          url: "https:\/\/yourdomain.com\/post\/20250729005-%E7%AE%97%E6%B3%95-%E6%A0%91\/",
           description: " 一、什么是树 1.1 树的定义与相关概念 🌱 树（Tree） 是一种非线性数据结构，是一种“分层”的结构，最常见的是“二叉树”。\n📌 树的基本术语： 根节点（root）：树的起点 子节点（children）：根的下一级 叶子节点（leaf）：没有子节点的节点 高度（height）：从节点到叶子的最长路径 深度（depth）：从根到该节点的路径长度 二叉树：每个节点最多有两个子节点（左\/右） 前序遍历：根 -\u0026gt; 左 -\u0026gt; 右 中序遍历：左 -\u0026gt; 根 -\u0026gt; 右 后序遍历：左 -\u0026gt; 右 -\u0026gt; 根 层序遍历：一层一层从上往下 ✅ 画个图（文字版）： A \/ \\ B …",
-          cover: "http:\/\/localhost:1313\/images\/banner.webp",
+          cover: "https:\/\/yourdomain.com\/images\/banner.webp",
         };
-      </script><script src="/js/insert_highlight.js" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+      </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
           if (_$$('.article-entry a.article-gallery-item').length > 0) {
             new PhotoSwipeLightbox({
               gallery: '.article-entry',
@@ -951,7 +977,7 @@
             envId: '',
             region: '',
             urls: [
-              'http\/\/localhost1313\/post\/20250729005-%e7%ae%97%e6%b3%95-%e6%a0%91\/'
+              'https\/\/yourdomain.com\/post\/20250729005-%e7%ae%97%e6%b3%95-%e6%a0%91\/'
             ],
             includeReply: false
           }).then((res) => {

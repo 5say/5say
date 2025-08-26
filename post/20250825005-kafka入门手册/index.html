@@ -3,7 +3,7 @@
   lang="zh-cn" 
   data-theme-mode="auto"
   >
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8" />
+  <head><meta charset="utf-8" />
 <meta
   name="viewport"
   content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -14,7 +14,7 @@
   name="description"
   content="我的博客"
 /><script>
-  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"http://localhost:1313/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":true,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
+  window.siteConfig = JSON.parse("{\"anchor_icon\":null,\"base\":\"https://yourdomain.com/\",\"clipboard\":{\"copyright\":{\"count\":50,\"enable\":false,\"license_type\":\"by-nc-sa\"},\"fail\":{\"en\":\"Copy failed (ﾟ⊿ﾟ)ﾂ\",\"ja\":\"コピー失敗 (ﾟ⊿ﾟ)ﾂ\",\"pt-br\":\"Falha ao copiar (ﾟ⊿ﾟ)ﾂ\",\"zh-cn\":\"复制失败 (ﾟ⊿ﾟ)ﾂ\",\"zh-tw\":\"複製失敗 (ﾟ⊿ﾟ)ﾂ\"},\"success\":{\"en\":\"Copy successfully (*^▽^*)\",\"ja\":\"コピー成功 (*^▽^*)\",\"pt-br\":\"Copiado com sucesso (*^▽^*)\",\"zh-cn\":\"复制成功 (*^▽^*)\",\"zh-tw\":\"複製成功 (*^▽^*)\"}},\"code_block\":{\"expand\":true},\"icon_font\":\"4552607_0khxww3tj3q9\",\"outdate\":{\"daysago\":180,\"enable\":true,\"message\":{\"en\":\"This article was last updated on {time}. Please note that the content may no longer be applicable.\",\"ja\":\"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。\",\"pt-br\":\"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.\",\"zh-cn\":\"本文最后更新于 {time}，请注意文中内容可能已不适用。\",\"zh-tw\":\"本文最後更新於 {time}，請注意文中內容可能已不適用。\"}}}");
   
 </script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,14 +35,14 @@
     as="font"
     type="font/woff2"
     crossorigin="anonymous"
-  /><link rel="stylesheet" href="/css/loader.css" />
+  /><link rel="stylesheet" href="/css/loader.min.ac746e154f756f8220326eeb52a719f142ab038be5a8ddf30ea5ef15ef2356ea.css" />
 <meta property="og:type" content="website" />
   <meta property="og:title" content="Kafka的入门手册 | 5say" />
   <meta
     property="og:description"
     content="我的博客"
   />
-  <meta property="og:url" content="http://localhost:1313/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/" />
+  <meta property="og:url" content="https://yourdomain.com/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/" />
   <meta
     property="og:site_name"
     content="5say"
@@ -55,7 +55,7 @@
   <meta property="article:published_time" content="2025-08-25T13:28:00&#43;08:00" />
   <meta property="article:modified_time" content="2025-08-25T13:28:00&#43;08:00" /><meta property="article:tag" content="中间件面试" /><meta name="twitter:card" content="summary" />
   <meta name="twitter:image" content="/" />
-<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.css" />
+<link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/main.min.ea02d6050ee9f03562b4beaef6793cf7bac33001e4b8eb562b69af06b92b23d7.css" />
 <link
     rel="preload"
     as="style"
@@ -148,22 +148,32 @@
   <div class="sidebar-toc-wrapper toc-div-class">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#31-kafka-消息存储机制">3.1 Kafka 消息存储机制</a></li>
-    <li><a href="#32-消费机制consumer">3.2 消费机制（Consumer）</a>
+    <li><a href="#-一kafka-是什么">📌 一、Kafka 是什么</a></li>
+    <li><a href="#-二kafka-核心概念">📌 二、Kafka 核心概念</a></li>
+    <li><a href="#-三kafka-架构">📌 三、Kafka 架构</a>
       <ul>
-        <li><a href="#321-顺序消费partition-内消息有序">3.2.1 顺序消费（Partition 内消息有序）</a></li>
-        <li><a href="#322-消费者组负载均衡">3.2.2 消费者组（负载均衡）</a></li>
-        <li><a href="#323-offset-管理断点续传">3.2.3 Offset 管理（断点续传）</a></li>
+        <li><a href="#31-kafka-消息存储机制">3.1 Kafka 消息存储机制</a></li>
+        <li><a href="#32-消费机制consumer">3.2 消费机制（Consumer）</a>
+          <ul>
+            <li><a href="#321-顺序消费partition-内消息有序">3.2.1 顺序消费（Partition 内消息有序）</a></li>
+            <li><a href="#322-消费者组负载均衡">3.2.2 消费者组（负载均衡）</a></li>
+            <li><a href="#323-offset-管理断点续传">3.2.3 Offset 管理（断点续传）</a></li>
+          </ul>
+        </li>
+        <li><a href="#33-高可用与可靠性">3.3 高可用与可靠性</a>
+          <ul>
+            <li><a href="#331-高可用副本--ack-策略">3.3.1 高可用（副本 + ACK 策略）</a></li>
+            <li><a href="#332-可靠性ack--isr--重试">3.3.2 可靠性（ACK + ISR + 重试）</a></li>
+          </ul>
+        </li>
+        <li><a href="#34-高吞吐和扩展原理">3.4 高吞吐和扩展原理</a></li>
+        <li><a href="#35-kafka-核心设计总结">3.5 Kafka 核心设计总结</a></li>
       </ul>
     </li>
-    <li><a href="#33-高可用与可靠性">3.3 高可用与可靠性</a>
-      <ul>
-        <li><a href="#331-高可用副本--ack-策略">3.3.1 高可用（副本 + ACK 策略）</a></li>
-        <li><a href="#332-可靠性ack--isr--重试">3.3.2 可靠性（ACK + ISR + 重试）</a></li>
-      </ul>
-    </li>
-    <li><a href="#34-高吞吐和扩展原理">3.4 高吞吐和扩展原理</a></li>
-    <li><a href="#35-kafka-核心设计总结">3.5 Kafka 核心设计总结</a></li>
+    <li><a href="#-四kafka-的优势">📌 四、Kafka 的优势</a></li>
+    <li><a href="#-五kafka-的典型使用场景">📌 五、Kafka 的典型使用场景</a></li>
+    <li><a href="#-六kafka-在-spring-cloud-中的使用">📌 六、Kafka 在 Spring Cloud 中的使用</a></li>
+    <li><a href="#-七和其他-mq-的对比">📌 七、和其他 MQ 的对比</a></li>
   </ul>
 </nav>
   </div>
@@ -734,7 +744,7 @@
 </table>
 </div>
     <footer class="article-footer"><blockquote class="article-copyright"><p><strong><span class="icon-user icon"></span>本文作者：</strong>5say @ 5say</p><p>
-      <strong><span class="icon-link icon"></span>本文链接：</strong><a href="http://localhost:1313/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/">http://localhost:1313/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</a>
+      <strong><span class="icon-link icon"></span>本文链接：</strong><a href="https://yourdomain.com/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/">https://yourdomain.com/post/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C/</a>
     </p><p>
       
       <strong><span class="icon-copyright icon"></span>本文版权：</strong>
@@ -761,7 +771,7 @@
     id="article-nav"
     data-aos="fade-up"
   ><div class="article-nav-link-wrap article-nav-link-left"><img
-              data-src="https://d-sketon.top/img/_backwebp/bg1.webp"
+              data-src="https://raw.githubusercontent.com/5say/pictures/main/blog/202508251423118.jpg"
               data-sizes="auto"
               alt="Feign的使用"
               class="lazyload"
@@ -830,22 +840,32 @@
   <div class="sidebar-toc-wrapper toc-div-class">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#31-kafka-消息存储机制">3.1 Kafka 消息存储机制</a></li>
-    <li><a href="#32-消费机制consumer">3.2 消费机制（Consumer）</a>
+    <li><a href="#-一kafka-是什么">📌 一、Kafka 是什么</a></li>
+    <li><a href="#-二kafka-核心概念">📌 二、Kafka 核心概念</a></li>
+    <li><a href="#-三kafka-架构">📌 三、Kafka 架构</a>
       <ul>
-        <li><a href="#321-顺序消费partition-内消息有序">3.2.1 顺序消费（Partition 内消息有序）</a></li>
-        <li><a href="#322-消费者组负载均衡">3.2.2 消费者组（负载均衡）</a></li>
-        <li><a href="#323-offset-管理断点续传">3.2.3 Offset 管理（断点续传）</a></li>
+        <li><a href="#31-kafka-消息存储机制">3.1 Kafka 消息存储机制</a></li>
+        <li><a href="#32-消费机制consumer">3.2 消费机制（Consumer）</a>
+          <ul>
+            <li><a href="#321-顺序消费partition-内消息有序">3.2.1 顺序消费（Partition 内消息有序）</a></li>
+            <li><a href="#322-消费者组负载均衡">3.2.2 消费者组（负载均衡）</a></li>
+            <li><a href="#323-offset-管理断点续传">3.2.3 Offset 管理（断点续传）</a></li>
+          </ul>
+        </li>
+        <li><a href="#33-高可用与可靠性">3.3 高可用与可靠性</a>
+          <ul>
+            <li><a href="#331-高可用副本--ack-策略">3.3.1 高可用（副本 + ACK 策略）</a></li>
+            <li><a href="#332-可靠性ack--isr--重试">3.3.2 可靠性（ACK + ISR + 重试）</a></li>
+          </ul>
+        </li>
+        <li><a href="#34-高吞吐和扩展原理">3.4 高吞吐和扩展原理</a></li>
+        <li><a href="#35-kafka-核心设计总结">3.5 Kafka 核心设计总结</a></li>
       </ul>
     </li>
-    <li><a href="#33-高可用与可靠性">3.3 高可用与可靠性</a>
-      <ul>
-        <li><a href="#331-高可用副本--ack-策略">3.3.1 高可用（副本 + ACK 策略）</a></li>
-        <li><a href="#332-可靠性ack--isr--重试">3.3.2 可靠性（ACK + ISR + 重试）</a></li>
-      </ul>
-    </li>
-    <li><a href="#34-高吞吐和扩展原理">3.4 高吞吐和扩展原理</a></li>
-    <li><a href="#35-kafka-核心设计总结">3.5 Kafka 核心设计总结</a></li>
+    <li><a href="#-四kafka-的优势">📌 四、Kafka 的优势</a></li>
+    <li><a href="#-五kafka-的典型使用场景">📌 五、Kafka 的典型使用场景</a></li>
+    <li><a href="#-六kafka-在-spring-cloud-中的使用">📌 六、Kafka 在 Spring Cloud 中的使用</a></li>
+    <li><a href="#-七和其他-mq-的对比">📌 七、和其他 MQ 的对比</a></li>
   </ul>
 </nav>
   </div>
@@ -939,7 +959,7 @@
     src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"
     integrity="sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf&#43;e" crossorigin="anonymous"></script><script
     src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"
-    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" ></script><script src="/js/aos.js" ></script><script>
+    integrity="sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script><script src="/js/main.js" integrity="" crossorigin="anonymous" ></script><script src="/js/aos.js" integrity="" crossorigin="anonymous" ></script><script>
     var aosInit = () => {
       AOS.init({
         duration: 1000,
@@ -953,7 +973,7 @@
     } else {
       aosInit();
     }
-  </script><script src="/js/pjax_main.js" data-pjax></script><script>
+  </script><script src="/js/pjax_main.js" integrity="" crossorigin="anonymous" data-pjax></script><script>
     var ALGOLIA_CONFIG = {
       logo: '\/images\/algolia_logo.svg',
       algolia: {
@@ -974,7 +994,7 @@
     src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js"
     deferintegrity="sha384-xvLS0jfKuoREs7pqkRI/OI8GcqohO5S&#43;jQz7ZBtQXnsXmD&#43;9jDOOY4cL6dCPzlrk" crossorigin="anonymous"></script><script
     src="https://npm.webcache.cn/@reimujs/instantsearch.js@4.57.0-beta.1/dist/instantsearch.production.min.js"
-    deferintegrity="sha384-aagKMe8nkqaP2DYQc8kkYOL5l&#43;M5Q2WH/Uhr4teOh0Ybp0RZj0kUSDm45qPikMjK" crossorigin="anonymous"></script><script src="/js/algolia_search.js" ></script><script
+    deferintegrity="sha384-aagKMe8nkqaP2DYQc8kkYOL5l&#43;M5Q2WH/Uhr4teOh0Ybp0RZj0kUSDm45qPikMjK" crossorigin="anonymous"></script><script src="/js/algolia_search.js" integrity="" crossorigin="anonymous" ></script><script
     src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js"
     integrity="sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d" crossorigin="anonymous"></script><script>
   if (window.firework) {
@@ -990,11 +1010,11 @@
         window.REIMU_POST = {
           author: "5say",
           title: "Kafka的入门手册",
-          url: "http:\/\/localhost:1313\/post\/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C\/",
+          url: "https:\/\/yourdomain.com\/post\/20250825005-kafka%E5%85%A5%E9%97%A8%E6%89%8B%E5%86%8C\/",
           description: "Kafka是微服务、高并发系统中常用的消息中间件，很多人一开始只知道它“能发消息、能解耦”，但实际上 Kafka 的设计思想、架构原理和使用场景很有深度。\n",
-          cover: "http:\/\/localhost:1313\/images\/banner.webp",
+          cover: "https:\/\/yourdomain.com\/images\/banner.webp",
         };
-      </script><script src="/js/insert_highlight.js" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
+      </script><script src="/js/insert_highlight.js" integrity="" crossorigin="anonymous" data-pjax></script><script type="module" data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/npm.webcache.cn\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const pswp = () => {
           if (_$$('.article-entry a.article-gallery-item').length > 0) {
             new PhotoSwipeLightbox({
               gallery: '.article-entry',
@@ -1125,7 +1145,7 @@
             envId: '',
             region: '',
             urls: [
-              'http\/\/localhost1313\/post\/20250825005-kafka%e5%85%a5%e9%97%a8%e6%89%8b%e5%86%8c\/'
+              'https\/\/yourdomain.com\/post\/20250825005-kafka%e5%85%a5%e9%97%a8%e6%89%8b%e5%86%8c\/'
             ],
             includeReply: false
           }).then((res) => {

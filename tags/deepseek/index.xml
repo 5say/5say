@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>DeepSeek on 5say</title>
-    <link>http://localhost:1313/tags/deepseek/</link>
+    <link>https://yourdomain.com/tags/deepseek/</link>
     <description>Recent content from 5say</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Fri, 08 Aug 2025 20:36:00 +0800</lastBuildDate>
     
     
-    <atom:link href="http://localhost:1313/tags/deepseek/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="https://yourdomain.com/tags/deepseek/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,10 +23,10 @@
 
     <item>
       <title>Spring中AI的相关配置</title>
-      <link>http://localhost:1313/post/20250805001-spring%E4%B8%AD%E7%9A%84ai%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/</link>
+      <link>https://yourdomain.com/post/20250805001-spring%E4%B8%AD%E7%9A%84ai%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Fri, 08 Aug 2025 20:36:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250805001-spring%E4%B8%AD%E7%9A%84ai%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/</guid>
+      <guid>https://yourdomain.com/post/20250805001-spring%E4%B8%AD%E7%9A%84ai%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/</guid>
       <description>
         <![CDATA[<h1>Spring中AI的相关配置</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -118,7 +118,7 @@
 二、在Spring 中动态地调用不同模型（代码中控制）
 </h2><p>你可以不在配置文件中固定写死 <code>model</code>，而是在 Java 代码中动态指定：</p>
         
-        <hr><p>本文2025-08-08首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-08</p>]]>
+        <hr><p>本文2025-08-08首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-08</p>]]>
       </description>
       
         <category>人工智能</category><category>编程</category>
@@ -129,10 +129,10 @@
 
     <item>
       <title>Spring AI的创建和使用</title>
-      <link>http://localhost:1313/post/20250804003-spring-ai%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
+      <link>https://yourdomain.com/post/20250804003-spring-ai%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Mon, 04 Aug 2025 17:49:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250804003-spring-ai%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
+      <guid>https://yourdomain.com/post/20250804003-spring-ai%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
       <description>
         <![CDATA[<h1>Spring AI的创建和使用</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -145,7 +145,7 @@
 <li>
 <p><strong>开发环境要求</strong></p>
         
-        <hr><p>本文2025-08-04首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-04</p>]]>
+        <hr><p>本文2025-08-04首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-04</p>]]>
       </description>
       
         <category>人工智能</category><category>编程</category>
@@ -156,10 +156,10 @@
 
     <item>
       <title>DeepSeek大模型本地部署指南</title>
-      <link>http://localhost:1313/post/20250804001-deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/</link>
+      <link>https://yourdomain.com/post/20250804001-deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/</link>
       <pubDate>Mon, 04 Aug 2025 17:49:00 &#43;0800</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250804001-deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/</guid>
+      <guid>https://yourdomain.com/post/20250804001-deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/</guid>
       <description>
         <![CDATA[<h1>DeepSeek大模型本地部署指南</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -213,7 +213,7 @@
 <blockquote>
 <p>💡 <strong>说明</strong>：</p>
         
-        <hr><p>本文2025-08-04首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-04</p>]]>
+        <hr><p>本文2025-08-04首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-04</p>]]>
       </description>
       
         <category>人工智能</category>
@@ -224,10 +224,10 @@
 
     <item>
       <title>如何训练一个专业大模型</title>
-      <link>http://localhost:1313/post/20250804002-%E5%A6%82%E4%BD%95%E8%AE%AD%E7%BB%83deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B/</link>
+      <link>https://yourdomain.com/post/20250804002-%E5%A6%82%E4%BD%95%E8%AE%AD%E7%BB%83deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B/</link>
       <pubDate>Mon, 04 Aug 2025 17:49:00 &#43;1032</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250804002-%E5%A6%82%E4%BD%95%E8%AE%AD%E7%BB%83deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B/</guid>
+      <guid>https://yourdomain.com/post/20250804002-%E5%A6%82%E4%BD%95%E8%AE%AD%E7%BB%83deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B/</guid>
       <description>
         <![CDATA[<h1>如何训练一个专业大模型</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -243,7 +243,7 @@
 </span></span><span style="display:flex;"><span>pip install torch transformers datasets peft accelerate bitsandbytes
 </span></span></code></pre></div><p>下面详细解释这些库的作用及其在大模型训练中的关键角色，它们共同构成了现代大语言模型（LLM）训练的技术栈：</p>
         
-        <hr><p>本文2025-08-04首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-04</p>]]>
+        <hr><p>本文2025-08-04首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-04</p>]]>
       </description>
       
         <category>人工智能</category><category>Python</category>

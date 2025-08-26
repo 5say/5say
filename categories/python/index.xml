@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on 5say</title>
-    <link>http://localhost:1313/categories/python/</link>
+    <link>https://yourdomain.com/categories/python/</link>
     <description>Recent content from 5say</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
@@ -15,7 +15,7 @@
     <lastBuildDate>Mon, 04 Aug 2025 17:49:00 +1032</lastBuildDate>
     
     
-    <atom:link href="http://localhost:1313/categories/python/index.xml" rel="self" type="application/rss&#43;xml" />
+    <atom:link href="https://yourdomain.com/categories/python/index.xml" rel="self" type="application/rss&#43;xml" />
     
 
     
@@ -23,10 +23,10 @@
 
     <item>
       <title>如何训练一个专业大模型</title>
-      <link>http://localhost:1313/post/20250804002-%E5%A6%82%E4%BD%95%E8%AE%AD%E7%BB%83deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B/</link>
+      <link>https://yourdomain.com/post/20250804002-%E5%A6%82%E4%BD%95%E8%AE%AD%E7%BB%83deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B/</link>
       <pubDate>Mon, 04 Aug 2025 17:49:00 &#43;1032</pubDate>
       <author>xxx@example.com (5say)</author>
-      <guid>http://localhost:1313/post/20250804002-%E5%A6%82%E4%BD%95%E8%AE%AD%E7%BB%83deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B/</guid>
+      <guid>https://yourdomain.com/post/20250804002-%E5%A6%82%E4%BD%95%E8%AE%AD%E7%BB%83deepseek%E5%A4%A7%E6%A8%A1%E5%9E%8B/</guid>
       <description>
         <![CDATA[<h1>如何训练一个专业大模型</h1><p>作者：5say（xxx@example.com）</p>
         
@@ -42,7 +42,7 @@
 </span></span><span style="display:flex;"><span>pip install torch transformers datasets peft accelerate bitsandbytes
 </span></span></code></pre></div><p>下面详细解释这些库的作用及其在大模型训练中的关键角色，它们共同构成了现代大语言模型（LLM）训练的技术栈：</p>
         
-        <hr><p>本文2025-08-04首发于<a href='http://localhost:1313/'>5say</a>，最后修改于2025-08-04</p>]]>
+        <hr><p>本文2025-08-04首发于<a href='https://yourdomain.com/'>5say</a>，最后修改于2025-08-04</p>]]>
       </description>
       
         <category>人工智能</category><category>Python</category>
